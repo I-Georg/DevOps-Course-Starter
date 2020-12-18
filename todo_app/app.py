@@ -33,6 +33,7 @@ def update():
 	
 	    items = get_item(get_id)
 	    updated = save_item(items)
+		#x = sorted(updated)
    
     return redirect(url_for('index'))
 
