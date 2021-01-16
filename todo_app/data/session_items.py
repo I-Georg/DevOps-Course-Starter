@@ -63,7 +63,8 @@ def save_item(item):
     """
     existing_items = get_items()
     updated_items = [item if item['id'] == existing_item['id'] else existing_item for existing_item in existing_items]
-
+    item['status'] = 'completed'
+	
     session['items'] = updated_items
 
     return item

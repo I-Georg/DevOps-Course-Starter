@@ -6,13 +6,49 @@
     <h1 class="display-4">To-Do App</h1>
     <p class="lead">Just another to-do app.</p>
   </div>
-
+ </div>
+	
+    <h2>Create Task</h2>
+    <form action="/create" method="POST">
+        <input type="text" name="title" id="title" value="title">
+        <input type="submit" value="Create">
+    </form>
+   
+	<table>
+  <tr>
   <div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
+      <th>Items</th>
+	   <th>Status</th>
+	    <th>Item id - Update Status</th>
+	  
+	   </tr>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
+		
+		<ul>
+		{% for item in items %}
+		<li><tr>
+		 <form action="/save" method="POST">
+		
+		<td>{{item.title}}  </td> <td> {{item.status}} </td> 
+		<td><form method="POST">
+        <input name="itemId"value="{{item.id}}">
+        <input type="submit"value="Mark as Complete">
+         </form></td>
+       
+    </form>
+		</li>
+		
+		<tr>
+</div>
+		{% endfor %}
+		
       </ul>
-    </div>
+   <tr>
+   
+	
+	</tr>
+	<table>
   </div>
 {% endblock %}
