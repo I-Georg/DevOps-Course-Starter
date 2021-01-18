@@ -3,10 +3,8 @@ from flask import Flask,request, render_template,redirect,url_for
 
 
 from todo_app.flask_config import Config
-from todo_app.data.session_items import get_items
-from todo_app.data.session_items import add_item
-from todo_app.data.session_items import get_item
-from todo_app.data.session_items import save_item
+from todo_app.data.session_items import get_items, add_item, get_item, save_item
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -17,7 +15,7 @@ def index():
    
 	return render_template("index.html",items = get_items())
 	
-@app.route('/create', methods =['POST','GET'])
+@app.route('/create', methods =['POST'])
 def create():
    
 	title = request.form.get('title')
@@ -25,15 +23,15 @@ def create():
 	
 	return redirect(url_for('index'))
 	
-@app.route('/save', methods =['POST','GET'])
-def update():
-   #if item is saved then item.status= completed
+@app.route('/save', methods =['POST'])
+def save_item_as_completed():
+   
     if request.method == 'POST':
 	    get_id = request.form.get('itemId')
 	
 	    items = get_item(get_id)
 	    updated = save_item(items)
-		#x = sorted(updated)
+		
    
     return redirect(url_for('index'))
 
