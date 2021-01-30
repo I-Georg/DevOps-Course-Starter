@@ -97,6 +97,23 @@ def getDone():
 	#yo= response.text
     
 	return responseDone
+	
+def newToDoCard(name):
+	url = "https://api.trello.com/1/cards"
+
+	query = {
+		'key': os.environ['KEY'],
+		'token' : os.environ['TOKEN'],
+		'idList': '6005828032dafa5707bf5dc5',
+		'name': name
+	}
+
+	response = requests.request(
+		"POST",
+		url,
+		params=query
+	)
+
 
 
 @app.route('/')
@@ -119,6 +136,12 @@ def index():
 
  return render_template("index.html", jsonResponse = jsonResponse, jsonResponseDoing = jsonResponseDoing,jsonResponseDone = jsonResponseDone, number = number, numberTwo = numberTwo, numberThree = numberThree)
 
+@app.route('/create', methods =['POST'])
+def create():
+ title = request.form.get('title')
+ 
+ newToDoCard(title)
+ return redirect(url_for('index'))
  
 if __name__ == '__main__':
                              

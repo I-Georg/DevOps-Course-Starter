@@ -8,11 +8,6 @@
   </div>
  </div>
 	
-    <h2>Create Task</h2>
-    <form action="/create" method="POST">
-        <input type="text" name="title" id="title" value="title" required>
-        <input type="submit" value="Create">
-    </form>
    
 	<table>
   <tr>
@@ -30,9 +25,15 @@
 		<tr>{% for listNumber in range(number) %}<tr>   
 <br>		
 	       <tr> {{jsonResponse[listNumber]["name"]}}<tr>
-		
+		 
+   
 </div>
 		{% endfor %}
+		<h1>Add To do Task</h2>
+    <form action="/create" method="POST">
+        <input type="text" name="title" id="title" value="title" required>
+        <input type="submit" value="Create">
+    </form>
 		<br> Doing      
 		<tr>{% for listNumberTwo in range(numberTwo) %}<tr>  <br>                   
 	       <tr> {{jsonResponseDoing[listNumberTwo]["name"]}}<tr>
