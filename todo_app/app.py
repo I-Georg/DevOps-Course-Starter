@@ -54,20 +54,70 @@ def getToDo():
     
 	return response
 
+def getDoing():
+	url = "https://api.trello.com/1/lists/6005828032dafa5707bf5dc6/cards"
+
+	headers = {
+		"Accept": "application/json"
+	}
+
+	query = {
+		'key': os.environ['KEY'],
+		'token' : os.environ['TOKEN']
+	}
+
+	responseDoing = requests.request(
+		"GET",
+		url,
+		headers=headers,
+		params=query
+	)
+	#yo= response.text
+    
+	return responseDoing
+	
+def getDone():
+	url = "https://api.trello.com/1/lists/6005828032dafa5707bf5dc7/cards"
+
+	headers = {
+		"Accept": "application/json"
+	}
+
+	query = {
+		'key': os.environ['KEY'],
+		'token' : os.environ['TOKEN']
+	}
+
+	responseDone = requests.request(
+		"GET",
+		url,
+		headers=headers,
+		params=query
+	)
+	#yo= response.text
+    
+	return responseDone
+
+
 @app.route('/')
 
 def index():
  response = getToDo()
+ responseDoing = getDoing()
+ responseDone = getDone()
  #yo= response.text
  jsonResponse = response.json()
+ jsonResponseDoing = responseDoing.json()
+ jsonResponseDone = responseDone.json()
  number = len(jsonResponse)
- print("Print each key-value pair from JSON response")
+ numberTwo = len(jsonResponseDoing)
+ numberThree = len(jsonResponseDone)
  #print(jsonResponse[1])
  
  for listNumber in range(number):
 	 print(jsonResponse[listNumber]['name'])
 
- return render_template("index.html", jsonResponse = jsonResponse, number = number)
+ return render_template("index.html", jsonResponse = jsonResponse, jsonResponseDoing = jsonResponseDoing,jsonResponseDone = jsonResponseDone, number = number, numberTwo = numberTwo, numberThree = numberThree)
 
  
 if __name__ == '__main__':

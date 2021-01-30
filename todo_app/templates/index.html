@@ -18,24 +18,30 @@
   <tr>
   <div class="row">
     <div class="col-md-12">
-      <th>Items-To do</th>
-	   <th>Status</th>
-	    <th>Item id - Update Status</th>
+     
 	  
 	   </tr>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
 		
-		<ul>
-		To do 
 		
-		<td>{% for listNumber in range(number) %}<td>
+		To do                                                                                                       
+		
+		<tr>{% for listNumber in range(number) %}<tr>   
+<br>		
 	       <tr> {{jsonResponse[listNumber]["name"]}}<tr>
 		
 </div>
 		{% endfor %}
-		
-      </ul>
+		<br> Doing      
+		<tr>{% for listNumberTwo in range(numberTwo) %}<tr>  <br>                   
+	       <tr> {{jsonResponseDoing[listNumberTwo]["name"]}}<tr>
+			{% endfor %}<br>
+			<br>Done
+			<tr>{% for listNumberThree in range(numberThree) %}<tr>   <br>                    
+	       <tr> {{jsonResponseDone[listNumberThree]["name"]}}<tr>
+			{% endfor %}
+      
    <tr>
    
 	
