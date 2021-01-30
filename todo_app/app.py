@@ -31,35 +31,34 @@ app.config.from_object(Config)
 #url = "https://api.trello.com/1/members/me/board"
 #url = "https://api.trello.com/1/boards/6005828032dafa5707bf5dc3/cards"
 #url="https://api.trello.com/1/boards/6005828032dafa5707bf5dc3/cards"
-url = "https://api.trello.com/1/lists/6005828032dafa5707bf5dc5/cards"
 
-headers = {
-   "Accept": "application/json"
-}
+def getToDo():
+	url = "https://api.trello.com/1/lists/6005828032dafa5707bf5dc5/cards"
 
-query = {
-   'key': os.environ['KEY'],
-   'token' : os.environ['TOKEN']
-}
+	headers = {
+		"Accept": "application/json"
+	}
 
-response = requests.request(
-   "GET",
-   url,
-   headers=headers,
-   params=query
-)
-yo= response.text
-print(response.text)
-print("áaa")
-print(os.environ)
+	query = {
+		'key': os.environ['KEY'],
+		'token' : os.environ['TOKEN']
+	}
 
+	response = requests.request(
+		"GET",
+		url,
+		headers=headers,
+		params=query
+	)
+	#yo= response.text
+    
+	return response
 
 @app.route('/')
 
 def index():
- 
- print(os.environ['TOKEN'])
- yo= response.text
+ response = getToDo()
+ #yo= response.text
  jsonResponse = response.json()
  number = len(jsonResponse)
  print("Print each key-value pair from JSON response")
