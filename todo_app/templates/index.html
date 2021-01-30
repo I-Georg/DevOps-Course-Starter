@@ -18,7 +18,7 @@
   <tr>
   <div class="row">
     <div class="col-md-12">
-      <th>Items</th>
+      <th>Items-To do</th>
 	   <th>Status</th>
 	    <th>Item id - Update Status</th>
 	  
@@ -27,20 +27,11 @@
         <!-- List the todo items here -->
 		
 		<ul>
-		{% for item in items %}
-		<li><tr>
-		 <form action="/save" method="POST">
+		To do 
 		
-		<td>{{item.title}}  </td> <td> {{item.status}} </td> 
-		<td><form method="POST">
-        <input name="itemId"value="{{item.id}}"type="hidden">
-        <input type="submit"value="Mark as Complete">
-         </form></td>
-       
-    </form>
-		</li>
+		<td>{% for listNumber in range(number) %}<td>
+	       <tr> {{jsonResponse[listNumber]["name"]}}<tr>
 		
-		<tr>
 </div>
 		{% endfor %}
 		
