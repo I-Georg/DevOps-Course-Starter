@@ -25,15 +25,25 @@
 		<tr>{% for listNumber in range(number) %}<tr>   
 <br>		
 	       <tr> {{jsonResponse[listNumber]["name"]}}<tr>
-		 
+		 <p>Move from doing to done<p>
+		 <!--
+		 <form action="/update"  method="Put" input type="hidden"  method="PUT"/>
+    <button type="submit"name="id" id="{{jsonResponse[listNumber]["id"]}}" class="btn btn-primary" >Update to done</button>
+</form>-->
+  <form action="/update" method="post">
+        <input type="hidden" name="id" value="{{jsonResponse[listNumber]["id"]}}">
+        <input type="submit" value="Create">
+    </form>
+{{ jsonResponse[listNumber]["id"] }}
    
 </div>
 		{% endfor %}
-		<h1>Add To do Task</h2>
+		<h1>Add To do Task</h1>
     <form action="/create" method="POST">
         <input type="text" name="title" id="title" value="title" required>
         <input type="submit" value="Create">
     </form>
+			
 		<br> Doing      
 		<tr>{% for listNumberTwo in range(numberTwo) %}<tr>  <br>                   
 	       <tr> {{jsonResponseDoing[listNumberTwo]["name"]}}<tr>

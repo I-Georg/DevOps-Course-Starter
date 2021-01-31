@@ -7,6 +7,7 @@ from todo_app.data.session_items import get_items, add_item, get_item, save_item
 import requests
 import json
 import os
+import logging
 
 
 app = Flask(__name__)
@@ -113,6 +114,30 @@ def newToDoCard(name):
 		url,
 		params=query
 	)
+def updateCardToDone(i):
+	url = "https://api.trello.com/1/cards/id"
+
+	headers = {
+		"Accept": "application/json"
+	}
+
+	query = {
+	    'id': id,
+		'key': os.environ['KEY'],
+		'token' : os.environ['TOKEN'],
+		'idBoard': '6005828032dafa5707bf5dc3',
+		'idList': '6005828032dafa5707bf5dc7'
+		
+	}
+
+	response = requests.request(
+		"PUT",
+		url,
+		headers=headers,
+		params=query
+	)
+
+	
 
 
 
@@ -133,6 +158,8 @@ def index():
  
  for listNumber in range(number):
 	 print(jsonResponse[listNumber]['name'])
+	 print("AAAAAAAA")
+	 print(jsonResponse[listNumber]['id'])
 
  return render_template("index.html", jsonResponse = jsonResponse, jsonResponseDoing = jsonResponseDoing,jsonResponseDone = jsonResponseDone, number = number, numberTwo = numberTwo, numberThree = numberThree)
 
@@ -141,6 +168,28 @@ def create():
  title = request.form.get('title')
  
  newToDoCard(title)
+ return redirect(url_for('index'))
+
+
+ 
+@app.route('/update', methods =['POST'])
+def update():
+ app.logger.info('Processing default request')
+ 
+ id = request.form.get('id')
+ #id = request.args.get('id')
+ updateCardToDone(id)
+ print(id)
+ print('oooooooo')
+ #request.method == 'PUT'
+ #updateCardToDone(id)
+ return redirect(url_for('index'))
+ 
+@app.route('/updated', methods =['PUT'])
+def updated(input):
+ #app.logger.info('Processing default request')
+ #request.method == 'PUT'
+ updateCardToDone(input)
  return redirect(url_for('index'))
  
 if __name__ == '__main__':
