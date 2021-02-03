@@ -115,14 +115,14 @@ def newToDoCard(name):
 		params=query
 	)
 def updateCardToDone(i):
-	url = "https://api.trello.com/1/cards/id"
+	url = f"https://api.trello.com/1/cards/{i}"
 
 	headers = {
 		"Accept": "application/json"
 	}
 
 	query = {
-	    'id': id,
+	    'id': i,
 		'key': os.environ['KEY'],
 		'token' : os.environ['TOKEN'],
 		'idBoard': '6005828032dafa5707bf5dc3',
@@ -158,7 +158,6 @@ def index():
  
  for listNumber in range(number):
 	 print(jsonResponse[listNumber]['name'])
-	 print("AAAAAAAA")
 	 print(jsonResponse[listNumber]['id'])
 
  return render_template("index.html", jsonResponse = jsonResponse, jsonResponseDoing = jsonResponseDoing,jsonResponseDone = jsonResponseDone, number = number, numberTwo = numberTwo, numberThree = numberThree)
@@ -170,7 +169,13 @@ def create():
  newToDoCard(title)
  return redirect(url_for('index'))
 
-
+@app.route('/updated', methods =['PUT'])
+def updated(id):
+ app.logger.info('Processing default request')
+ #request.method == 'PUT'
+ print(id)
+ updateCardToDone(id)
+ return redirect(url_for('index'))
  
 @app.route('/update', methods =['POST'])
 def update():
@@ -178,19 +183,14 @@ def update():
  
  id = request.form.get('id')
  #id = request.args.get('id')
- updateCardToDone(id)
+# updateCardToDone(id)
  print(id)
  print('oooooooo')
  #request.method == 'PUT'
  #updateCardToDone(id)
- return redirect(url_for('index'))
+ return updated(id)
  
-@app.route('/updated', methods =['PUT'])
-def updated(input):
- #app.logger.info('Processing default request')
- #request.method == 'PUT'
- updateCardToDone(input)
- return redirect(url_for('index'))
+
  
 if __name__ == '__main__':
                              
