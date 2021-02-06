@@ -137,7 +137,28 @@ def updateCardToDone(i):
 		params=query
 	)
 
-	
+def returnCardToDo(i):
+		url = f"https://api.trello.com/1/cards/{i}"
+
+		headers = {
+			"Accept": "application/json"
+		}
+
+		query = {
+			'id': i,
+			'key': os.environ['KEY'],
+			'token' : os.environ['TOKEN'],
+			'idBoard': '6005828032dafa5707bf5dc3',
+			'idList': '6005828032dafa5707bf5dc5'
+		
+		}
+
+		response = requests.request(
+			"PUT",
+			url,
+			headers=headers,
+			params=query
+	)
 
 
 
@@ -169,10 +190,9 @@ def create():
  newToDoCard(title)
  return redirect(url_for('index'))
 
-@app.route('/updated', methods =['PUT'])
-def updated(id):
+@app.route('/complete_item', methods =['PUT'])
+def complete_item(id):
  app.logger.info('Processing default request')
- #request.method == 'PUT'
  print(id)
  updateCardToDone(id)
  return redirect(url_for('index'))
@@ -188,8 +208,27 @@ def update():
  print('oooooooo')
  #request.method == 'PUT'
  #updateCardToDone(id)
- return updated(id)
+ return complete_item(id)
  
+@app.route('/return_item', methods =['PUT'])
+def return_item(n):
+ app.logger.info('Processing default request')
+ print(n)
+ returnCardToDo(n)
+ return redirect(url_for('index'))
+ 
+@app.route('/update_back', methods =['POST'])
+def update_back():
+ app.logger.info('Processing default request')
+ 
+ n = request.form.get('n')
+ #id = request.args.get('id')
+# updateCardToDone(id)
+ print(n)
+ print('oooooooo')
+ #request.method == 'PUT'
+ #updateCardToDone(id)
+ return return_item(n)
 
  
 if __name__ == '__main__':
