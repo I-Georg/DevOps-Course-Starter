@@ -15,6 +15,8 @@ app.config.from_object(Config)
 
 
 toDoId = os.environ['TOID']
+doingId = os.environ['DOINGID']
+doneId = os.environ['DONE']
 def getToDo():
      
 	url = f"https://api.trello.com/1/lists/{toDoId}/cards"
@@ -44,13 +46,14 @@ def getToDo():
 	return response
 
 def getDoing():
-	url = "https://api.trello.com/1/lists/6005828032dafa5707bf5dc6/cards"
+	url = f"https://api.trello.com/1/lists/{doingId}/cards"
 
 	headers = {
 		"Accept": "application/json"
 	}
 
 	query = {
+	    'id' : doingId,
 		'key': os.environ['KEY'],
 		'token' : os.environ['TOKEN']
 	}
@@ -66,13 +69,14 @@ def getDoing():
 	return responseDoing
 	
 def getDone():
-	url = "https://api.trello.com/1/lists/6005828032dafa5707bf5dc7/cards"
+	url = f"https://api.trello.com/1/lists/{doneId}/cards"
 
 	headers = {
 		"Accept": "application/json"
 	}
 
 	query = {
+	    'id' : doneId,
 		'key': os.environ['KEY'],
 		'token' : os.environ['TOKEN']
 	}
