@@ -54,5 +54,6 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 
 ##Configuring Trello API
 First you need to create an account https://trello.com/signup
-Then you need to generate API key and token (explained here https://trello.com/app-key)
-Add them to .env file
+Then you need to generate API key and token (explained here https://trello.com/app-key). The link will display your key and you need to generate manually a token.
+Add them to .env file as variables TOKEN = {Your token} and KEY = {Your key}.
+In app.py you need to import os and you can call them as 'key': os.environ['KEY'] and 'token' : os.environ['TOKEN']
