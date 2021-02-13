@@ -14,26 +14,32 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 
-
+toDoId = os.environ['TOID']
 def getToDo():
-	url = "https://api.trello.com/1/lists/6005828032dafa5707bf5dc5/cards"
-
+     
+	url = f"https://api.trello.com/1/lists/{toDoId}/cards"
+	
 	headers = {
 		"Accept": "application/json"
 	}
-
+     
 	query = {
+	    'id' : toDoId,
 		'key': os.environ['KEY'],
 		'token' : os.environ['TOKEN']
+		
 	}
+	
 
 	response = requests.request(
 		"GET",
 		url,
 		headers=headers,
-		params=query
+		params=query,
+		
 	)
-	#yo= response.text
+	
+	
     
 	return response
 
