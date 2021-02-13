@@ -18,21 +18,20 @@
 	   </tr>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
-		
+		  
 		<table>
 		<h3><b>To do</h3></b>                                                                                                       
 		
-		<tr>{% for listNumber in range(number) %}<tr>   
-<br>		
-	       <tr> {{jsonResponse[listNumber]["name"]}}<tr>
-		 <p>Move from doing to done<p>
-  <form action="/update" method="post">
-        <input type="hidden" name="id" value="{{jsonResponse[listNumber]["id"]}}">
-        <input type="submit" value="Update to done">
-    </form>
-
-   
-</div>
+		{% for entry in jsonResponse %} 
+			<div>
+				<br>		
+				<tr> {{entry["name"]}}<tr>
+				<p>Move from doing to done<p>
+				<form action="/update" method="post">
+					<input type="hidden" name="id" value="{{entry['id']}}">
+					<input type="submit" value="Update to done">
+				</form>
+			</div>
 		{% endfor %}
 		<p>Add To do Task<p>
     <form action="/create" method="POST">
