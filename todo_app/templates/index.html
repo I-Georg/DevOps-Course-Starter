@@ -22,9 +22,11 @@
 		<table>
 		<h3><b>To do</h3></b>                                                                                                       
 		
+		
 		{% for entry in jsonResponse %} 
 			<div>
-				<br>		
+				<br>
+				
 				<tr> {{entry["name"]}}<tr>
 				<p>Move from doing to done<p>
 				<form action="/update" method="post">

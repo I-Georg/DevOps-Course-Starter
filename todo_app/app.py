@@ -4,6 +4,7 @@ from flask import Flask,request, render_template,redirect,url_for
 
 from todo_app.flask_config import Config
 from todo_app.data.session_items import get_items, add_item, get_item, save_item
+from todo_app.data.Items import ToDo
 import requests
 import json
 import os
@@ -166,13 +167,21 @@ def index():
  number = len(jsonResponse)
  numberTwo = len(jsonResponseDoing)
  numberThree = len(jsonResponseDone)
+ 
 
  
  for listNumber in range(number):
 	 print(jsonResponse[listNumber]['name'])
 	 print(jsonResponse[listNumber]['id'])
-
- return render_template("index.html", jsonResponse = jsonResponse, jsonResponseDoing = jsonResponseDoing,jsonResponseDone = jsonResponseDone, number = number, numberTwo = numberTwo, numberThree = numberThree)
+	 #y=ToDo(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name'])
+	 #cardName = y.name
+	 #cardId = y.id
+	 my_objects = []
+	 my_objects.append(ToDo(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name']))
+	 print(my_objects[0].name)
+	
+	 
+ return render_template("index.html", jsonResponse = jsonResponse, jsonResponseDoing = jsonResponseDoing,jsonResponseDone = jsonResponseDone, number = number, numberTwo = numberTwo, numberThree = numberThree, my_objects = my_objects)
 
 @app.route('/create', methods =['POST'])
 def create():

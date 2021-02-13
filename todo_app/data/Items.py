@@ -1,5 +1,5 @@
 class ToDo:
-  def __init__(self, id, status, title):
+  def __init__(self, id, name):
     self.id = id
-    self.status = status
-	self.title = title
+    self.name = name
+
