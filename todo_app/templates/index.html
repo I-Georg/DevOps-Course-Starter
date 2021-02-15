@@ -21,20 +21,20 @@
 		  
 		<table>
 		<h3><b>To do</h3></b>                                                                                                       
-		
-		
-		{% for entry in jsonResponse %} 
-			<div>
+		{%for x in my_objects: %}
+		<div>
 				<br>
 				
-				<tr> {{entry["name"]}}<tr>
-				<p>Move from doing to done<p>
+				<tr>{{x.name}}<tr>
+		
+		<p><b>Move from doing to done<p></b>
 				<form action="/update" method="post">
-					<input type="hidden" name="id" value="{{entry['id']}}">
+					<input type="hidden" name="id" value="{{x.id}}">
 					<input type="submit" value="Update to done">
 				</form>
 			</div>
 		{% endfor %}
+		<br>
 		<p>Add To do Task<p>
     <form action="/create" method="POST">
         <input type="text" name="title" id="title" value="title" required>

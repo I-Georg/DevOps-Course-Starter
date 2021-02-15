@@ -168,18 +168,12 @@ def index():
  numberTwo = len(jsonResponseDoing)
  numberThree = len(jsonResponseDone)
  
-
+ my_objects = []
  
  for listNumber in range(number):
-	 print(jsonResponse[listNumber]['name'])
-	 print(jsonResponse[listNumber]['id'])
-	 #y=ToDo(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name'])
-	 #cardName = y.name
-	 #cardId = y.id
-	 my_objects = []
-	 my_objects.append(ToDo(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name']))
-	 print(my_objects[0].name)
 	
+	 my_objects.append(ToDo(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name']))
+	 
 	 
  return render_template("index.html", jsonResponse = jsonResponse, jsonResponseDoing = jsonResponseDoing,jsonResponseDone = jsonResponseDone, number = number, numberTwo = numberTwo, numberThree = numberThree, my_objects = my_objects)
 
