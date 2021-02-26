@@ -6,9 +6,8 @@ from todo_app.flask_config import Config
 from todo_app.data.session_items import get_items, add_item, get_item, save_item
 from todo_app.data.Items import ToDo
 import requests
-import json
 import os
-import logging
+
 
 
 app = Flask(__name__)
@@ -18,79 +17,33 @@ app.config.from_object(Config)
 toDoId = os.environ['TOID']
 doingId = os.environ['DOINGID']
 doneId = os.environ['DONE']
-def getToDo():
-     
-	url = f"https://api.trello.com/1/lists/{toDoId}/cards"
+
 	
+def getItems(idList):
+	url = f"https://api.trello.com/1/lists/{idList}/cards"
+
 	headers = {
 		"Accept": "application/json"
 	}
-     
+
 	query = {
-	    'id' : toDoId,
+	    'id' : idList,
 		'key': os.environ['KEY'],
 		'token' : os.environ['TOKEN']
-		
 	}
-	
 
 	response = requests.request(
 		"GET",
 		url,
 		headers=headers,
-		params=query,
-		
+		params=query
 	)
-	
 	
     
 	return response
-
-def getDoing():
-	url = f"https://api.trello.com/1/lists/{doingId}/cards"
-
-	headers = {
-		"Accept": "application/json"
-	}
-
-	query = {
-	    'id' : doingId,
-		'key': os.environ['KEY'],
-		'token' : os.environ['TOKEN']
-	}
-
-	responseDoing = requests.request(
-		"GET",
-		url,
-		headers=headers,
-		params=query
-	)
 	
-    
-	return responseDoing
-	
-def getDone():
-	url = f"https://api.trello.com/1/lists/{doneId}/cards"
 
-	headers = {
-		"Accept": "application/json"
-	}
 
-	query = {
-	    'id' : doneId,
-		'key': os.environ['KEY'],
-		'token' : os.environ['TOKEN']
-	}
-
-	responseDone = requests.request(
-		"GET",
-		url,
-		headers=headers,
-		params=query
-	)
-	
-    
-	return responseDone
 	
 def newToDoCard(name):
 	url = "https://api.trello.com/1/cards"
@@ -158,10 +111,13 @@ def returnCardToDo(i):
 @app.route('/')
 
 def index():
- response = getToDo()
- responseDoing = getDoing()
- responseDone = getDone()
- jsonResponse = response.json()
+ idList = toDoId
+ responseTodo= getItems(idList)
+ jsonResponse = responseTodo.json()
+ idListDoing = doingId
+ responseDoing = getItems(idListDoing)
+ idListDone = doneId
+ responseDone = getItems(idListDone)
  jsonResponseDoing = responseDoing.json()
  jsonResponseDone = responseDone.json()
  number = len(jsonResponse)
