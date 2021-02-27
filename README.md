@@ -65,3 +65,7 @@ In app. py they get called the following way:
 toDoId = os.environ['TOID']
 doingId = os.environ['DOINGID']
 doneId = os.environ['DONE']
+
+
+##Pytest
+To add Pytest to the project, run: pip install pytest
