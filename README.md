@@ -55,7 +55,7 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 ##Configuring Trello API
 First you need to create an account https://trello.com/signup
 Then you need to generate API key and token (explained here https://trello.com/app-key). The link will display your key and you need to generate manually a token.
-Put  the variables to .env template as variables TOKEN = {Your token} and KEY = {Your key}.
+Put the variables to .env template as variables TOKEN = {Your token} and KEY = {Your key}.
 In app.py you need to import os and you can call them as 'key': os.environ['KEY'] and 'token' : os.environ['TOKEN']
 In order to access the id of the lists on the board: first - you need to put theem to .env template as:
 toDoId = {listId}
@@ -69,3 +69,4 @@ doneId = os.environ['DONE']
 
 ##Pytest
 To add Pytest to the project, run: pip install pytest
+In order to load the .env variables, run pip install pytest-dotenv
