@@ -33,6 +33,8 @@ def getItems(idList):
 	
     
 	return response
+
+
 	
 	#test to do list
 def test_getting_todo():
@@ -85,4 +87,12 @@ def test_getting_done():
 	assert done_objects[3].name == 'title'
 	assert done_objects[4].name == '✋🏿 Move anything ready here'
 	assert done_objects[5].name == 'First task'
-	
+
+def test_show_all_done_items:	
+	idListDone = doneId
+	responseDone = getItems(idListDone)
+	jsonResponseDone = responseDone.json()
+	numberThree = len(jsonResponseDone)
+	done_objects = []
+	x=len(doing_objects)
+	print(x)
