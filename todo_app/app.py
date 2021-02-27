@@ -4,7 +4,7 @@ from flask import Flask,request, render_template,redirect,url_for
 
 from todo_app.flask_config import Config
 from todo_app.data.session_items import get_items, add_item, get_item, save_item
-from todo_app.data.Items import ToDo
+from todo_app.data.Items import ViewModel
 import requests
 import os
 
@@ -109,7 +109,7 @@ def returnCardToDo(i):
 
 
 @app.route('/')
-#jsonResponse = jsonResponse, jsonResponseDoing = jsonResponseDoing,jsonResponseDone = jsonResponseDone
+
 def index():
  idList = toDoId
  responseTodo= getItems(idList)
@@ -130,15 +130,15 @@ def index():
  
  for listNumber in range(number):
 	
-	 my_objects.append(ToDo(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name']))
+	 my_objects.append(ViewModel(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name']))
 	 
  for listNumberDoing in range(numberTwo):
 	
-	 doing_objects.append(ToDo(jsonResponseDoing[listNumberDoing]['id'],jsonResponseDoing[listNumberDoing]['name']))
+	 doing_objects.append(ViewModel(jsonResponseDoing[listNumberDoing]['id'],jsonResponseDoing[listNumberDoing]['name']))
 	 
  for listNumberDone in range(numberThree):
 	
-	 done_objects.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))	 
+	 done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))	 
 	 
  return render_template("index.html", number = number, numberTwo = numberTwo, numberThree = numberThree, my_objects = my_objects,doing_objects = doing_objects, done_objects = done_objects )
 
