@@ -109,29 +109,38 @@ def returnCardToDo(i):
 
 
 @app.route('/')
-
+#jsonResponse = jsonResponse, jsonResponseDoing = jsonResponseDoing,jsonResponseDone = jsonResponseDone
 def index():
  idList = toDoId
  responseTodo= getItems(idList)
  jsonResponse = responseTodo.json()
  idListDoing = doingId
  responseDoing = getItems(idListDoing)
+ jsonResponseDoing = responseDoing.json()
  idListDone = doneId
  responseDone = getItems(idListDone)
- jsonResponseDoing = responseDoing.json()
  jsonResponseDone = responseDone.json()
  number = len(jsonResponse)
  numberTwo = len(jsonResponseDoing)
  numberThree = len(jsonResponseDone)
  
  my_objects = []
+ doing_objects =[]
+ done_objects = []
  
  for listNumber in range(number):
 	
 	 my_objects.append(ToDo(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name']))
 	 
+ for listNumberDoing in range(numberTwo):
+	
+	 doing_objects.append(ToDo(jsonResponseDoing[listNumberDoing]['id'],jsonResponseDoing[listNumberDoing]['name']))
 	 
- return render_template("index.html", jsonResponse = jsonResponse, jsonResponseDoing = jsonResponseDoing,jsonResponseDone = jsonResponseDone, number = number, numberTwo = numberTwo, numberThree = numberThree, my_objects = my_objects)
+ for listNumberDone in range(numberThree):
+	
+	 done_objects.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))	 
+	 
+ return render_template("index.html", number = number, numberTwo = numberTwo, numberThree = numberThree, my_objects = my_objects,doing_objects = doing_objects, done_objects = done_objects )
 
 @app.route('/create', methods =['POST'])
 def create():

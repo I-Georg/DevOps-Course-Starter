@@ -42,24 +42,25 @@
     </form>
 			</table>
 			<table>
-		<br><h3><b> Doing </h3></b>     
-		
-		   <tr>{% for item in jsonResponseDoing %}<tr>  <br>                   
-	       <tr> {{item["name"]}}<tr>
-			{% endfor %}<br>
+		<br><h3><b> Doing </h3></b>  
+{%for doing in doing_objects: %}
+		<div>
+				<br>
+				
+				<tr>{{doing.name}}<tr>	
+{% endfor %}<br>
 			</table>
 			<table>
 			<br><h3><b>Done<br></h3></b>
-			<tr>{% for listNumberThree in range(numberThree) %}<tr>   <br> 
-		
-	       <tr> {{jsonResponseDone[listNumberThree]["name"]}}<div></tr>
-		    <form action="/update_back" method="post">
-           <input type="hidden" name="n" value="{{jsonResponseDone[listNumberThree]["id"]}}">
+<tr>{%for done in done_objects: %}<tr>   <br>
+				<tr>{{done.name}}<div></tr> 
+				 <form action="/update_back" method="post">
+           <input type="hidden" name="n" value="{{done["id"]}}">
            <input type="submit" value="Return to To do">
            </form>	
 		   </div>
-			{% endfor %}
-   
+{% endfor %}<br>			
+		
    </table>
 	
 	
