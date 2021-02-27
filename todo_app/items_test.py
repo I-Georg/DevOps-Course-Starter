@@ -2,17 +2,15 @@
 from todo_app.data.Items import ViewModel
 from flask import Flask,request, render_template,redirect,url_for
 import pytest
+import requests
 import os
-
-
-
 
 
 toDoId = os.environ['TOID']
 doingId = os.environ['DOINGID']
 doneId = os.environ['DONE']
 
-@pytest.fixture
+
 def getItems(idList):
 	url = f"https://api.trello.com/1/lists/{idList}/cards"
 
@@ -36,3 +34,14 @@ def getItems(idList):
     
 	return response
 	
+def test_getting_todo():
+	idList = toDoId
+	responseTodo= getItems(idList)
+	jsonResponse = responseTodo.json()
+	number = len(jsonResponse)
+	my_objects = []
+	for listNumber in range(number):
+	
+		my_objects.append(ViewModel(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name']))
+	#for x in my_objects:
+		assert my_objects[0].name == 'title'
