@@ -43,5 +43,13 @@ def test_getting_todo():
 	for listNumber in range(number):
 	
 		my_objects.append(ViewModel(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name']))
-	#for x in my_objects:
-		assert my_objects[0].name == 'title'
+	assert my_objects[0].name == 'title'
+	assert my_objects[1].name == 'title'
+	assert my_objects[2].name == 'title'
+	assert my_objects[3].name == 'title1'
+	assert my_objects[4].name == 'title'
+	assert my_objects[5].name == 'koala'
+	
+	
+		
+		
