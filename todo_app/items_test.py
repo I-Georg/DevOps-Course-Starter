@@ -34,15 +34,19 @@ def getItems(idList):
     
 	return response
 	
+	#test to do list
 def test_getting_todo():
+
 	idList = toDoId
 	responseTodo= getItems(idList)
 	jsonResponse = responseTodo.json()
 	number = len(jsonResponse)
 	my_objects = []
+	
 	for listNumber in range(number):
 	
 		my_objects.append(ViewModel(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name']))
+		
 	assert my_objects[0].name == 'title'
 	assert my_objects[1].name == 'title'
 	assert my_objects[2].name == 'title'
@@ -52,4 +56,33 @@ def test_getting_todo():
 	
 	
 		
+def test_getting_doing():
+	
+	idListDoing = doingId
+	responseDoing = getItems(idListDoing)
+	jsonResponseDoing = responseDoing.json()	
+	numberTwo = len(jsonResponseDoing)
+	doing_objects =[]
+	
+	for listNumberDoing in range(numberTwo):
+		doing_objects.append(ViewModel(jsonResponseDoing[listNumberDoing]['id'],jsonResponseDoing[listNumberDoing]['name']))
 		
+	assert doing_objects[0].name == '✋🏿 Move anything that is actually started here'
+	assert doing_objects[1].name == 'Doing'
+	assert doing_objects[2].name == 'Doing Task'
+
+def test_getting_done():
+	idListDone = doneId
+	responseDone = getItems(idListDone)
+	jsonResponseDone = responseDone.json()
+	numberThree = len(jsonResponseDone)
+	done_objects = []
+	for listNumberDone in range(numberThree):
+	
+		done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))	 
+	assert done_objects[0].name == '✋🏿 Move anything from doing to done here'
+	assert done_objects[2].name == 'Third Task'
+	assert done_objects[3].name == 'title'
+	assert done_objects[4].name == '✋🏿 Move anything ready here'
+	assert done_objects[5].name == 'First task'
+	
