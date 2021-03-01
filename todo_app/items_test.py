@@ -96,8 +96,10 @@ def test_show_all_done_items():
 	displayresponse = []
 	done_objects = []
 	for listNumberDone in range(numberThree):
-				done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))
+		done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))
 	if numberThree < 5:	
-		displayresponse == done_objects
+		 done_objects
+	elif numberThree > 5:
+		 done_objects == []
 	
-	assert displayresponse[1].name == 'title'
+	assert done_objects[7].name == ''
