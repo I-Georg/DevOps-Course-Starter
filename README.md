@@ -70,3 +70,4 @@ doneId = os.environ['DONE']
 ##Pytest
 To add Pytest to the project, run: pip install pytest
 In order to load the .env variables, run pip install pytest-dotenv
+To run tests: pytest

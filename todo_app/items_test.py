@@ -83,16 +83,21 @@ def test_getting_done():
 	
 		done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))	 
 	assert done_objects[0].name == '✋🏿 Move anything from doing to done here'
-	assert done_objects[2].name == 'Third Task'
-	assert done_objects[3].name == 'title'
-	assert done_objects[4].name == '✋🏿 Move anything ready here'
-	assert done_objects[5].name == 'First task'
+	assert done_objects[2].name == 'title'
+	assert done_objects[3].name == '✋🏿 Move anything ready here'
+	assert done_objects[4].name == 'titlewwwwww'
 
-def test_show_all_done_items:	
+
+def test_show_all_done_items():
 	idListDone = doneId
 	responseDone = getItems(idListDone)
 	jsonResponseDone = responseDone.json()
 	numberThree = len(jsonResponseDone)
+	displayresponse = []
 	done_objects = []
-	x=len(doing_objects)
-	print(x)
+	for listNumberDone in range(numberThree):
+				done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))
+	if numberThree < 5:	
+		displayresponse == done_objects
+	
+	assert displayresponse[1].name == 'title'

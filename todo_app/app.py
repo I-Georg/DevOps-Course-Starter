@@ -139,6 +139,10 @@ def index():
  for listNumberDone in range(numberThree):
 	
 	 done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))	 
+	 #If there are fewer than 5 completed tasks, just show all of
+#them
+ x=len(done_objects)
+ print(x)
 	 
  return render_template("index.html", number = number, numberTwo = numberTwo, numberThree = numberThree, my_objects = my_objects,doing_objects = doing_objects, done_objects = done_objects )
 
