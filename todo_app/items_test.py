@@ -1,5 +1,6 @@
 
 from todo_app.data.Items import ViewModel
+from datetime import date
 from flask import Flask,request, render_template,redirect,url_for
 import pytest
 import requests
@@ -95,11 +96,18 @@ def test_show_all_done_items():
 	numberThree = len(jsonResponseDone)
 	displayresponse = []
 	done_objects = []
+	today = date.today()
 	for listNumberDone in range(numberThree):
 		done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))
 	if numberThree < 5:	
 		 done_objects
-	elif numberThree > 5:
-		 done_objects == []
 	
-	assert done_objects[7].name == ''
+	assert done_objects[3].name == ''
+	elif numberThree > 5: 
+		getlastactivity(id) == today
+		for listNumberDone in range(numberThree):
+			displayresponse.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))
+		
+	assert displayresponse[5] == ''
+		
+	

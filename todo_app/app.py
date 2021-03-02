@@ -5,6 +5,7 @@ from flask import Flask,request, render_template,redirect,url_for
 from todo_app.flask_config import Config
 from todo_app.data.session_items import get_items, add_item, get_item, save_item
 from todo_app.data.Items import ViewModel
+from datetime import date
 import requests
 import os
 
@@ -84,29 +85,50 @@ def updateCardToDone(i):
 	)
 
 def returnCardToDo(i):
-		url = f"https://api.trello.com/1/cards/{i}"
+	url = f"https://api.trello.com/1/cards/{i}"
 
-		headers = {
+	headers = {
+		"Accept": "application/json"
+	}
+
+	query = {
+		'id': i,
+		'key': os.environ['KEY'],
+		'token' : os.environ['TOKEN'],
+		'idBoard': '6005828032dafa5707bf5dc3',
+		'idList': '6005828032dafa5707bf5dc5'
+		
+	}
+
+	response = requests.request(
+		"PUT",
+		url,
+		headers=headers,
+		params=query
+	)
+
+def getlastactivity(x):
+	url = f"https://api.trello.com/1/cards/{i}"
+
+	headers = {
 			"Accept": "application/json"
-		}
+	}
 
-		query = {
-			'id': i,
+	query = {
+			'id': x,
 			'key': os.environ['KEY'],
 			'token' : os.environ['TOKEN'],
-			'idBoard': '6005828032dafa5707bf5dc3',
-			'idList': '6005828032dafa5707bf5dc5'
+			'fields': 'dateLastActivity',
+			
 		
-		}
+	}
 
-		response = requests.request(
+	response = requests.request(
 			"PUT",
 			url,
 			headers=headers,
 			params=query
 	)
-
-
 
 @app.route('/')
 
@@ -124,9 +146,11 @@ def index():
  numberTwo = len(jsonResponseDoing)
  numberThree = len(jsonResponseDone)
  
+ 
  my_objects = []
  doing_objects =[]
  done_objects = []
+ 
  
  for listNumber in range(number):
 	
@@ -139,10 +163,8 @@ def index():
  for listNumberDone in range(numberThree):
 	
 	 done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))	 
-	 #If there are fewer than 5 completed tasks, just show all of
-#them
- x=len(done_objects)
- print(x)
+ print(done_objects[1].id + "id")	 
+  
 	 
  return render_template("index.html", number = number, numberTwo = numberTwo, numberThree = numberThree, my_objects = my_objects,doing_objects = doing_objects, done_objects = done_objects )
 
