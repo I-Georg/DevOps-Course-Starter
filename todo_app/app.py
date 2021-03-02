@@ -30,7 +30,8 @@ def getItems(idList):
 	query = {
 	    'id' : idList,
 		'key': os.environ['KEY'],
-		'token' : os.environ['TOKEN']
+		'token' : os.environ['TOKEN'],
+		
 	}
 
 	response = requests.request(
@@ -107,7 +108,7 @@ def returnCardToDo(i):
 		params=query
 	)
 
-def getlastactivity(x):
+def getLastActivity(x):
 	url = f"https://api.trello.com/1/cards/{i}"
 
 	headers = {
@@ -150,6 +151,7 @@ def index():
  my_objects = []
  doing_objects =[]
  done_objects = []
+ ui = []
  
  
  for listNumber in range(number):
@@ -163,9 +165,9 @@ def index():
  for listNumberDone in range(numberThree):
 	
 	 done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))	 
- print(done_objects[1].id + "id")	 
-  
-	 
+ for y in done_objects:
+		ui.append(y.id)
+ 
  return render_template("index.html", number = number, numberTwo = numberTwo, numberThree = numberThree, my_objects = my_objects,doing_objects = doing_objects, done_objects = done_objects )
 
 @app.route('/create', methods =['POST'])
