@@ -108,8 +108,8 @@ def returnCardToDo(i):
 		params=query
 	)
 
-def getLastActivity(x):
-	url = f"https://api.trello.com/1/cards/{i}"
+def show_all_done_items(x):
+	url = f"https://api.trello.com/1/cards/{x}"
 
 	headers = {
 			"Accept": "application/json"
@@ -154,6 +154,7 @@ def index():
  ui = []
  
  
+ 
  for listNumber in range(number):
 	
 	 my_objects.append(ViewModel(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name']))
@@ -167,6 +168,10 @@ def index():
 	 done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))	 
  for y in done_objects:
 		ui.append(y.id)
+
+ print(ui[1])
+ print(show_all_done_items(ui[1]))
+ #convert to integers		
  
  return render_template("index.html", number = number, numberTwo = numberTwo, numberThree = numberThree, my_objects = my_objects,doing_objects = doing_objects, done_objects = done_objects )
 
