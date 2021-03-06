@@ -31,6 +31,10 @@ def getItems(idList):
 	    'id' : idList,
 		'key': os.environ['KEY'],
 		'token' : os.environ['TOKEN'],
+		'fields': 'all'
+		
+		
+		
 		
 	}
 
@@ -74,7 +78,7 @@ def updateCardToDone(i):
 		'key': os.environ['KEY'],
 		'token' : os.environ['TOKEN'],
 		'idBoard': '6005828032dafa5707bf5dc3',
-		'idList': '6005828032dafa5707bf5dc7'
+		'idList': '6005828032dafa5707bf5dc7',
 		
 	}
 
@@ -108,28 +112,6 @@ def returnCardToDo(i):
 		params=query
 	)
 
-def show_all_done_items(x):
-	url = f"https://api.trello.com/1/cards/{x}"
-
-	headers = {
-			"Accept": "application/json"
-	}
-
-	query = {
-			'id': x,
-			'key': os.environ['KEY'],
-			'token' : os.environ['TOKEN'],
-			'fields': 'dateLastActivity',
-			
-		
-	}
-
-	response = requests.request(
-			"PUT",
-			url,
-			headers=headers,
-			params=query
-	)
 
 @app.route('/')
 
@@ -151,27 +133,28 @@ def index():
  my_objects = []
  doing_objects =[]
  done_objects = []
- ui = []
  
+ 
+
  
  
  for listNumber in range(number):
 	
-	 my_objects.append(ViewModel(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name']))
+	 my_objects.append(ViewModel(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name'],jsonResponse[listNumber]['dateLastActivity']))
 	 
  for listNumberDoing in range(numberTwo):
 	
-	 doing_objects.append(ViewModel(jsonResponseDoing[listNumberDoing]['id'],jsonResponseDoing[listNumberDoing]['name']))
+	 doing_objects.append(ViewModel(jsonResponseDoing[listNumberDoing]['id'],jsonResponseDoing[listNumberDoing]['name'],jsonResponseDoing[listNumberDoing]['dateLastActivity']))
 	 
  for listNumberDone in range(numberThree):
 	
-	 done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))	 
- for y in done_objects:
-		ui.append(y.id)
+	 done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']))	 
+ 
+	
+ 
 
- print(ui[1])
- print(show_all_done_items(ui[1]))
- #convert to integers		
+ 
+ 		
  
  return render_template("index.html", number = number, numberTwo = numberTwo, numberThree = numberThree, my_objects = my_objects,doing_objects = doing_objects, done_objects = done_objects )
 
@@ -187,6 +170,7 @@ def complete_item(id):
  app.logger.info('Processing default request')
  print(id)
  updateCardToDone(id)
+ 
  return redirect(url_for('index'))
  
 @app.route('/update', methods =['POST'])
@@ -210,6 +194,9 @@ def update_back():
  n = request.form.get('n')
  print(n)
  return return_item(n)
+
+
+ 
 
  
 if __name__ == '__main__':
