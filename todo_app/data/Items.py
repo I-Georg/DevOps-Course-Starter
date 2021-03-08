@@ -51,7 +51,7 @@ class ViewModel:
     jsonResponseDone = responseDone.json()
     numberThree = len(jsonResponseDone)
     if numberThree < 5:
-      return jsonResponseDone
+      return true
     else: 
       return recent_done_items
     

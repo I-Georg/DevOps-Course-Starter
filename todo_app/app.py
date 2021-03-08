@@ -33,9 +33,6 @@ def getItems(idList):
 		'token' : os.environ['TOKEN'],
 		'fields': 'all'
 		
-		
-		
-		
 	}
 
 	response = requests.request(
@@ -134,10 +131,6 @@ def index():
  doing_objects =[]
  done_objects = []
  
- 
-
- 
- 
  for listNumber in range(number):
 	
 	 my_objects.append(ViewModel(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name'],jsonResponse[listNumber]['dateLastActivity']))
@@ -149,13 +142,7 @@ def index():
  for listNumberDone in range(numberThree):
 	
 	 done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']))	 
- 
-	
- 
-
- 
- 		
- 
+ print(show_all_done_items())
  return render_template("index.html", number = number, numberTwo = numberTwo, numberThree = numberThree, my_objects = my_objects,doing_objects = doing_objects, done_objects = done_objects )
 
 @app.route('/create', methods =['POST'])
