@@ -17,7 +17,7 @@ class ViewModel:
   def items(self):
      return self._name
  
-  def getItem(idList):
+  def getItem(self,idList):
 	    url = f"https://api.trello.com/1/lists/{idList}/cards"
 
 	    headers = {
@@ -43,11 +43,11 @@ class ViewModel:
   
   
 
-  def show_all_done_items():
+  def show_all_done_items(self):
     today = date.today()
     idListDone = os.environ['DONE']
     #import pdb; pdb.set_trace()
-    responseDone = getItem(idListDone)
+    responseDone = self.getItem(idListDone)
     jsonResponseDone = responseDone.json()
     numberThree = len(jsonResponseDone)
     if numberThree < 5:
