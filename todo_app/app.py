@@ -5,6 +5,7 @@ from flask import Flask,request, render_template,redirect,url_for
 from todo_app.flask_config import Config
 from todo_app.data.session_items import get_items, add_item, get_item, save_item
 from todo_app.data.Items import ViewModel
+from todo_app.data.ToDo import ToDo
 from datetime import date
 import requests
 import os
@@ -142,7 +143,9 @@ def index():
  for listNumberDone in range(numberThree):
 	
 	 done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']))	 
- print(show_all_done_items())
+ #print(show_all_done_items())
+ y = ViewModel()
+ print(y.name)
  return render_template("index.html", number = number, numberTwo = numberTwo, numberThree = numberThree, my_objects = my_objects,doing_objects = doing_objects, done_objects = done_objects )
 
 @app.route('/create', methods =['POST'])

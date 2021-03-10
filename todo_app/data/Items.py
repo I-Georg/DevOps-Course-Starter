@@ -1,17 +1,15 @@
 from datetime import date
 import os
 import requests
+from todo_app.data.ToDo import ToDo
 
 
 
 class ViewModel:
-   
-  
-
-  def __init__(self, id, name,dateLastActivity):
-    self.id = id
-    self.name = name
-    self.dateLastActivity = dateLastActivity
+  def __init__(self, item):
+    
+    self.item = ToDo()  
+    self.item = list(item)
 	 
   @property
   def items(self):
@@ -60,7 +58,7 @@ class ViewModel:
     today = date.today()
     doneId = os.environ['DONE']
     idListDone = doneId
-    responseDone = getItem(idListDone)
+    responseDone = self.getItem(idListDone)
     jsonResponseDone = responseDone.json()
     if jsonResponseDone.dateLastActivity == today:
       return jsonResponseDone
@@ -75,7 +73,6 @@ class ViewModel:
     if jsonResponseDone.dateLastActivity != today:
       return jsonResponseDone.dateLastActivity != today
     
-  show_all_done_items()
   
   
 
