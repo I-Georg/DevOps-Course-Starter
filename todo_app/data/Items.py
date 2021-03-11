@@ -6,14 +6,12 @@ from todo_app.data.ToDo import ToDo
 
 
 class ViewModel:
-  def __init__(self, item):
+  def __init__(self, items):
+    self._items = items 
     
-    self.item = ToDo()  
-    self.item = list(item)
-	 
   @property
   def items(self):
-     return self._name
+     return self._items
  
   def getItem(self,idList):
 	    url = f"https://api.trello.com/1/lists/{idList}/cards"

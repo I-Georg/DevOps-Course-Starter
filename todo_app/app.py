@@ -134,19 +134,20 @@ def index():
  
  for listNumber in range(number):
 	
-	 my_objects.append(ViewModel(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name'],jsonResponse[listNumber]['dateLastActivity']))
+	 my_objects.append(ToDo(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name'],jsonResponse[listNumber]['dateLastActivity']))
 	 
  for listNumberDoing in range(numberTwo):
 	
-	 doing_objects.append(ViewModel(jsonResponseDoing[listNumberDoing]['id'],jsonResponseDoing[listNumberDoing]['name'],jsonResponseDoing[listNumberDoing]['dateLastActivity']))
+	 doing_objects.append(ToDo(jsonResponseDoing[listNumberDoing]['id'],jsonResponseDoing[listNumberDoing]['name'],jsonResponseDoing[listNumberDoing]['dateLastActivity']))
 	 
  for listNumberDone in range(numberThree):
 	
-	 done_objects.append(ViewModel(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']))	 
- #print(show_all_done_items())
- y = ViewModel()
- print(y.name)
- return render_template("index.html", number = number, numberTwo = numberTwo, numberThree = numberThree, my_objects = my_objects,doing_objects = doing_objects, done_objects = done_objects )
+	 done_objects.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']))	 
+
+ view_model = ViewModel(my_objects)
+ 
+ 
+ return render_template("index.html", number = number, numberTwo = numberTwo, numberThree = numberThree, view_model=view_model,doing_objects = doing_objects, done_objects = done_objects )
 
 @app.route('/create', methods =['POST'])
 def create():
