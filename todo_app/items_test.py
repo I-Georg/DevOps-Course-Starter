@@ -36,7 +36,15 @@ def getItems(idList):
 	return response
 
 
-	
+def recent_done_items():
+     today = date.today()
+     doneId = os.environ['DONE']
+     idListDone = doneId
+     responseDone = self.getItem(idListDone)
+     jsonResponseDone = responseDone.json()
+     if jsonResponseDone.dateLastActivity == today:
+      	return jsonResponseDone
+    	
 	#test to do list
 def test_getting_todo():
 
@@ -100,8 +108,14 @@ def test_show_all_done_items():
 	for listNumberDone in range(numberThree):
 		done_objects.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']))
 		if numberThree < 5:	
-			return done_objects
-	assert done_objects[1].name == 'Inspiration for a Card 📝'
+			return True
+			assert done_objects[1].name == 'Inspiration for a Card 📝'
+		elif numberThree > 5:
+			#getlastactivity(id) == today
+			return 
+			for listNumberDone in range(numberThree):
+				displayresponse.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']== today))
+	assert 	displayresponse[5] == ''
 	#elif numberThree > 5: 
 		#getlastactivity(id) == today
 		#for listNumberDone in range(numberThree):
