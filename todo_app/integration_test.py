@@ -7,6 +7,9 @@ from dotenv import find_dotenv
 #from todo_app import create_app
 #from flask import create_app
 from todo_app.app import create_app
+from unittest.mock import patch
+import responses
+import requests
 
 @pytest.fixture
 def client():
@@ -34,5 +37,27 @@ def client():
 #    yield testing_client  # this is where the testing happens!
  
   #  ctx.pop()
-def test_index_page(client):
-    response = client.get('/')
+#def test_index_page(client):
+    #response = client.get('/')
+
+@patch('requests.get')
+def test_index_page(mock_get_requests, client):
+# Replace call to requests.get(url) with our own function
+    mock_get_requests.side_effect = mock_get_lists
+    url = f'https://api.trello.com/1/boards/6005828032dafa5707bf5dc3/lists'
+    response = client.get(url)
+    
+    
+
+def mock_get_lists(url, params):
+    test_board_id = '6052828032dafa5707bf5reg'
+    if url == f'https://api.trello.com/1/boards/{test_board_id}/lists':
+        response = Mock()
+# sample_trello_lists_response should point to some test response data
+        response.json.return_value = sample_trello_lists_response
+        assert response.json() == { "id": "431228032dafa5707bf5de1",
+        "dateLastActivity": "2021-03-05T15:04:16.124Z",
+        "name": "test data"}
+      
+        return response
+    return None
