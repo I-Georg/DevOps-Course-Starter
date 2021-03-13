@@ -50,9 +50,12 @@ class ViewModel:
       return true
     else: 
       return recent_done_items
-    
+    return show_all_done_items()
+  
+  #doneId = os.environ['DONE']
+   #show_all_done_items()  
 
-  def recent_done_items():
+  def recent_done_items(self):
     today = date.today()
     doneId = os.environ['DONE']
     idListDone = doneId
@@ -62,17 +65,17 @@ class ViewModel:
       return jsonResponseDone
     
 
-  def older_done_items():
+  def older_done_items(self):
     today = date.today()
     doneId = os.environ['DONE']
     idListDone = doneId
-    responseDone = getItem(idListDone)
+    responseDone = self.getItem(idListDone)
     jsonResponseDone = responseDone.json()
     if jsonResponseDone.dateLastActivity != today:
       return jsonResponseDone.dateLastActivity != today
     
   
-  
+
 
   
 

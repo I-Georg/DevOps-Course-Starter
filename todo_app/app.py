@@ -9,6 +9,8 @@ from todo_app.data.ToDo import ToDo
 from datetime import date
 import requests
 import os
+from tkinter import *
+import tkinter as tk
 
 
 
@@ -19,6 +21,7 @@ app.config.from_object(Config)
 toDoId = os.environ['TOID']
 doingId = os.environ['DOINGID']
 doneId = os.environ['DONE']
+
 
 	
 def getItems(idList):
@@ -145,7 +148,7 @@ def index():
 	 done_objects.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']))	 
 
  view_model = ViewModel(my_objects)
- 
+ #print(show_all_done_items())
  
  return render_template("index.html", number = number, numberTwo = numberTwo, numberThree = numberThree, view_model=view_model,doing_objects = doing_objects, done_objects = done_objects )
 
@@ -185,6 +188,23 @@ def update_back():
  n = request.form.get('n')
  print(n)
  return return_item(n)
+
+#getting error: NameError: name 'show_all_done_items' is not defined
+"""   @app.route('/toggle_view', methods =['POST'])
+def toggle_view():
+ app.logger.info('Processing default request')
+ i = request.form.get('i')
+ show_all_done_items(i)
+ print(i)
+ return toggle()
+
+@app.route('/toggle', methods =['POST']) 
+def toggle(i):
+ app.logger.info('Processing default request')
+ i = request.form.get('i')
+ show_all_done_items(i)
+ print(i)
+ return redirect(url_for('index'))"""
 
 
  

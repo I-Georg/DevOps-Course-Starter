@@ -1,3 +1,4 @@
+
 {% extends "layout.html" %}
 {% block title %}To-Do App{% endblock %}
 
@@ -18,7 +19,7 @@
 	   </tr>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
-		  
+		
 		<table>
 		<h3><b>To do</h3></b>    
 		                                                                                                   
@@ -51,14 +52,19 @@
 				<tr>{{doing.name}}<tr>	
 {% endfor %}<br>
 			</table>
-			<table>
-			<br><h3><b>Done<br></h3></b>
+			<table id ="done-table"> 
+
+			<br><h3><b>Done<br></h3>
 <tr>{%for done in done_objects: %}<tr>   <br>
 				<tr>{{done.name}}<div></tr> 
 				 <form action="/update_back" method="post">
            <input type="hidden" name="n" value="{{done["id"]}}">
            <input type="submit" value="Return to To do">
            </form>	
+		   <form action="/toggle_view" method="post">
+			<input type="hidden" name="i" value="{{done["id"]}}">
+			<input type="submit" value="Toggle">
+			</form>	
 		   </div>
 {% endfor %}<br>			
 		

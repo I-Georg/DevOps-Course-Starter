@@ -111,16 +111,11 @@ def test_show_all_done_items():
 			return True
 			assert done_objects[1].name == 'Inspiration for a Card 📝'
 		elif numberThree > 5:
-			#getlastactivity(id) == today
+			
 			return 
 			for listNumberDone in range(numberThree):
 				displayresponse.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']== today))
 	assert 	displayresponse[5] == ''
-	#elif numberThree > 5: 
-		#getlastactivity(id) == today
-		#for listNumberDone in range(numberThree):
-			#displayresponse.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name']))
-		
-	#assert displayresponse[5] == ''
+	
 		
 	
