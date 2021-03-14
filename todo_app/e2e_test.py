@@ -47,6 +47,18 @@ def test_create_new_item(driver, app_with_temp_board):
      driver.get('http://localhost:5000/')
      create_test_task_input = '//*[@id="title"]'
      create_test_task_submit = '/html/body/p[20]/input[2]'
+     update_to_done = '/html/body/p[18]/input[1]'
+     submit_update_to_done = '/html/body/p[18]/input[2]'
      driver.find_element_by_xpath(create_test_task_input).click()
      driver.find_element_by_xpath(create_test_task_input).send_keys("testTASk")
      driver.find_element_by_xpath(create_test_task_submit).click()
+
+def test_update_to_done_new_item(driver, app_with_temp_board):
+     driver.get('http://localhost:5000/')
+     submit_update_to_done = '/html/body/p[18]/input[2]'
+     driver.find_element_by_xpath(submit_update_to_done).click()
+    
+def test_return_to_to_do(driver, app_with_temp_board):
+     driver.get('http://localhost:5000/')
+     submit_return_to_do = '/html/body/b[9]/input'
+     driver.find_element_by_xpath(submit_return_to_do).click()
