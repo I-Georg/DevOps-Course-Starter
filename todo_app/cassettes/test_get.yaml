@@ -1,0 +1,151 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.25.1
+    method: GET
+    uri: http://localhost:5000/
+  response:
+    body:
+      string: "\n<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n
+        \   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1,
+        shrink-to-fit=no\">\n\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"
+        integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\"
+        crossorigin=\"anonymous\">\n\n    <title>To-Do App</title>\n  </head>\n  <body>\n
+        \   <nav class=\"navbar navbar-expand-md navbar-dark bg-dark mb-4\">\n      <a
+        class=\"navbar-brand\" href=\"/\">To-Do App</a>\n    </nav>\n\n    <div class=\"container
+        body-content\">\n      \n  <div class=\"jumbotron\">\n    <h1 class=\"display-4\">To-Do
+        App</h1>\n    <p class=\"lead\">Just another to-do app.</p>\n  </div>\n </div>\n\t\n
+        \  \n\t<table>\n  <tr>\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n
+        \    \n\t  \n\t   </tr>\n      <ul class=\"list-group mb-4\">\n        <!--
+        List the todo items here -->\n\t\t\n\t\t<table>\n\t\t<h3><b>To do</h3></b>
+        \   \n\t\t                                                                                                   \n\t\t\n\t\t<div>\n\t\t\t\t<br>\n\t\t\t\t\n\t\t\t\t<tr>Inspiration
+        for a Card \U0001F4DD<tr>\n\t\t\n\t\t<p><b>Move from doing to done<p></b>\n\t\t\t\t<form
+        action=\"/update\" method=\"post\">\n\t\t\t\t\t<input type=\"hidden\" name=\"id\"
+        value=\"6005828032dafa5707bf5dd7\">\n\t\t\t\t\t<input type=\"submit\" value=\"Update
+        to done\">\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t\n\t\t<div>\n\t\t\t\t<br>\n\t\t\t\t\n\t\t\t\t<tr>\u270B\U0001F3FF
+        Move anything ready here<tr>\n\t\t\n\t\t<p><b>Move from doing to done<p></b>\n\t\t\t\t<form
+        action=\"/update\" method=\"post\">\n\t\t\t\t\t<input type=\"hidden\" name=\"id\"
+        value=\"6005828032dafa5707bf5ddd\">\n\t\t\t\t\t<input type=\"submit\" value=\"Update
+        to done\">\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t\n\t\t<div>\n\t\t\t\t<br>\n\t\t\t\t\n\t\t\t\t<tr>title<tr>\n\t\t\n\t\t<p><b>Move
+        from doing to done<p></b>\n\t\t\t\t<form action=\"/update\" method=\"post\">\n\t\t\t\t\t<input
+        type=\"hidden\" name=\"id\" value=\"6016ad21b419ad5115931108\">\n\t\t\t\t\t<input
+        type=\"submit\" value=\"Update to done\">\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t\n\t\t<div>\n\t\t\t\t<br>\n\t\t\t\t\n\t\t\t\t<tr>title<tr>\n\t\t\n\t\t<p><b>Move
+        from doing to done<p></b>\n\t\t\t\t<form action=\"/update\" method=\"post\">\n\t\t\t\t\t<input
+        type=\"hidden\" name=\"id\" value=\"601e78814174511103a910e9\">\n\t\t\t\t\t<input
+        type=\"submit\" value=\"Update to done\">\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t\n\t\t<div>\n\t\t\t\t<br>\n\t\t\t\t\n\t\t\t\t<tr>title<tr>\n\t\t\n\t\t<p><b>Move
+        from doing to done<p></b>\n\t\t\t\t<form action=\"/update\" method=\"post\">\n\t\t\t\t\t<input
+        type=\"hidden\" name=\"id\" value=\"601eb660c5056d78550d76b7\">\n\t\t\t\t\t<input
+        type=\"submit\" value=\"Update to done\">\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t\n\t\t<div>\n\t\t\t\t<br>\n\t\t\t\t\n\t\t\t\t<tr>title1<tr>\n\t\t\n\t\t<p><b>Move
+        from doing to done<p></b>\n\t\t\t\t<form action=\"/update\" method=\"post\">\n\t\t\t\t\t<input
+        type=\"hidden\" name=\"id\" value=\"6027d0a89e044d5275fb8b25\">\n\t\t\t\t\t<input
+        type=\"submit\" value=\"Update to done\">\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t\n\t\t<div>\n\t\t\t\t<br>\n\t\t\t\t\n\t\t\t\t<tr>title<tr>\n\t\t\n\t\t<p><b>Move
+        from doing to done<p></b>\n\t\t\t\t<form action=\"/update\" method=\"post\">\n\t\t\t\t\t<input
+        type=\"hidden\" name=\"id\" value=\"602a9422a070331620e337eb\">\n\t\t\t\t\t<input
+        type=\"submit\" value=\"Update to done\">\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t\n\t\t<div>\n\t\t\t\t<br>\n\t\t\t\t\n\t\t\t\t<tr>koala<tr>\n\t\t\n\t\t<p><b>Move
+        from doing to done<p></b>\n\t\t\t\t<form action=\"/update\" method=\"post\">\n\t\t\t\t\t<input
+        type=\"hidden\" name=\"id\" value=\"603a4514fa8a364ddda9d3b2\">\n\t\t\t\t\t<input
+        type=\"submit\" value=\"Update to done\">\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t\n\t\t<div>\n\t\t\t\t<br>\n\t\t\t\t\n\t\t\t\t<tr>Task
+        created today<tr>\n\t\t\n\t\t<p><b>Move from doing to done<p></b>\n\t\t\t\t<form
+        action=\"/update\" method=\"post\">\n\t\t\t\t\t<input type=\"hidden\" name=\"id\"
+        value=\"604ca5cb05669b3ea212e16c\">\n\t\t\t\t\t<input type=\"submit\" value=\"Update
+        to done\">\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t\n\t\t<div>\n\t\t\t\t<br>\n\t\t\t\t\n\t\t\t\t<tr>titletestTASk<tr>\n\t\t\n\t\t<p><b>Move
+        from doing to done<p></b>\n\t\t\t\t<form action=\"/update\" method=\"post\">\n\t\t\t\t\t<input
+        type=\"hidden\" name=\"id\" value=\"604e07c54617b736bcf78b29\">\n\t\t\t\t\t<input
+        type=\"submit\" value=\"Update to done\">\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t\n\t\t<br>\n\t\t<p>Add
+        To do Task<p>\n    <form action=\"/create\" method=\"POST\">\n        <input
+        type=\"text\" name=\"title\" id=\"title\" value=\"title\" required>\n        <input
+        type=\"submit\" value=\"Create\">\n    </form>\n\t\t\t</table>\n\t\t\t<table>\n\t\t<br><h3><b>
+        Doing </h3></b>  \n\n\t\t<div>\n\t\t\t\t<br>\n\t\t\t\t\n\t\t\t\t<tr>\u270B\U0001F3FF
+        Move anything that is actually started here<tr>\t\n\n\t\t<div>\n\t\t\t\t<br>\n\t\t\t\t\n\t\t\t\t<tr>Doing<tr>\t\n\n\t\t<div>\n\t\t\t\t<br>\n\t\t\t\t\n\t\t\t\t<tr>Doing
+        Task<tr>\t\n<br>\n\t\t\t</table>\n\t\t\t<table id =\"done-table\"> \n\n\t\t\t<br><h3><b>Done<br></h3>\n<tr><tr>
+        \  <br>\n\t\t\t\t<tr>\u270B\U0001F3FF Move anything from doing to done here!<div></tr>
+        \n\t\t\t\t <form action=\"/update_back\" method=\"post\">\n           <input
+        type=\"hidden\" name=\"n\" value=\"6005828032dafa5707bf5de1\">\n           <input
+        type=\"submit\" value=\"Return to To do\">\n           </form>\t\n\t\t   <!--<form
+        action=\"/toggle_view\" method=\"post\">\n\t\t\t<input type=\"hidden\" name=\"i\"
+        value=\"6005828032dafa5707bf5de1\">\n\t\t\t<input type=\"submit\" value=\"Toggle\">-->\n\t\t\t</form>\t\n\t\t
+        \  </div>\n<tr>   <br>\n\t\t\t\t<tr>title<div></tr> \n\t\t\t\t <form action=\"/update_back\"
+        method=\"post\">\n           <input type=\"hidden\" name=\"n\" value=\"6016a5adc37e598ab268e0e6\">\n
+        \          <input type=\"submit\" value=\"Return to To do\">\n           </form>\t\n\t\t
+        \  <!--<form action=\"/toggle_view\" method=\"post\">\n\t\t\t<input type=\"hidden\"
+        name=\"i\" value=\"6016a5adc37e598ab268e0e6\">\n\t\t\t<input type=\"submit\"
+        value=\"Toggle\">-->\n\t\t\t</form>\t\n\t\t   </div>\n<tr>   <br>\n\t\t\t\t<tr>title<div></tr>
+        \n\t\t\t\t <form action=\"/update_back\" method=\"post\">\n           <input
+        type=\"hidden\" name=\"n\" value=\"604cc31f318ad3251a72d2f6\">\n           <input
+        type=\"submit\" value=\"Return to To do\">\n           </form>\t\n\t\t   <!--<form
+        action=\"/toggle_view\" method=\"post\">\n\t\t\t<input type=\"hidden\" name=\"i\"
+        value=\"604cc31f318ad3251a72d2f6\">\n\t\t\t<input type=\"submit\" value=\"Toggle\">-->\n\t\t\t</form>\t\n\t\t
+        \  </div>\n<tr>   <br>\n\t\t\t\t<tr>titlewwwwww<div></tr> \n\t\t\t\t <form
+        action=\"/update_back\" method=\"post\">\n           <input type=\"hidden\"
+        name=\"n\" value=\"60368a80e39bdf741f236e56\">\n           <input type=\"submit\"
+        value=\"Return to To do\">\n           </form>\t\n\t\t   <!--<form action=\"/toggle_view\"
+        method=\"post\">\n\t\t\t<input type=\"hidden\" name=\"i\" value=\"60368a80e39bdf741f236e56\">\n\t\t\t<input
+        type=\"submit\" value=\"Toggle\">-->\n\t\t\t</form>\t\n\t\t   </div>\n<tr>
+        \  <br>\n\t\t\t\t<tr>title<div></tr> \n\t\t\t\t <form action=\"/update_back\"
+        method=\"post\">\n           <input type=\"hidden\" name=\"n\" value=\"604df52fd5c7315f67508f3f\">\n
+        \          <input type=\"submit\" value=\"Return to To do\">\n           </form>\t\n\t\t
+        \  <!--<form action=\"/toggle_view\" method=\"post\">\n\t\t\t<input type=\"hidden\"
+        name=\"i\" value=\"604df52fd5c7315f67508f3f\">\n\t\t\t<input type=\"submit\"
+        value=\"Toggle\">-->\n\t\t\t</form>\t\n\t\t   </div>\n<tr>   <br>\n\t\t\t\t<tr>title<div></tr>
+        \n\t\t\t\t <form action=\"/update_back\" method=\"post\">\n           <input
+        type=\"hidden\" name=\"n\" value=\"604e0739e4b1c04f98e6683d\">\n           <input
+        type=\"submit\" value=\"Return to To do\">\n           </form>\t\n\t\t   <!--<form
+        action=\"/toggle_view\" method=\"post\">\n\t\t\t<input type=\"hidden\" name=\"i\"
+        value=\"604e0739e4b1c04f98e6683d\">\n\t\t\t<input type=\"submit\" value=\"Toggle\">-->\n\t\t\t</form>\t\n\t\t
+        \  </div>\n<tr>   <br>\n\t\t\t\t<tr>titletestTASk<div></tr> \n\t\t\t\t <form
+        action=\"/update_back\" method=\"post\">\n           <input type=\"hidden\"
+        name=\"n\" value=\"604dfbe157562d865c34249f\">\n           <input type=\"submit\"
+        value=\"Return to To do\">\n           </form>\t\n\t\t   <!--<form action=\"/toggle_view\"
+        method=\"post\">\n\t\t\t<input type=\"hidden\" name=\"i\" value=\"604dfbe157562d865c34249f\">\n\t\t\t<input
+        type=\"submit\" value=\"Toggle\">-->\n\t\t\t</form>\t\n\t\t   </div>\n<tr>
+        \  <br>\n\t\t\t\t<tr>titletestTASk<div></tr> \n\t\t\t\t <form action=\"/update_back\"
+        method=\"post\">\n           <input type=\"hidden\" name=\"n\" value=\"604dff7ed879d7806b309c43\">\n
+        \          <input type=\"submit\" value=\"Return to To do\">\n           </form>\t\n\t\t
+        \  <!--<form action=\"/toggle_view\" method=\"post\">\n\t\t\t<input type=\"hidden\"
+        name=\"i\" value=\"604dff7ed879d7806b309c43\">\n\t\t\t<input type=\"submit\"
+        value=\"Toggle\">-->\n\t\t\t</form>\t\n\t\t   </div>\n<tr>   <br>\n\t\t\t\t<tr>titletestTASk<div></tr>
+        \n\t\t\t\t <form action=\"/update_back\" method=\"post\">\n           <input
+        type=\"hidden\" name=\"n\" value=\"604e05d3496a3b81161fe401\">\n           <input
+        type=\"submit\" value=\"Return to To do\">\n           </form>\t\n\t\t   <!--<form
+        action=\"/toggle_view\" method=\"post\">\n\t\t\t<input type=\"hidden\" name=\"i\"
+        value=\"604e05d3496a3b81161fe401\">\n\t\t\t<input type=\"submit\" value=\"Toggle\">-->\n\t\t\t</form>\t\n\t\t
+        \  </div>\n<tr>   <br>\n\t\t\t\t<tr>title<div></tr> \n\t\t\t\t <form action=\"/update_back\"
+        method=\"post\">\n           <input type=\"hidden\" name=\"n\" value=\"603d1593121b237d6b846cf6\">\n
+        \          <input type=\"submit\" value=\"Return to To do\">\n           </form>\t\n\t\t
+        \  <!--<form action=\"/toggle_view\" method=\"post\">\n\t\t\t<input type=\"hidden\"
+        name=\"i\" value=\"603d1593121b237d6b846cf6\">\n\t\t\t<input type=\"submit\"
+        value=\"Toggle\">-->\n\t\t\t</form>\t\n\t\t   </div>\n<tr>   <br>\n\t\t\t\t<tr>third
+        task<div></tr> \n\t\t\t\t <form action=\"/update_back\" method=\"post\">\n
+        \          <input type=\"hidden\" name=\"n\" value=\"603d15e09ddfda7e94ce24d6\">\n
+        \          <input type=\"submit\" value=\"Return to To do\">\n           </form>\t\n\t\t
+        \  <!--<form action=\"/toggle_view\" method=\"post\">\n\t\t\t<input type=\"hidden\"
+        name=\"i\" value=\"603d15e09ddfda7e94ce24d6\">\n\t\t\t<input type=\"submit\"
+        value=\"Toggle\">-->\n\t\t\t</form>\t\n\t\t   </div>\n<br>\t\t\t\n\t\t\n   </table>\n\t\n\t\n\t\n
+        \ </div>\n\n    </div>\n\n    <script src=\"https://code.jquery.com/jquery-3.3.1.slim.min.js\"
+        integrity=\"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo\"
+        crossorigin=\"anonymous\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js\"
+        integrity=\"sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1\"
+        crossorigin=\"anonymous\"></script>\n    <script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js\"
+        integrity=\"sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM\"
+        crossorigin=\"anonymous\"></script>\n  </body>\n</html>"
+    headers:
+      Content-Length:
+      - '9743'
+      Content-Type:
+      - text/html; charset=utf-8
+      Date:
+      - Sun, 14 Mar 2021 13:09:53 GMT
+      Server:
+      - Werkzeug/1.0.1 Python/3.8.3
+    status:
+      code: 200
+      message: OK
+version: 1

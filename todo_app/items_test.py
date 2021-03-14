@@ -58,12 +58,12 @@ def test_getting_todo():
 	
 		my_objects.append(ToDo(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name'],jsonResponse[listNumber]['dateLastActivity']))
 		
-	assert my_objects[0].name == 'title'
-	assert my_objects[1].name == 'title'
+	assert my_objects[0].name == 'Inspiration for a Card 📝'
+	assert my_objects[1].name == '✋🏿 Move anything ready here'
 	assert my_objects[2].name == 'title'
-	assert my_objects[3].name == 'title1'
+	assert my_objects[3].name == 'title'
 	assert my_objects[4].name == 'title'
-	assert my_objects[5].name == 'koala'
+	assert my_objects[5].name == 'title1'
 	
 	
 		
@@ -93,8 +93,8 @@ def test_getting_done():
 		done_objects.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']) )
 	assert done_objects[0].name == '✋🏿 Move anything from doing to done here!'
 	assert done_objects[2].name == 'title'
-	assert done_objects[3].name == '✋🏿 Move anything ready here'
-	assert done_objects[4].name == 'titlewwwwww'
+	assert done_objects[3].name == 'titlewwwwww'
+	assert done_objects[4].name == 'title'
 
 
 def test_show_all_done_items():

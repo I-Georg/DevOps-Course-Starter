@@ -8,6 +8,7 @@ from todo_app.app import create_app
 from unittest.mock import patch
 import responses
 import requests
+import vcr
 
 @pytest.fixture
 def client():
@@ -45,3 +46,8 @@ def mock_get_lists(url, params):
       
         return response
     return None
+
+#@pytest.mark.vcr()
+#def test_get():
+    #response = requests.get('http://localhost:5000/')
+    #assert 'body' in response == ''
