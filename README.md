@@ -77,6 +77,6 @@ To run integration tests: cd into the app: cd todo_app and run: pytest integrati
 Selenium tests: 
 For selenium tests to work:
 Run: pip install selenium
-Depending on the browser(here is used Firefox): download the browser https://pypi.org/project/selenium/ , for Firefox you need latest version of gheko browser and  make sure it’s in your PATH.
-To run: cd into test_e2e: cd test_e2e
-run: pytest e2e_test.py 
+Depending on the browser(here is used Firefox): download the browser https://pypi.org/project/selenium/ , for Firefox you need latest version of gheko browser and  make sure it’s in your PATH. For Windows 10, if you keep getting error  Message: 'geckodriver' executable needs to be in PATH., add the geckodriver.exe under /Python/Scripts/ 
+To run: pytest e2e_test.py  
+ Also you need to have the app running - Open a second terminal and run: poetry run flask run   

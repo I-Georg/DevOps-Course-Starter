@@ -1,15 +1,19 @@
 import os
 import pytest
+import requests
 from threading import Thread
 from selenium import webdriver
+#from todo_app.app import create_app
+#os.path.dirname(r'todo_app\app.py')
+from todo_app.app import create_app
 
 @pytest.fixture(scope='module')
 def app_with_temp_board():
 # Create the new board & update the board id environment variable
-    board_id = create_trello_board()
-    os.environ['TOID'] = board_id
+    #board_id = create_trello_board()
+    #os.environ['TOID'] = board_id
 # construct the new application
-    application = app.create_app()
+    application = create_app()
 # start the app in its own thread.
     thread = Thread(target=lambda:
     application.run(use_reloader=False))
@@ -23,10 +27,8 @@ def app_with_temp_board():
 @pytest.fixture(scope="module")
 def driver():
     #with webdriver.Firefox() as driver
-    #driver = webdriver.Firefox()
     driver = webdriver.Firefox()
     driver.get("http://localhost:5000/")
-   # driver.close
     yield driver
 
 def test_task_journey(driver, app_with_temp_board):
