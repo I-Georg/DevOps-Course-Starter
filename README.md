@@ -72,3 +72,11 @@ To add Pytest to the project, run: pip install pytest
 In order to load the .env variables, run pip install pytest-dotenv
 Tests are in item_test.py
 To run tests: pytest
+To run unit tests: cd into the app: cd todo_app and run: pytest items_test.py
+To run integration tests: cd into the app: cd todo_app and run: pytest integration_test.py
+Selenium tests: 
+For selenium tests to work:
+Run: pip install selenium
+Depending on the browser(here is used Firefox): download the browser https://pypi.org/project/selenium/ , for Firefox you need latest version of gheko browser and  make sure it’s in your PATH.
+To run: cd into test_e2e: cd test_e2e
+run: pytest e2e_test.py 
