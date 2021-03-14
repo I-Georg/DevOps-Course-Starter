@@ -7,7 +7,7 @@ from selenium import webdriver
 def app_with_temp_board():
 # Create the new board & update the board id environment variable
     board_id = create_trello_board()
-    os.environ['TRELLO_BOARD_ID'] = board_id
+    os.environ['TOID'] = board_id
 # construct the new application
     application = app.create_app()
 # start the app in its own thread.
@@ -23,10 +23,11 @@ def app_with_temp_board():
 @pytest.fixture(scope="module")
 def driver():
     #with webdriver.Firefox() as driver
+    #driver = webdriver.Firefox()
     driver = webdriver.Firefox()
-   # driver.get("http://www.python.org")
-    driver.close
-       # yield driver
+    driver.get("http://localhost:5000/")
+   # driver.close
+    yield driver
 
 def test_task_journey(driver, app_with_temp_board):
     driver.get('http://localhost:5000/')
