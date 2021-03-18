@@ -4,7 +4,7 @@ from flask import Flask,request, render_template,redirect,url_for
 
 from todo_app.flask_config import Config
 from todo_app.data.session_items import get_items, add_item, get_item, save_item
-from todo_app.data.Items import ViewModel
+from todo_app.data.ViewModel import ViewModel
 from todo_app.data.ToDo import ToDo
 from datetime import date
 import requests
@@ -124,10 +124,11 @@ def create_app():
 			doing_objects.append(ToDo(jsonResponseDoing[listNumberDoing]['id'],jsonResponseDoing[listNumberDoing]['name'],jsonResponseDoing[listNumberDoing]['dateLastActivity']))
 		for listNumberDone in range(numberThree):		
 			done_objects.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']))	 
-		view_model = ViewModel(my_objects)
+		view_model = ViewModel(my_objects, doing_objects,done_objects)
+		view_model.show_all_done_items()
  #print(show_all_done_items())
 
-		return render_template("index.html", number = number, numberTwo = numberTwo, numberThree = numberThree, view_model=view_model,doing_objects = doing_objects, done_objects = done_objects )
+		return render_template("index.html", view_model=view_model,doing_objects = doing_objects, done_objects = done_objects )
 	@app.route('/create', methods =['POST'])
 	def create():
  		title = request.form.get('title')
@@ -164,25 +165,7 @@ def create_app():
 		print(n)
 		return return_item(n)
 	
-	#getting error: NameError: name 'show_all_done_items' is not defined
-""" @app.route('/toggle_view', methods =['POST'])
-	def toggle_view():
- 		app.logger.info('Processing default request')
-		 i = request.form.get('i')
- 		 show_all_done_items(i)
- 		 print(i)
- 		 return toggle()
-
-	@app.route('/toggle', methods =['POST']) 
-	def toggle(i):
- 		 app.logger.info('Processing default request')
- 		 i = request.form.get('i')
-		 show_all_done_items(i)
- 		 print(i)
- 		 return redirect(url_for('index'))"""
-
-
-
+	
 	if __name__ == '__main__':
 
 		app.run()
