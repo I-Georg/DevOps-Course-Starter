@@ -163,6 +163,25 @@ def create_app():
 		n = request.form.get('n')
 		print(n)
 		return return_item(n)
+	
+	#getting error: NameError: name 'show_all_done_items' is not defined
+""" @app.route('/toggle_view', methods =['POST'])
+	def toggle_view():
+ 		app.logger.info('Processing default request')
+		 i = request.form.get('i')
+ 		 show_all_done_items(i)
+ 		 print(i)
+ 		 return toggle()
+
+	@app.route('/toggle', methods =['POST']) 
+	def toggle(i):
+ 		 app.logger.info('Processing default request')
+ 		 i = request.form.get('i')
+		 show_all_done_items(i)
+ 		 print(i)
+ 		 return redirect(url_for('index'))"""
+
+
 
 	if __name__ == '__main__':
 
