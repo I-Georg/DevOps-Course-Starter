@@ -29,7 +29,7 @@ class ViewModel:
 
   def show_all_done_items(self):
     today = date.today()
-    idListDone = os.environ['DONE']
+    
     number = len(self.donelist)
     if number < 5:
       return True
@@ -39,8 +39,7 @@ class ViewModel:
 
   def recent_done_items(self):
     today = date.today()
-    doneId = os.environ['DONE']
-    idListDone = doneId
+    
     
     return [item for item in self.donelist if item.dateLastActivity == today ]
     

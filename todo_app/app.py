@@ -126,7 +126,7 @@ def create_app():
 			done_objects.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']))	 
 		view_model = ViewModel(my_objects, doing_objects,done_objects)
 		view_model.show_all_done_items()
- #print(show_all_done_items())
+		print(view_model.older_done_items())
 
 		return render_template("index.html", view_model=view_model,doing_objects = doing_objects, done_objects = done_objects )
 	@app.route('/create', methods =['POST'])
