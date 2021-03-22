@@ -40,19 +40,24 @@ class ViewModel:
    
 
   def recent_done_items(self):
-    today = date.today()
-    today = str(today)
+    
+    now = datetime.now()
+    date_time = now.strftime("%Y-%m-%d")
     
     
-    return [item for item in self.donelist if datetime.strptime(item.dateLastActivity,"%Y-%m-%dT%H:%M:%S.%fZ") == today ]
+    
+    return [item for item in self.donelist if datetime.strptime(item.dateLastActivity,"%Y-%m-%dT%H:%M:%S.%fZ").date() == date_time ]
     
     
 
   def older_done_items(self):
-    today = date.today()
-    today = str(today)
+   
+    now = datetime.now()
+    date_time = now.strftime("%Y-%m-%d")
+	  
     
-    return [item for item in self.donelist if datetime.strptime(item.dateLastActivity,"%Y-%m-%dT%H:%M:%S.%fZ") != today ]
+    
+    return [item for item in self.donelist if datetime.strptime(item.dateLastActivity,"%Y-%m-%dT%H:%M:%S.%fZ").date() != date_time ]
     
   
 
