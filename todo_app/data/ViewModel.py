@@ -2,6 +2,8 @@ from datetime import date
 import os
 import requests
 from todo_app.data.ToDo import ToDo
+import datetime
+from datetime import datetime
 
 
 
@@ -39,16 +41,18 @@ class ViewModel:
 
   def recent_done_items(self):
     today = date.today()
+    today = str(today)
     
     
-    return [item for item in self.donelist if item.dateLastActivity == today ]
+    return [item for item in self.donelist if datetime.strptime(item.dateLastActivity,"%Y-%m-%dT%H:%M:%S.%fZ") == today ]
     
     
 
   def older_done_items(self):
     today = date.today()
+    today = str(today)
     
-    return [item for item in self.donelist if item.dateLastActivity != today ]
+    return [item for item in self.donelist if datetime.strptime(item.dateLastActivity,"%Y-%m-%dT%H:%M:%S.%fZ") != today ]
     
   
 

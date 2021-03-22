@@ -43,36 +43,42 @@
         <input type="submit" value="Create">
     </form>
 			</table>
-			<table>
-		<br><h3><b> Doing </h3></b>  
+			
+		<br><h3><b> Doing </h3></b> 
+			<table> 
 {%for doing in view_model.doinglist: %}
-		<div>
-				<br>
+		<tr>
 				
-				<tr>{{doing.name}}<tr>	
-{% endfor %}<br>
+				
+				<tr>{{doing.name}}</tr><br>
+				</tr>	
+{% endfor %}
 			</table>
-			<table id ="done-table"> 
-
 			<br><h3><b>Done<br></h3>
-
+			
 		   {% if view_model.show_all_done_items():   %}
 		  		{ {
-				 {% for done in view_model.donelist: %}   
-					 <tr>{{done.name}}</tr> <div></div>
+				 {% for done in view_model.donelist: %} 
+				 <div> 
+					 
+					{{done.name}}
+				    
 
 				 	 <form action="/update_back" method="post">
-          		 	 <input type="hidden" name="n" value="{{done["id"]}}">
+          		 	 <input type="hidden" name="n"{
+						background-color: blue;} value="{{done["id"]}}">
            		     <input type="submit" value="Return to To do">
            			 </form>
+					
+					</div> 
 				 {% endfor %}
 				 
 					}}
 		    	 {% else  %}
 		   		 <details>
 
-			   		{{view_model.older_done_items()}}
-					  <!-- {% for done in view_model.older_done_items(): %}   
+			   		<!--{{view_model.older_done_items()}}
+					   {% for done in view_model.older_done_items(): %}   
 					 	 	 <tr>{{done.name}}</tr> <br> 
 
 				 	 	 	 <form action="/update_back" method="post">
@@ -82,17 +88,24 @@
 						 {% endfor %}}   Currently printing out as <todo_app.data.ToDo.ToDo object at 0x0000023EB52B61F0>,<todo_app.data.ToDo.ToDo object at 0x0000023EB52B6DF0>... if this is commented
 							 if uncomented the details button is not working --> 
 				 <summary>
-					{{view_model.recent_done_items()}}
-					 <!--{% for done in view_model.recent_done_items(): %}   
-					 	 <tr>{{done.name}}</tr> <br> 
+					<!--{{view_model.recent_done_items()}}--> 
+					 {% for done in view_model.recent_done_items(): %}   
+					 	 {{done.name}}
 
 				 	 	 <form action="/update_back" method="post">
           		 	 	 <input type="hidden" name="n" value="{{done["id"]}}">
            		     	 <input type="submit" value="Return to To do">
            			 	 </form>
-					 {% endfor %} -->
+					 {% endfor %} 
 				</summary>
-				
+				{% for done in view_model.older_done_items(): %}   
+					 	 	 {{done.name}}
+
+				 	 	 	 <form action="/update_back" method="post">
+          		 	 	 	 <input type="hidden" name="n" value="{{done["id"]}}">
+           		     	 	 <input type="submit" value="Return to To do">
+           			 	 	 </form>
+						 {% endfor %}
 		   		</details>
 				  
 		   {% endif %}
