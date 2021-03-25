@@ -46,7 +46,7 @@ class ViewModel:
     
     
     
-    return [item for item in self.donelist if datetime.strptime(item.dateLastActivity,"%Y-%m-%dT%H:%M:%S.%fZ").date() == date_time ]
+    return [item for item in self.donelist if datetime.strptime(item.dateLastActivity,"%Y-%m-%dT%H:%M:%S.%fZ").date() == now.date() ]
     
     
 
@@ -57,7 +57,7 @@ class ViewModel:
 	  
     
     
-    return [item for item in self.donelist if datetime.strptime(item.dateLastActivity,"%Y-%m-%dT%H:%M:%S.%fZ").date() != date_time ]
+    return [item for item in self.donelist if datetime.strptime(item.dateLastActivity,"%Y-%m-%dT%H:%M:%S.%fZ").date() != now.date() ]
     
   
 

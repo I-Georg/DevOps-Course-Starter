@@ -127,18 +127,6 @@ def create_app():
 			done_objects.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']))	 
 		view_model = ViewModel(my_objects, doing_objects,done_objects)
 		view_model.show_all_done_items()
-		#print(view_model.donelist[0].dateLastActivity)
-		#today = date.today
-		#print(str(today))
-		#print(datetime.strptime(view_model.donelist[0].dateLastActivity,"%Y-%m-%dT%H:%M:%S.%fZ"))
-		#print(today)
-		#print(str(date.today))
-		#now = datetime.now()
-		#date_time = now.strftime("%Y-%m-%d")
-		#print(date_time)
-		print(view_model.recent_done_items())
-		#print(datetime.strptime(view_model.donelist[1].dateLastActivity,"%Y-%m-%dT%H:%M:%S.%fZ").date())
-		#print(date_time)
 
 		return render_template("index.html", view_model=view_model,doing_objects = doing_objects, done_objects = done_objects )
 	@app.route('/create', methods =['POST'])
