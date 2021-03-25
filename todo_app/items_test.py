@@ -1,5 +1,5 @@
 
-from todo_app.data.Items import ViewModel
+from todo_app.data.ViewModel import ViewModel
 from datetime import date
 from flask import Flask,request, render_template,redirect,url_for
 import pytest
@@ -58,12 +58,12 @@ def test_getting_todo():
 	
 		my_objects.append(ToDo(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name'],jsonResponse[listNumber]['dateLastActivity']))
 		
-	assert my_objects[0].name == 'Inspiration for a Card 📝'
-	assert my_objects[1].name == '✋🏿 Move anything ready here'
+	assert my_objects[0].name == '✋🏿 Move anything from doing to done here!'
+	assert my_objects[1].name == 'Inspiration for a Card 📝'
 	assert my_objects[2].name == 'title'
-	assert my_objects[3].name == 'title'
+	assert my_objects[3].name == '✋🏿 Move anything ready here'
 	assert my_objects[4].name == 'title'
-	assert my_objects[5].name == 'title1'
+	assert my_objects[5].name == 'title'
 	
 	
 		
@@ -91,9 +91,9 @@ def test_getting_done():
 	for listNumberDone in range(numberThree):
 	
 		done_objects.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']) )
-	assert done_objects[0].name == '✋🏿 Move anything from doing to done here!'
-	assert done_objects[2].name == 'title'
-	assert done_objects[3].name == 'titlewwwwww'
+	assert done_objects[0].name == 'Task created today'
+	assert done_objects[2].name == 'titlewwwwww'
+	assert done_objects[3].name == 'title'
 	assert done_objects[4].name == 'title'
 
 
