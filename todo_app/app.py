@@ -13,6 +13,7 @@ from tkinter import *
 import tkinter as tk
 from datetime import datetime
 
+
 #def create_app():
 #app = Flask(__name__)
 	#app.config.from_object('app_config.Config')
@@ -127,6 +128,7 @@ def create_app():
 			done_objects.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']))	 
 		view_model = ViewModel(my_objects, doing_objects,done_objects)
 		view_model.show_all_done_items()
+		 
 
 		return render_template("index.html", view_model=view_model,doing_objects = doing_objects, done_objects = done_objects )
 	@app.route('/create', methods =['POST'])
