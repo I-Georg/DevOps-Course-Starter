@@ -92,6 +92,28 @@ rm -rf ~/.pyenv
   
   exec "$SHELL"
   
-  
   SHELL
+
+  config.trigger.after :up do |trigger|   
+     trigger.name = "Launching App"    
+     trigger.info = "Running the TODO app setup script"    
+     trigger.run_remote = {privileged: false,name:"SCRIIPT", inline: "      
+     cd /vagrant  
+   "}
+   trigger.run_remote = {privileged: false,name:"SCRIIPT", inline: "  
+   #this solves error that shows up that disutils is not installed before running poetry install
+   #sudo apt-get install python3-distutils -y 
+   cd /vagrant  
+   sudo apt-get install python3-pip -y
+   sudo pip3 install --upgrade keyrings.alt 
+   sudo pip3 install -U pip
+   sudo pip install ansicolors
+   sudo python3 -m pip install poetry
+   sudo poetry --version
+  sudo  poetry run flask run
+
+
+   
+   "}
+  end
 end
