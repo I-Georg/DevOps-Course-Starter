@@ -87,6 +87,7 @@ rm -rf ~/.pyenv
   echo -e 'if command -v pyenv 1>/dev/null 2>&1; 
   pyenv install 3.8.3
   pyenv global  3.8.3
+  curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
   then\n  eval "$(pyenv init -)"\nfi' >> ~/.bashrc
   
   exec "$SHELL"
