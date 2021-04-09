@@ -103,15 +103,20 @@ rm -rf ~/.pyenv
    trigger.run_remote = {privileged: false,name:"SCRIIPT", inline: "  
    #this solves error that shows up that disutils is not installed before running poetry install
    #sudo apt-get install python3-distutils -y 
-   cd /vagrant  
-   sudo apt-get install python3-pip -y
+  
+   sudo apt-get install -y python3-pip
+   #sudo apt-get install python3-pip -y
    sudo pip3 install --upgrade keyrings.alt 
    sudo pip3 install -U pip
    sudo pip install ansicolors
    sudo python3 -m pip install poetry
    sudo poetry --version
-  sudo  poetry run flask run
-
+    cd /vagrant  
+   #cd todo_app
+   #ls
+   poetry install
+   #poetry run flask run
+   #sudo poetry run --help
 
    
    "}
