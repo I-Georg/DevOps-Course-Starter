@@ -3,11 +3,28 @@ import pytest
 import requests
 from threading import Thread
 from selenium import webdriver
+from flask import Flask
+import os
 #from todo_app.app import create_app
 #os.path.dirname(r'todo_app\app.py')
 from todo_app.app import create_app
 
+#tried to automate 
 
+#@app.cli.command('start')
+#def start():
+#     set FLASK_APP=app.py
+#     flask run
+#
+#app = Flask(__name__)
+#
+#if __name__ == '__main__':
+#
+#	 app.run('0.0.0.0', 5000, debug=True)
+#    
+     	
+
+SECRET_KEY=os.environ['SECRET_KEY']
 @pytest.fixture(scope='module')
 def create_trello_board():
     board_id = create_trello_board()
@@ -57,8 +74,9 @@ def test_update_to_done_new_item(driver, app_with_temp_board):
      driver.get('http://localhost:5000/')
      submit_update_to_done = '/html/body/p[18]/input[2]'
      driver.find_element_by_xpath(submit_update_to_done).click()
-    
+create_app()
 #def test_return_to_to_do(driver, app_with_temp_board):
      #driver.get('http://localhost:5000/')
      #submit_return_to_do = '/html/body/b/details/form[1]/input[2]'
-     #driver.find_element_by_xpath(submit_return_to_do).click()
+     #driver.find_element_by_xpath(submit_return_to_do).click()if __name__ == '__main__':
+ 

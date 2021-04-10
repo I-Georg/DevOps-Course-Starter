@@ -6,6 +6,20 @@ import pytest
 import requests
 import os
 from todo_app.data.ToDo import ToDo
+from todo_app.app import create_app
+
+#tried to fix no key error after poetry install pytest && selenium
+#app = Flask(__name__)
+#app.config.from_object('flask_config.TestingConfig')
+#print(app.config)
+
+#SECRET_KEY = os.environ.get('SECRET_KEY')
+#def create_app(self):
+
+	#app = Flask(__name__)
+	#app.config['TESTING'] = True
+	#app.secret_key = os.environ['SECRET_KEY']
+	#return app
 
 toDoId = os.environ['TOID']
 doingId = os.environ['DOINGID']
@@ -117,5 +131,13 @@ def test_show_all_done_items():
 				displayresponse.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']== today))
 	assert 	displayresponse[5] == ''
 	
-		
-	
+		#test suggested by  @JackMead 
+	def test_show_all_done_items_true_if_1_done_item():
+		 to_do_items = []
+		 doing_items = []
+		 done_items = [
+			ToDo('id', 'name', date.today()),
+		 ]
+		 view_model = ViewModel(to_do_items, doing_items, done_items)
+
+	 assert view_model.show_all_done_items() == True

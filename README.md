@@ -57,10 +57,11 @@ First you need to create an account https://trello.com/signup
 Then you need to generate API key and token (explained here https://trello.com/app-key). The link will display your key and you need to generate manually a token.
 Put the variables to .env template as variables TOKEN = {Your token} and KEY = {Your key}.
 In app.py you need to import os and you can call them as 'key': os.environ['KEY'] and 'token' : os.environ['TOKEN']
-In order to access the id of the lists on the board: first - you need to put theem to .env template as:
+In order to access the id of the lists on the board: first - you need to put them to .env template as:
 toDoId = {listId}
 doingId = { listId}
 doneId = {listId}
+Those are the ones that should be assigned in the code rather than variable names.
 In app. py they get called the following way:
 toDoId = os.environ['TOID']
 doingId = os.environ['DOINGID']

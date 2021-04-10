@@ -9,23 +9,20 @@ from todo_app.data.ToDo import ToDo
 from datetime import date
 import requests
 import os
-from tkinter import *
-import tkinter as tk
+
 from datetime import datetime
 
-#def create_app():
-#app = Flask(__name__)
-	#app.config.from_object('app_config.Config')
-	#app = Flask(__name__)
-#app.config.from_object(Config)
-	#if __name__ == '__main__':
-                             
-		#app.run()
-	#return app
+
 
 def create_app():
 	app = Flask(__name__)
-	app.config.from_object(Config)
+	
+	#tried to solve no key issue when I added poetry install pytest&& selenium and when I run poetry run pytest items_test.py  I get no key added error                                  
+	#app.config.from_object(Config)
+	#app.config.update(
+    #TESTING=True,
+    #SECRET_KEY=os.environ.get('SECRET_KEY')
+#)
 	toDoId = os.environ['TOID']
 	doingId = os.environ['DOINGID']
 	doneId = os.environ['DONE']
@@ -70,7 +67,7 @@ def create_app():
 	    	'id': i,
 			'key': os.environ['KEY'],
 			'token' : os.environ['TOKEN'],
-			'idBoard': '6005828032dafa5707bf5dc3',
+			#'idBoard': '6005828032dafa5707bf5dc3',
 			'idList': '6005828032dafa5707bf5dc7',
 		}
 		response = requests.request(
@@ -168,7 +165,7 @@ def create_app():
 	
 	if __name__ == '__main__':
 
-		app.run()
+		app.run()#port=5000)
 		
 	return app
 
