@@ -1,16 +1,16 @@
 import pytest
 import dotenv
-from dotenv import load_dotenv
+from dotenv import load_dotenv,find_dotenv
 import os
 from os.path import join, dirname
 from dotenv import find_dotenv
 from todo_app.app import create_app
 from unittest.mock import patch
-import responses
+#import responses
 import requests
-import vcr
+#import vcr
 
-#SECRET_KEY=os.environ['SECRET_KEY']
+
 @pytest.fixture
 def client():
 # Use our test integration config instead of the'real' version
@@ -27,17 +27,34 @@ def client():
 @patch('requests.get')
 def test_index_page(mock_get_requests, client):
 # Replace call to requests.get(url) with our own function
-    mock_get_requests.side_effect = mock_get_lists
-    test_board_id = '6052828032dafa5707bf5reg'
-   # url = f'http://localhost:5000/'
-    url = f'https://api.trello.com/1/boards/{test_board_id}/lists'
-    response = client.get(url)
-    
+     mock_get_requests.side_effect = mock_get_lists
+     test_board_id = '6052828032dafa5707bf5reg'
+     # url = f'http://localhost:5000/'
+     url = f'/'
+     response = client.get(url).json()
+     #Error getting
+     #self = <json.decoder.JSONDecoder object at 0x000002B7317FED00>, s = 'invalid key', idx = 0
+
+    #def raw_decode(self, s, idx=0):
+    #    """Decode a JSON document from ``s`` (a ``str`` beginning with
+    #    a JSON document) and return a 2-tuple of the Python
+    #    representation and the index in ``s`` where the document ended.
+#
+    #    This can be used to decode a JSON document from a string that may
+    #    have extraneous data at the end.
+#
+    #    """
+    #    try:
+    #        obj, end = self.scan_once(s, idx)
+    #    except StopIteration as err:
+  #        raise JSONDecodeError("Expecting value", s, err.value) from None
+   #        json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+    # 
     
 
 def mock_get_lists(url, params):
     test_board_id = '6052828032dafa5707bf5reg'
-    if url == f'https://api.trello.com/1/boards/{test_board_id}/lists':
+    if url == f'/':
         response = Mock()
 # sample_trello_lists_response should point to some test response data
         response.json.return_value = sample_trello_lists_response
@@ -50,7 +67,7 @@ def mock_get_lists(url, params):
     return None
 def mock_get_cards(url, params):
     test_cardid = '6052828032dafa5707bf3reg'
-    if url == f'"https://api.trello.com/1/lists/{test_cardid}/cards"':
+    if url == f'/':
         response = Mock()
 # sample_trello_lists_response should point to some test response data
         response.json.return_value = sample_trello_lists_response
