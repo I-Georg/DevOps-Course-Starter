@@ -55,10 +55,12 @@ def test_recent_done_items():
 
 	 to_do_items = []
 	 doing_items = []
-	 yesterday = (date.today() - timedelta(days=1)).isoformat()
-
+	 
+	 today_string = date.today().strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+	 yesterday = (date.today() - timedelta(days=1))
+	 yesterday_string =yesterday.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 	 done_items = [
- 	 ToDo('id', 'name', date.today().isoformat()),ToDo('id', 'name',yesterday),
+ 	 ToDo('id', 'name', today_string),ToDo('id', 'name',yesterday_string),
 	 ]
 	 
 	 view_model = ViewModel(to_do_items, doing_items, done_items)

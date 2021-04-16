@@ -37,8 +37,8 @@ def create_app():
 			'token' : os.environ['TOKEN'],
 			'fields': 'all'
 		}
-		response = requests.request(
-			"GET",
+		response = requests.get(
+			
 			url,
 			headers=headers,
 			params=query

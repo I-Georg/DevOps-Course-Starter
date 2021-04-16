@@ -5,7 +5,7 @@ import os
 from os.path import join, dirname
 from dotenv import find_dotenv
 from todo_app.app import create_app
-from unittest.mock import patch
+from unittest.mock import patch,Mock
 #import responses
 import requests
 #import vcr
@@ -31,39 +31,40 @@ def test_index_page(mock_get_requests, client):
      test_board_id = '6052828032dafa5707bf5reg'
      # url = f'http://localhost:5000/'
      url = f'/'
-     response = client.get(url).json()
-     #Error getting
-     #self = <json.decoder.JSONDecoder object at 0x000002B7317FED00>, s = 'invalid key', idx = 0
-
-    #def raw_decode(self, s, idx=0):
-    #    """Decode a JSON document from ``s`` (a ``str`` beginning with
-    #    a JSON document) and return a 2-tuple of the Python
-    #    representation and the index in ``s`` where the document ended.
-#
-    #    This can be used to decode a JSON document from a string that may
-    #    have extraneous data at the end.
-#
-    #    """
-    #    try:
-    #        obj, end = self.scan_once(s, idx)
-    #    except StopIteration as err:
-  #        raise JSONDecodeError("Expecting value", s, err.value) from None
-   #        json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
-    # 
+     response = client.get(url)
+     
     
 
-def mock_get_lists(url, params):
+def mock_get_lists(url,headers, params):
     test_board_id = '6052828032dafa5707bf5reg'
-    if url == f'/':
+    if url == f'https://api.trello.com/1/lists/6225828032dafa5707bf5dc/cards':
         response = Mock()
+    
 # sample_trello_lists_response should point to some test response data
-        response.json.return_value = sample_trello_lists_response
-        assert response.json() == { "id": "431228032dafa5707bf5de1",
+        sample_trello_lists_response= [ { "id": "431228032dafa5707bf5de1",
         "dateLastActivity": "2021-03-05T15:04:16.124Z",
-        "name": "test data"}
-        assert response.status_code == 200
+        "name": "test data"} ]
+        response.json.return_value = sample_trello_lists_response
+       
       
         return response
+    if url == f'https://api.trello.com/1/lists/55790828032dafa5707bf5dc1/cards':
+        response = Mock()
+        sample_trello_lists_response= [ { "id": "431228032dafa5707bf5de1",
+        "dateLastActivity": "2021-03-05T15:04:16.124Z",
+        "name": "test data"} ]
+        response.json.return_value = sample_trello_lists_response
+       
+      
+        return response
+    if url == f'https://api.trello.com/1/lists/23455828032dafa5707bf5dg5/cards':
+        response = Mock()
+        sample_trello_lists_response= [ { "id": "431228032dafa5707bf5de1",
+        "dateLastActivity": "2021-03-05T15:04:16.124Z",
+        "name": "test data"} ]
+        response.json.return_value = sample_trello_lists_response
+        return response
+       
     return None
 def mock_get_cards(url, params):
     test_cardid = '6052828032dafa5707bf3reg'
