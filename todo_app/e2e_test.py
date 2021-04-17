@@ -10,37 +10,30 @@ import os
 from todo_app.app import create_app
 from dotenv import load_dotenv,find_dotenv
 
-#tried to automate 
-
-#@app.cli.command('start')
-#def start():
-#     set FLASK_APP=app.py
-#     flask run
-#
-#app = Flask(__name__)
-#
-#if __name__ == '__main__':
-#
-#	 app.run('0.0.0.0', 5000, debug=True)
-#    
-     	
-
 
 @pytest.fixture(scope='module')
 def create_trello_board():
     board_id = create_trello_board()
-    os.environ['TOID'] = board_id
-    application = create_app()
-    return application
+    #os.environ['TOID'] = board_id
+    #application = create_app()
+   # response = f'https://api.trello.com/1/boards/{board_id}/lists'
+    lists = response.json()
+    for list in lists:
+        if list['name'] == "To Do":
+            os.environ['TOID'] = list['id']
+    return board_id
+    #return application
     
 @pytest.fixture(scope='module')
 def app_with_temp_board():
 # Create the new board & update the board id environment variable
-   # board_id = create_trello_board()
-   # os.environ['TOID'] = board_id
+    
+   
 # construct the new application
     file_path = find_dotenv('.env')
     load_dotenv(file_path, override=True)
+    board_id = create_trello_board()
+    os.environ['TOID'] = board_id
     application = create_app()
 # start the app in its own thread.
     thread = Thread(target=lambda:
@@ -50,7 +43,7 @@ def app_with_temp_board():
     yield application
 # Tear Down
     thread.join(1)
-    #delete_trello_board(board_id)
+    delete_trello_board(board_id)
 
 @pytest.fixture(scope="module")
 def driver():

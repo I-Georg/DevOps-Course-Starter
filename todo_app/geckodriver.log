@@ -232,3 +232,68 @@ console.warn: SearchSettings: "get: No settings file exists, new profile?" (new 
 1618492326940	Marionette	INFO	Listening on port 62484
 1618492327385	Marionette	WARN	TLS certificate errors will be ignored for this session
 1618492340137	Marionette	INFO	Stopped listening on port 62484
+1618662378855	geckodriver	INFO	Listening on 127.0.0.1:61093
+1618662381884	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\UseR\\AppData\\Local\\Temp\\rust_mozprofileazxaKE"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1618662386251	Marionette	INFO	Listening on port 61102
+1618662386714	Marionette	WARN	TLS certificate errors will be ignored for this session
+1618662621074	Marionette	INFO	Stopped listening on port 61102
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+"--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\UseR\\AppData\\Local\\Temp\\rust_mozprofile9Oxc4P"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1618662433463	Marionette	INFO	Listening on port 61168
+1618662433654	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+ner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\UseR\\AppData\\Local\\Temp\\rust_mozprofile7Ql8Hz"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1618662612978	Marionette	INFO	Listening on port 61270
+1618662613107	Marionette	WARN	TLS certificate errors will be ignored for this session
+1618662619876	Marionette	INFO	Stopped listening on port 61270
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1618662775303	geckodriver	INFO	Listening on 127.0.0.1:61469
+1618662778333	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\UseR\\AppData\\Local\\Temp\\rust_mozprofile6BF7Jb"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1618662782219	Marionette	INFO	Listening on port 61477
+1618662782518	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+ner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\UseR\\AppData\\Local\\Temp\\rust_mozprofiled1y2in"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1618662864964	Marionette	INFO	Listening on port 61562
+1618662865203	Marionette	WARN	TLS certificate errors will be ignored for this session
+1618662889599	Marionette	INFO	Stopped listening on port 61562
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1618662899752	geckodriver	INFO	Listening on 127.0.0.1:61621
+1618662902786	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\UseR\\AppData\\Local\\Temp\\rust_mozprofilekZdfXK"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1618662906526	Marionette	INFO	Listening on port 61629
+1618662906964	Marionette	WARN	TLS certificate errors will be ignored for this session
+1618662964453	Marionette	INFO	Stopped listening on port 61629
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1618663102890	geckodriver	INFO	Listening on 127.0.0.1:62052
+1618663105919	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\UseR\\AppData\\Local\\Temp\\rust_mozprofileb3zahu"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1618663109812	Marionette	INFO	Listening on port 62062
+1618663110123	Marionette	WARN	TLS certificate errors will be ignored for this session
+1618663146515	geckodriver	INFO	Listening on 127.0.0.1:62123
+1618663149537	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\UseR\\AppData\\Local\\Temp\\rust_mozprofileeUBThg"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1618663153551	Marionette	INFO	Listening on port 62135
+1618663153768	Marionette	WARN	TLS certificate errors will be ignored for this session
+1618663190643	geckodriver	INFO	Listening on 127.0.0.1:62204
+1618663193691	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\UseR\\AppData\\Local\\Temp\\rust_mozprofile8WxQw9"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1618663197763	Marionette	INFO	Listening on port 62214
+1618663197881	Marionette	WARN	TLS certificate errors will be ignored for this session
+1618663218518	geckodriver	INFO	Listening on 127.0.0.1:62273
+1618663221553	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\UseR\\AppData\\Local\\Temp\\rust_mozprofilegENyhv"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1618663225652	Marionette	INFO	Listening on port 62282
+1618663225750	Marionette	WARN	TLS certificate errors will be ignored for this session
