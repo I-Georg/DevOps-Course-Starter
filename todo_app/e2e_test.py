@@ -10,13 +10,10 @@ import os
 from todo_app.app import create_app
 from dotenv import load_dotenv,find_dotenv
 
-#getting error both in terminal and debugger for each test
-#___ ERROR at setup of test_create_new_item ____________________
-#Fixture "create_trello_board" called directly. Fixtures are not meant to be called directly,
-#but are created automatically when test functions request them as parameters.
-#See https://docs.pytest.org/en/stable/fixture.html for more information about fixtures, and
-#https://docs.pytest.org/en/stable/deprecations.html#calling-fixtures-directly about how to update your code
-@pytest.fixture(scope='module')
+
+#sys.setrecursionlimit(2990)
+#E   RecursionError: maximum recursion depth exceeded
+
 def create_trello_board():
     board_id = create_trello_board()
     #os.environ['TOID'] = board_id
