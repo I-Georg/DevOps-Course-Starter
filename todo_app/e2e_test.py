@@ -11,14 +11,13 @@ from todo_app.app import create_app
 from dotenv import load_dotenv,find_dotenv
 
 
-#sys.setrecursionlimit(2990)
-#E   RecursionError: maximum recursion depth exceeded
+
 
 def create_trello_board():
-    board_id = create_trello_board()
+    #board_id = create_trello_board()
     #os.environ['TOID'] = board_id
     #application = create_app()
-   # response = f'https://api.trello.com/1/boards/{board_id}/lists'
+    response = f'https://api.trello.com/1/boards/6005828032dafa5707bf5dc3/lists'
     lists = response.json()
     for list in lists:
         if list['name'] == "To Do":
