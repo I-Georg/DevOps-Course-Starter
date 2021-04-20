@@ -17,11 +17,18 @@ def create_trello_board():
     #board_id = create_trello_board()
     #os.environ['TOID'] = board_id
     #application = create_app()
-    response = f'https://api.trello.com/1/boards/6005828032dafa5707bf5dc3/lists'
+    key = os.environ['KEY']
+    token = os.environ['TOKEN']
+    board_id = '6005828032dafa5707bf5dc3'
+    response =  requests.get(f'https://api.trello.com/1/boards/{board_id}/lists?key={key}&token={token}')
+    
+	
     lists = response.json()
-    for list in lists:
-        if list['name'] == "To Do":
-            os.environ['TOID'] = list['id']
+    
+    #for x in lists:
+        
+    if lists[1]['name'] == "TODO":
+         os.environ['TOID'] = lists[1]['id']
     return board_id
     #return application
     

@@ -17,12 +17,7 @@ from datetime import datetime
 def create_app():
 	app = Flask(__name__)
 	
-	#tried to solve no key issue when I added poetry install pytest&& selenium and when I run poetry run pytest items_test.py  I get no key added error                                  
-	#app.config.from_object(Config)
-	#app.config.update(
-    #TESTING=True,
-    #SECRET_KEY=os.environ.get('SECRET_KEY')
-#)
+	
 	toDoId = os.environ['TOID']
 	doingId = os.environ['DOINGID']
 	doneId = os.environ['DONE']
