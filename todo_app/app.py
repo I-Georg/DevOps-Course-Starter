@@ -9,8 +9,6 @@ from todo_app.data.ToDo import ToDo
 from datetime import date
 import requests
 import os
-from tkinter import *
-import tkinter as tk
 from datetime import datetime
 
 

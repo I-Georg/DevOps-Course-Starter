@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # NOTE: This will enable public access to the opened port
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
+   config.vm.network "forwarded_port", guest: 5000, host: 5000
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
@@ -97,27 +97,23 @@ rm -rf ~/.pyenv
   config.trigger.after :up do |trigger|   
      trigger.name = "Launching App"    
      trigger.info = "Running the TODO app setup script"    
-     trigger.run_remote = {privileged: false,name:"SCRIIPT", inline: "      
-     cd /vagrant  
-   "}
+     
    trigger.run_remote = {privileged: false,name:"SCRIIPT", inline: "  
-   #this solves error that shows up that disutils is not installed before running poetry install
-   #sudo apt-get install python3-distutils -y 
+   
+   
   
    sudo apt-get install -y python3-pip
-   #sudo apt-get install python3-pip -y
+  
    sudo pip3 install --upgrade keyrings.alt 
    sudo pip3 install -U pip
    sudo pip install ansicolors
    sudo python3 -m pip install poetry
    sudo poetry --version
     cd /vagrant  
-   #cd todo_app
-   #ls
-   
+   #install poetry and run app
    poetry install
-   poetry run flask run
-   #sudo poetry run --help
+   poetry run flask run --host=0.0.0.0
+ 
 
    
    "}
