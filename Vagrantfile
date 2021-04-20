@@ -114,8 +114,9 @@ rm -rf ~/.pyenv
     cd /vagrant  
    #cd todo_app
    #ls
+   
    poetry install
-   #poetry run flask run
+   poetry run flask run
    #sudo poetry run --help
 
    
