@@ -19,18 +19,29 @@ def create_trello_board():
     #application = create_app()
     key = os.environ['KEY']
     token = os.environ['TOKEN']
-    board_id = '6005828032dafa5707bf5dc3'
+    board_response = requests.post(f'https://api.trello.com/1/boards/?name=test&key={key}&token={token}')
+    board_id = board_response.json()["id"]
     response =  requests.get(f'https://api.trello.com/1/boards/{board_id}/lists?key={key}&token={token}')
     
 	
     lists = response.json()
     
-    #for x in lists:
+    for list in lists:
         
-    if lists[1]['name'] == "TODO":
-         os.environ['TOID'] = lists[1]['id']
+        if list['name'] == "TODO":
+            os.environ['TOID'] = list['id']
+        elif list['name'] == "DOING":
+            os.environ['DOING'] = list['id']
+        elif list['name'] == "DONE":
+            os.environ['DONE'] = list['id']
     return board_id
     #return application
+
+def delete_trello_board(board_id):
+     key = os.environ['KEY']
+     token = os.environ['TOKEN']
+     board_delete = requests.delete(f'https://api.trello.com/1/boards/{board_id}?key={key}&token={token}')
+   
     
 @pytest.fixture(scope='module')
 def app_with_temp_board():
@@ -41,7 +52,7 @@ def app_with_temp_board():
     file_path = find_dotenv('.env')
     load_dotenv(file_path, override=True)
     board_id = create_trello_board()
-    os.environ['TOID'] = board_id
+    
     application = create_app()
 # start the app in its own thread.
     thread = Thread(target=lambda:
