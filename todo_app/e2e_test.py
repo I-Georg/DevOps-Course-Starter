@@ -5,8 +5,6 @@ from threading import Thread
 from selenium import webdriver
 from flask import Flask
 import os
-#from todo_app.app import create_app
-#os.path.dirname(r'todo_app\app.py')
 from todo_app.app import create_app
 from dotenv import load_dotenv,find_dotenv
 
@@ -14,9 +12,7 @@ from dotenv import load_dotenv,find_dotenv
 
 
 def create_trello_board():
-    #board_id = create_trello_board()
-    #os.environ['TOID'] = board_id
-    #application = create_app()
+    
     key = os.environ['KEY']
     token = os.environ['TOKEN']
     board_response = requests.post(f'https://api.trello.com/1/boards/?name=test&key={key}&token={token}')
@@ -89,8 +85,5 @@ def test_update_to_done_new_item(driver, app_with_temp_board):
      submit_update_to_done = '/html/body/p[18]/input[2]'
      driver.find_element_by_xpath(submit_update_to_done).click()
 
-#def test_return_to_to_do(driver, app_with_temp_board):
-     #driver.get('http://localhost:5000/')
-     #submit_return_to_do = '/html/body/b/details/form[1]/input[2]'
-     #driver.find_element_by_xpath(submit_return_to_do).click()if __name__ == '__main__':
+
  
