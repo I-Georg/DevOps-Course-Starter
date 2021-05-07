@@ -13,7 +13,9 @@ RUN pip install "poetry==$POETRY_VERSION"
 
 # Copy only requirements to cache them in docker layer
 WORKDIR /todo_app
-COPY poetry.lock pyproject.toml 
+COPY poetry.lock pyproject.toml .
+RUN poetry config virtualenvs.create false --local && poetry install --no-dev --no-root
+RUN poetry add gunicorn
 
 
 # Creating folders, and files for a project:

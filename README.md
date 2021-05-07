@@ -82,5 +82,4 @@ Depending on the browser(here is used Firefox): download the browser https://pyp
 To run: pytest e2e_test.py  
 Also you need to have the app running - Open a second terminal and run: poetry run flask run 
 
-
-  
+ Docker:  docker run -d -p 443:5000 todo-app --env-file ./env
