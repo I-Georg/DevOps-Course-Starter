@@ -27,7 +27,7 @@ def create_trello_board():
         if list['name'] == "TODO":
             os.environ['TOID'] = list['id']
         elif list['name'] == "DOING":
-            os.environ['DOING'] = list['id']
+            os.environ['DOINGID'] = list['id']
         elif list['name'] == "DONE":
             os.environ['DONE'] = list['id']
     return board_id
@@ -65,6 +65,7 @@ def driver():
     #with webdriver.Firefox() as driver
     driver = webdriver.Firefox()
     yield driver
+    driver.close()
 
 def test_task_journey(driver, app_with_temp_board):
     driver.get('http://localhost:5000/')
@@ -82,8 +83,10 @@ def test_create_new_item(driver, app_with_temp_board):
 
 def test_update_to_done_new_item(driver, app_with_temp_board):
      driver.get('http://localhost:5000/')
-     submit_update_to_done = '/html/body/p[18]/input[2]'
+     submit_update_to_done ='//input[@type = "submit" and @value="Update to done"]'
      driver.find_element_by_xpath(submit_update_to_done).click()
+     undo_completion_input = '//input[@type = "submit" and @value="Return to To do"]'
+     assert driver.find_element_by_xpath(undo_completion_input ) != None
 
 
  

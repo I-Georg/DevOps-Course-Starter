@@ -45,7 +45,7 @@ def create_app():
 		query = {
 			'key': os.environ['KEY'],
 			'token' : os.environ['TOKEN'],
-			'idList': '6005828032dafa5707bf5dc5',
+			'idList': toDoId,
 			'name': name
 		}
 		response = requests.request(
@@ -62,8 +62,7 @@ def create_app():
 	    	'id': i,
 			'key': os.environ['KEY'],
 			'token' : os.environ['TOKEN'],
-			#'idBoard': '6005828032dafa5707bf5dc3',
-			'idList': '6005828032dafa5707bf5dc7',
+			'idList': doneId,
 		}
 		response = requests.request(
 			"PUT",
@@ -81,7 +80,7 @@ def create_app():
 			'key': os.environ['KEY'],
 			'token' : os.environ['TOKEN'],
 			'idBoard': '6005828032dafa5707bf5dc3',
-			'idList': '6005828032dafa5707bf5dc5'
+			'idList': toDoId,
 		}
 		response = requests.request(
 			"PUT",

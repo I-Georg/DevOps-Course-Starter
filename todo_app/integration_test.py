@@ -28,10 +28,9 @@ def client():
 def test_index_page(mock_get_requests, client):
 # Replace call to requests.get(url) with our own function
      mock_get_requests.side_effect = mock_get_lists
-     test_board_id = '6052828032dafa5707bf5reg'
-     # url = f'http://localhost:5000/'
      url = f'/'
      response = client.get(url)
+     assert "test data" in response.data.decode()
      
     
 

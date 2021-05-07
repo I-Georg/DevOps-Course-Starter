@@ -7,5 +7,3 @@ class Config:
   #  if not SECRET_KEY:
   #      raise ValueError("No SECRET_KEY set for Flask application. Did you follow the setup instructions?")
 
-#class TestingConfig(Config):
-    #TESTING = True
