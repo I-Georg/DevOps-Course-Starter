@@ -8,10 +8,7 @@ ENV FLASK_ENV=${FLASK_ENV} \
   PIP_DEFAULT_TIMEOUT=100 \
   POETRY_VERSION=1.1.6
 
-# System deps:
-#RUN echo "===> install Kaldi (pinned at version 5.3)"  && \
-#RUN apt-get update -y && \
-    #apt-get install -y python-pip python-dev
+
 RUN pip install "poetry==$POETRY_VERSION"
 
 #production
@@ -35,15 +32,12 @@ WORKDIR /todo_app
 COPY poetry.lock pyproject.toml .
 RUN poetry config virtualenvs.create false --local && poetry install --no-dev --no-root
 
-#RUN echo "export FLASK_ENV=development" 
-#RUN echo "export FLASK_APP=todo_app" >> 
+
 # Creating folders, and files for a project:
 COPY . /todo_app
-#ENV FLASK_ENV='development'
-#ENV FLASK_APP='todo_app'
+ENV FLASK_ENV='development'
+ENV FLASK_APP='todo_app'
 
 EXPOSE 5001
-#ENTRYPOINT ["poetry run flask run"]
-ENTRYPOINT ["poetry", "run", "flask", "run"]
-#ENTRYPOINT [ "python" ]
-#CMD ["app.py"]
+
+ENTRYPOINT ["poetry", "run","flask", "run", "--host", "0.0.0.0"]
