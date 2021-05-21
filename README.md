@@ -85,6 +85,4 @@ Also you need to have the app running - Open a second terminal and run: poetry r
 ##Docker:  
 $ docker build --target development --tag todo-app:dev .
 $ docker build --target production --tag todo-app:prod .
-
-docker run -d  todo-app --env-file ./env -v /src/path:/container/path -p 5001:5000
-docker run -d  todo-app --env-file ./env -v /C:/Users/UseR/Exercise/DevOps-Course-Starter:/C:/Users/UseR/Exercise/DevOps-Course-Starter/Dockerfile  -p 443:5000
+ docker run -p 5001:5001 --env-file .env  --mount=type=bind,source={source on your amchine},target="/todo-app"  -d  todo-app
