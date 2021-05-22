@@ -83,6 +83,6 @@ To run: pytest e2e_test.py
 Also you need to have the app running - Open a second terminal and run: poetry run flask run 
 
 ##Docker:  
-$ docker build --target development --tag todo-app:dev .
-$ docker build --target production --tag todo-app:prod .
- docker run -p 5001:5001 --env-file .env  --mount=type=bind,source={source on your amchine},target="/todo-app"  -d  todo-app
+docker build --target development --tag todo-app:dev .
+docker build --target production --tag todo-app:prod .
+docker run -p 5001:5001 --env-file .env  --mount=type=bind,source={source on your machine},target="/todo-app"  -d  todo-app
