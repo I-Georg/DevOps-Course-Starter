@@ -118,4 +118,7 @@ env/
 
 ### Configuration files ###
 .env
+
+### vagrant ###
+.vagrant 
 geckodriver.log 

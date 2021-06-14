@@ -131,13 +131,19 @@ console.warn: SearchSettings: "get: No settings file exists, new profile?" (new 
 1616685943328	Marionette	INFO	Listening on port 64666
 1616685943828	Marionette	WARN	TLS certificate errors will be ignored for this session
 1616685964149	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'interactive'.
-1616685979605	geckodriver	INFO	Listening on 127.0.0.1:64738
-1616685982646	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\UseR\\AppData\\Local\\Temp\\rust_mozprofileOA5UTf"
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x3A015A,name=PContent::Msg_InsertNewFocusActionId) Closed channel: cannot send/recv
+
+rs\\UseR\\AppData\\Local\\Temp\\rust_mozprofileOA5UTf"
 console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
 1616685986683	Marionette	INFO	Listening on port 64746
 1616685986855	Marionette	WARN	TLS certificate errors will be ignored for this session
-1616686121389	geckodriver	INFO	Listening on 127.0.0.1:64843
-1616686124454	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\UseR\\AppData\\Local\\Temp\\rust_mozprofiley7wBDv"
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x3A015A,name=PContent::Msg_InsertNewFocusActionId) Closed channel: cannot send/recv
+
+rs\\UseR\\AppData\\Local\\Temp\\rust_mozprofiley7wBDv"
 console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
 1616686128123	Marionette	INFO	Listening on port 64851
 1616686128629	Marionette	WARN	TLS certificate errors will be ignored for this session

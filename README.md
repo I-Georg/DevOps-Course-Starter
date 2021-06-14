@@ -83,4 +83,5 @@ To run: poetry run pytest e2e_test.py
 
 
 
-  
+## Vagrant:
+You can run the app inside VM
