@@ -3,28 +3,20 @@ from flask import Flask,request, render_template,redirect,url_for
 
 
 from todo_app.flask_config import Config
-from todo_app.data.session_items import get_items, add_item, get_item, save_item
 from todo_app.data.ViewModel import ViewModel
 from todo_app.data.ToDo import ToDo
 from datetime import date
 import requests
 import os
+
 from datetime import datetime
 
 
-#def create_app():
-#app = Flask(__name__)
-	#app.config.from_object('app_config.Config')
-	#app = Flask(__name__)
-#app.config.from_object(Config)
-	#if __name__ == '__main__':
-                             
-		#app.run()
-	#return app
 
 def create_app():
 	app = Flask(__name__)
-	app.config.from_object(Config)
+	
+	
 	toDoId = os.environ['TOID']
 	doingId = os.environ['DOINGID']
 	doneId = os.environ['DONE']
@@ -39,8 +31,8 @@ def create_app():
 			'token' : os.environ['TOKEN'],
 			'fields': 'all'
 		}
-		response = requests.request(
-			"GET",
+		response = requests.get(
+			
 			url,
 			headers=headers,
 			params=query
@@ -52,7 +44,7 @@ def create_app():
 		query = {
 			'key': os.environ['KEY'],
 			'token' : os.environ['TOKEN'],
-			'idList': '6005828032dafa5707bf5dc5',
+			'idList': toDoId,
 			'name': name
 		}
 		response = requests.request(
@@ -69,8 +61,7 @@ def create_app():
 	    	'id': i,
 			'key': os.environ['KEY'],
 			'token' : os.environ['TOKEN'],
-			'idBoard': '6005828032dafa5707bf5dc3',
-			'idList': '6005828032dafa5707bf5dc7',
+			'idList': doneId,
 		}
 		response = requests.request(
 			"PUT",
@@ -87,8 +78,7 @@ def create_app():
 			'id': i,
 			'key': os.environ['KEY'],
 			'token' : os.environ['TOKEN'],
-			'idBoard': '6005828032dafa5707bf5dc3',
-			'idList': '6005828032dafa5707bf5dc5'
+			'idList': toDoId,
 		}
 		response = requests.request(
 			"PUT",
@@ -118,17 +108,17 @@ def create_app():
 		doing_objects =[]
 		done_objects = []
 
-		for listNumber in range(number):		
+		for listNumber in range(len(jsonResponse)):		
 			my_objects.append(ToDo(jsonResponse[listNumber]['id'],jsonResponse[listNumber]['name'],jsonResponse[listNumber]['dateLastActivity']))
-		for listNumberDoing in range(numberTwo):		
+		for listNumberDoing in range(len(jsonResponseDoing)):		
 			doing_objects.append(ToDo(jsonResponseDoing[listNumberDoing]['id'],jsonResponseDoing[listNumberDoing]['name'],jsonResponseDoing[listNumberDoing]['dateLastActivity']))
-		for listNumberDone in range(numberThree):		
+		for listNumberDone in range(len(jsonResponseDone)):		
 			done_objects.append(ToDo(jsonResponseDone[listNumberDone]['id'],jsonResponseDone[listNumberDone]['name'],jsonResponseDone[listNumberDone]['dateLastActivity']))	 
 		view_model = ViewModel(my_objects, doing_objects,done_objects)
 		view_model.show_all_done_items()
 		 
 
-		return render_template("index.html", view_model=view_model,doing_objects = doing_objects, done_objects = done_objects )
+		return render_template("index.html", view_model=view_model )
 	@app.route('/create', methods =['POST'])
 	def create():
  		title = request.form.get('title')
@@ -168,7 +158,7 @@ def create_app():
 	
 	if __name__ == '__main__':
 
-		app.run()
+		app.run()#port=5000)
 		
 	return app
 
