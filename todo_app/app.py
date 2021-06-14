@@ -3,7 +3,6 @@ from flask import Flask,request, render_template,redirect,url_for
 
 
 from todo_app.flask_config import Config
-from todo_app.data.session_items import get_items, add_item, get_item, save_item
 from todo_app.data.ViewModel import ViewModel
 from todo_app.data.ToDo import ToDo
 from datetime import date
