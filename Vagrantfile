@@ -28,7 +28,7 @@ rm -rf ~/.pyenv
   curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
   then\n  eval "$(pyenv init -)"\nfi' >> ~/.bashrc
   
-  exec "$SHELL"
+  #exec "$SHELL"
   
   SHELL
 
@@ -40,13 +40,7 @@ rm -rf ~/.pyenv
    
    
   
-   sudo apt-get install -y python3-pip
-  
-   sudo pip3 install --upgrade keyrings.alt 
-   sudo pip3 install -U pip
-   sudo pip install ansicolors
-   sudo python3 -m pip install poetry
-   sudo poetry --version
+   
     cd /vagrant  
    #install poetry and run app
    poetry install
