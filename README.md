@@ -55,5 +55,32 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 ##Configuring Trello API
 First you need to create an account https://trello.com/signup
 Then you need to generate API key and token (explained here https://trello.com/app-key). The link will display your key and you need to generate manually a token.
-Add them to .env file as variables TOKEN = {Your token} and KEY = {Your key}.
+Put the variables to .env template as variables TOKEN = {Your token} and KEY = {Your key}.
 In app.py you need to import os and you can call them as 'key': os.environ['KEY'] and 'token' : os.environ['TOKEN']
+In order to access the id of the lists on the board: first - you need to put them to .env template as:
+toDoId = {listId}
+doingId = { listId}
+doneId = {listId}
+Those are the ones that should be assigned in the code rather than variable names.
+In app. py they get called the following way:
+toDoId = os.environ['TOID']
+doingId = os.environ['DOINGID']
+doneId = os.environ['DONE']
+
+
+##Pytest
+To add Pytest to the project, run: poetry install pytest
+In order to load the .env variables, run pip install pytest-dotenv
+ Unit Tests are in item_test.py
+To run unit tests: cd into the app: cd todo_app and run:poetry run pytest items_test.py
+To run integration tests: cd into the app: cd todo_app and run:poetry run pytest integration_test.py
+
+##Selenium tests: 
+For selenium tests to work:
+Run: poetry install selenium
+Depending on the browser(here is used Firefox): download the browser https://pypi.org/project/selenium/ , for Firefox you need latest version of gheko browser and  make sure it’s in your PATH. For Windows 10, if you keep getting error  Message: 'geckodriver' executable needs to be in PATH., add the geckodriver.exe under /Python/Scripts/ 
+To run: poetry run pytest e2e_test.py
+
+
+
+  
