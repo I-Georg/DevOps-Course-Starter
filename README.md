@@ -82,6 +82,10 @@ Depending on the browser(here is used Firefox): download the browser https://pyp
 To run: poetry run pytest e2e_test.py
 
 
+## Docker:  
+docker build --target development --tag todo-app:dev .
+docker build --target production --tag todo-app:prod .
+docker run -p 5001:5001 --env-file .env  --mount=type=bind,source={source on your machine},target="/todo-app"  -d  todo-app
 
 ## Vagrant:
 You can run the app inside VM
