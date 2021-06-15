@@ -30,7 +30,7 @@ ENTRYPOINT ["./gunicorn.sh"]
 FROM base as development
 WORKDIR /todo_app
 COPY poetry.lock pyproject.toml .
-RUN poetry config virtualenvs.create false --local && poetry install --no-dev --no-root
+RUN poetry config virtualenvs.create false --local && poetry install --no-root
 
 
 # Creating folders, and files for a project:
