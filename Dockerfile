@@ -35,8 +35,7 @@ RUN poetry config virtualenvs.create false --local && poetry install --no-dev --
 
 # Creating folders, and files for a project:
 COPY . /todo_app
-ENV FLASK_ENV='development'
-ENV FLASK_APP='todo_app'
+
 
 EXPOSE 5001
 
