@@ -40,3 +40,13 @@ COPY . /todo_app
 EXPOSE 5001
 
 ENTRYPOINT ["poetry", "run","flask", "run", "--host", "0.0.0.0"]
+
+# testing stage
+FROM base as test
+COPY poetry.lock pyproject.toml .
+
+RUN poetry config virtualenvs.create false --local && poetry install --no-dev --no-root
+COPY . /todo_app
+WORKDIR /todo_app
+
+ENTRYPOINT ["poetry", "run", "pytest"]
