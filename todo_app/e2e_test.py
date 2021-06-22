@@ -63,7 +63,26 @@ def app_with_temp_board():
 @pytest.fixture(scope="module")
 def driver():
     #with webdriver.Firefox() as driver
-    driver = webdriver.Firefox()
+     #Set proper profile
+    profile = webdriver.FirefoxProfile()
+    profile.set_preference("security.fileuri.strict_origin_policy", False) # disable Strict Origin Policy
+    profile.set_preference("dom.webdriver.enabled", False) # disable Strict Origin Policy
+
+    # Capabilities
+    capabilities = webdriver.DesiredCapabilities.FIREFOX
+    capabilities['marionette'] = True
+
+    # Options
+    options = webdriver.FirefoxOptions()
+    options.add_argument("--log-level=OFF")
+
+    # Using non Headless for debugging
+    options.headless = True
+
+    driver = webdriver.Firefox(service_log_path=os.devnull, options=options, capabilities=capabilities, firefox_profile=profile)
+    driver.set_window_size(1920, 1080)
+
+    #driver = webdriver.Firefox()
     yield driver
     driver.close()
 
