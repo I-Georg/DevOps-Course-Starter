@@ -1,4 +1,4 @@
-FROM python:3.6.9-slim-buster as base
+FROM python:3.7.9-slim-buster as base
 
 ARG FLASK_ENV
 
