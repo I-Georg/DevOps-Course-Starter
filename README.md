@@ -90,6 +90,7 @@ docker run -p 5001:5001 --env-file .env  --mount=type=bind,source={source on you
 docker build --target test --tag my-test-image .
 docker run my-test-image todo_app/items_test.py    
 docker run my-test-image todo_app/integration_test.py  
+docker run --env-file .env my-test-image  todo_app/e2e_test.py 
 
 ## Vagrant:
 You can run the app inside VM
