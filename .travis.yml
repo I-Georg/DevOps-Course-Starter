@@ -3,10 +3,6 @@ services:
 
 script:
 - echo "hello world"
-- docker build --target development --tag todo-app:dev .
-- docker build --target production --tag todo-app:prod .
-- docker run -p 5001:5001 --env-file .env  --mount=type=bind,source={source on your machine},target="/todo-app"  -d  todo-app
-- 
 - docker build --target test --tag my-test-image .
 - docker run my-test-image todo_app/items_test.py    
 - docker run my-test-image todo_app/integration_test.py  
