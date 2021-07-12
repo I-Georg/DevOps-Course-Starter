@@ -46,7 +46,7 @@ FROM base as test
 COPY poetry.lock pyproject.toml ./
 
 RUN poetry config virtualenvs.create false --local && poetry install --no-dev --no-root
-COPY . /todo_app ./
+COPY . /todo_app 
 COPY  . /.env
 WORKDIR /todo_app
 
