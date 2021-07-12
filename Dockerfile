@@ -15,13 +15,13 @@ RUN pip install "poetry==$POETRY_VERSION"
 FROM base as production
 # Copy only requirements to cache them in docker layer
 WORKDIR /todo_app
-COPY poetry.lock pyproject.toml .
+COPY poetry.lock pyproject.toml ./
 RUN poetry config virtualenvs.create false --local && poetry install --no-dev --no-root
 RUN poetry add gunicorn
 
 
 # Creating folders, and files for a project:
-COPY . /todo_app
+COPY . /todo_app 
 
 EXPOSE 5001
 ENTRYPOINT ["./gunicorn.sh"]
@@ -29,12 +29,12 @@ ENTRYPOINT ["./gunicorn.sh"]
 #development
 FROM base as development
 WORKDIR /todo_app
-COPY poetry.lock pyproject.toml .
+COPY poetry.lock pyproject.toml ./
 RUN poetry config virtualenvs.create false --local && poetry install --no-root
 
 
 # Creating folders, and files for a project:
-COPY . /todo_app
+COPY . /todo_app ./
 
 
 EXPOSE 5001
@@ -43,11 +43,11 @@ ENTRYPOINT ["poetry", "run","flask", "run", "--host", "0.0.0.0"]
 
 # testing stage
 FROM base as test
-COPY poetry.lock pyproject.toml .
+COPY poetry.lock pyproject.toml ./
 
 RUN poetry config virtualenvs.create false --local && poetry install --no-dev --no-root
-COPY . /todo_app
-COPY  . /.env
+COPY . /todo_app ./
+COPY  . /.env ./
 WORKDIR /todo_app
 
 # install geckodriver and firefox
