@@ -47,7 +47,7 @@ COPY poetry.lock pyproject.toml ./
 
 RUN poetry config virtualenvs.create false --local && poetry install --no-dev --no-root
 COPY . /todo_app ./
-COPY  . /.env ./
+COPY  . /.env
 WORKDIR /todo_app
 
 # install geckodriver and firefox
