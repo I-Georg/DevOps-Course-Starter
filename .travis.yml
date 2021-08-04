@@ -9,9 +9,7 @@ script:
 - docker run -e TOKEN -e KEY -e TOID -e DOINGID -e DONE my-test-image  todo_app/e2e_test.py 
 
 script:
--docker build --target production --tag my-production-image .
-
-after_success:
+- docker build --target production --tag my-production-image .
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker build --target production --tag $DOCKER_USERNAME/my-production-image:TRAVIS_COMMIT .
 - docker push $DOCKER_USERNAME/my-production-image:TRAVIS_COMMIT 
