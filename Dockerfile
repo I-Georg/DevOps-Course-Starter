@@ -18,13 +18,14 @@ WORKDIR /todo_app
 COPY poetry.lock pyproject.toml ./
 RUN poetry config virtualenvs.create false --local && poetry install --no-dev --no-root
 RUN poetry add gunicorn
-RUN chmod +x "./gunicorn.sh"
+
 
 # Creating folders, and files for a project:
 COPY . /todo_app 
 
 #EXPOSE 5001
 ENTRYPOINT ["./gunicorn.sh"]
+RUN chmod +x "./gunicorn.sh"
 
 #development
 FROM base as development
