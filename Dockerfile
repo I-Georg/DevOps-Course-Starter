@@ -25,7 +25,7 @@ COPY . /todo_app
 
 #EXPOSE 5001
 ENTRYPOINT ["./gunicorn.sh"]
-RUN chmod +x "./gunicorn.sh"
+RUN chmod +x ./gunicorn.sh
 
 #development
 FROM base as development
