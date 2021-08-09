@@ -23,7 +23,7 @@ RUN poetry add gunicorn
 # Creating folders, and files for a project:
 COPY . /todo_app 
 
-#EXPOSE 5001
+ENV PORT=5001
 ENTRYPOINT ["./gunicorn.sh"]
 RUN chmod +x ./gunicorn.sh
 
