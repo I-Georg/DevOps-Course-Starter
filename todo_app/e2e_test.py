@@ -7,6 +7,7 @@ from flask import Flask
 import os
 from todo_app.app import create_app
 from dotenv import load_dotenv,find_dotenv
+import time
 
 
 
@@ -55,6 +56,7 @@ def app_with_temp_board():
     application.run(use_reloader=False))
     thread.daemon = True
     thread.start()
+    time.sleep(1)
     yield application
 # Tear Down
     thread.join(1)
@@ -62,7 +64,7 @@ def app_with_temp_board():
 
 @pytest.fixture(scope="module")
 def driver():
-    #with webdriver.Firefox() as driver
+   
      #Set proper profile
     profile = webdriver.FirefoxProfile()
     profile.set_preference("security.fileuri.strict_origin_policy", False) # disable Strict Origin Policy
