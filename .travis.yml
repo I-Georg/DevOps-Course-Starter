@@ -19,6 +19,6 @@ script:
 script:
 - docker login --username="$DOCKER_USERNAME" --password=$(heroku auth:token) registry.heroku.com
 - docker pull $DOCKER_USERNAME/my-production-image:TRAVIS_COMMIT
-- docker tag  $DOCKER_USERNAME/my-production-image:TRAVIS_COMMIT registry.heroku.com/trello-to-do/web
+#- docker tag  $DOCKER_USERNAME/my-production-image:TRAVIS_COMMIT registry.heroku.com/trello-to-do/web
 - docker push registry.heroku.com/registry.heroku.com/trello-to-do/web
 
