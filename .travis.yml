@@ -1,0 +1,12 @@
+services:
+  - docker
+
+script:
+- echo "hello world"
+- docker build --target test --tag my-test-image .
+- docker run my-test-image todo_app/items_test.py    
+- docker run my-test-image todo_app/integration_test.py  
+- docker run -e TOKEN -e KEY -e TOID -e DOINGID -e DONE my-test-image  todo_app/e2e_test.py 
+
+
+
