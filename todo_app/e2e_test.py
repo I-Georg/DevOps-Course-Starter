@@ -7,6 +7,7 @@ from flask import Flask
 import os
 from todo_app.app import create_app
 from dotenv import load_dotenv,find_dotenv
+import time
 
 
 
@@ -56,6 +57,7 @@ def app_with_temp_board():
     application.run(use_reloader=False))
     thread.daemon = True
     thread.start()
+    time.sleep(1)
     yield application
 # Tear Down
     thread.join(1)
@@ -101,7 +103,7 @@ def test_create_new_item(driver, app_with_temp_board):
 
 def test_update_to_done_new_item(driver, app_with_temp_board):
      driver.get('http://localhost:5000/')
-     submit_update_to_done ='//input[@type = "submit" and @value="Update to done"]'
+     submit_update_to_done ='//input[@type = "submit" and @value="Update to done!!!"]'
      driver.find_element_by_xpath(submit_update_to_done).click()
      undo_completion_input = '//input[@type = "submit" and @value="Return to To do"]'
      assert driver.find_element_by_xpath(undo_completion_input ) != None
