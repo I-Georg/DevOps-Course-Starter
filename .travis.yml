@@ -20,4 +20,4 @@ script:
 - docker pull $DOCKER_USERNAME/my-production-image:TRAVIS_COMMIT
 - docker tag  $DOCKER_USERNAME/my-production-image:TRAVIS_COMMIT registry.heroku.com/trello-to-do/web
 - docker push registry.heroku.com/trello-to-do/web
-- heroku container:release --app trello-to-do
+- heroku container:release web
