@@ -7,6 +7,8 @@ script:
 - docker run my-test-image todo_app/integration_test.py  
 - docker run -e TOKEN -e KEY -e TOID -e DOINGID -e DONE my-test-image  todo_app/e2e_test.py 
 - docker build --target production --tag my-production-image .
+
+before_deploy:
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker build --target production --tag $DOCKER_USERNAME/my-production-image:TRAVIS_COMMIT .
 - docker push $DOCKER_USERNAME/my-production-image:TRAVIS_COMMIT 
@@ -14,4 +16,10 @@ script:
 - docker pull $DOCKER_USERNAME/my-production-image:TRAVIS_COMMIT
 - docker tag  $DOCKER_USERNAME/my-production-image:TRAVIS_COMMIT registry.heroku.com/trello-to-do/web
 - docker push registry.heroku.com/trello-to-do/web
-- heroku container:release web --app trello-to-do
+
+deploy:
+  provider: script
+  script: heroku container:release web --app trello-to-do
+  on:
+    branch: main
+
