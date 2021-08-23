@@ -71,7 +71,7 @@ doneId = os.environ['DONE']
 ## Pytest
 To add Pytest to the project, run: poetry install pytest
 
- Unit Tests are in item_test.py
+Unit Tests are in item_test.py
 To run unit tests: cd into the app: cd todo_app and run:poetry run pytest items_test.py
 To run integration tests: cd into the app: cd todo_app and run:poetry run pytest integration_test.py
 
@@ -87,6 +87,7 @@ docker build --target development --tag todo-app:dev .
 docker build --target production --tag todo-app:prod .
 docker run -p 5001:5001 --env-file .env  --mount=type=bind,source={source on your machine},target="/todo-app"  -d  todo-app
 
+## Running test stage image in Docker:
 docker build --target test --tag my-test-image .
 docker run my-test-image todo_app/items_test.py    
 docker run my-test-image todo_app/integration_test.py  

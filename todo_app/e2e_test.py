@@ -65,7 +65,7 @@ def app_with_temp_board():
 
 @pytest.fixture(scope="module")
 def driver():
-    #with webdriver.Firefox() as driver
+   
      #Set proper profile
     profile = webdriver.FirefoxProfile()
     profile.set_preference("security.fileuri.strict_origin_policy", False) # disable Strict Origin Policy

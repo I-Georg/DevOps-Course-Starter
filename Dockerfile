@@ -23,8 +23,9 @@ RUN poetry add gunicorn
 # Creating folders, and files for a project:
 COPY . /todo_app 
 
-EXPOSE 5001
+ENV PORT=5001
 ENTRYPOINT ["./gunicorn.sh"]
+RUN chmod +x ./gunicorn.sh
 
 #development
 FROM base as development
@@ -47,7 +48,6 @@ COPY poetry.lock pyproject.toml ./
 
 RUN poetry config virtualenvs.create false --local && poetry install --no-dev --no-root
 COPY . /todo_app 
-COPY  . /.env.test
 WORKDIR /todo_app
 
 # install geckodriver and firefox
@@ -74,8 +74,5 @@ RUN FIREFOX_SETUP=firefox-setup.tar.bz2 && \
     ln -s /opt/firefox/firefox /usr/bin/firefox && \
     rm $FIREFOX_SETUP
 
-
-#RUN pip3 install selenium
-#RUN pip3 install Selenium-Screenshot
 
 ENTRYPOINT ["poetry", "run", "pytest"]
