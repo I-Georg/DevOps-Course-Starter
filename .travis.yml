@@ -10,11 +10,11 @@ script:
 
 before_deploy:
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker build --target production --tag $DOCKER_USERNAME/my-production-image:TRAVIS_COMMIT .
-- docker push $DOCKER_USERNAME/my-production-image:TRAVIS_COMMIT 
+- docker build --target production --tag $DOCKER_USERNAME/my-production-image:${TRAVIS_COMMIT::8} .
+- docker push $DOCKER_USERNAME/my-production-image:${TRAVIS_COMMIT::8}
 - docker login --username="$DOCKER_USERNAME" --password=$(heroku auth:token) registry.heroku.com
-- docker pull $DOCKER_USERNAME/my-production-image:TRAVIS_COMMIT
-- docker tag  $DOCKER_USERNAME/my-production-image:TRAVIS_COMMIT registry.heroku.com/trello-to-do/web
+- docker pull $DOCKER_USERNAME/my-production-image:${TRAVIS_COMMIT::8}
+- docker tag  $DOCKER_USERNAME/my-production-image:${TRAVIS_COMMIT::8} registry.heroku.com/trello-to-do/web
 - docker push registry.heroku.com/trello-to-do/web
 
 deploy:
