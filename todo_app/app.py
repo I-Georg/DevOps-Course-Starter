@@ -8,6 +8,8 @@ from todo_app.data.ToDo import ToDo
 from datetime import date
 import requests
 import os
+import pymongo
+
 
 from datetime import datetime
 
@@ -20,6 +22,28 @@ def create_app():
 	toDoId = os.environ['TOID']
 	doingId = os.environ['DOINGID']
 	doneId = os.environ['DONE']
+
+	def connectDb():
+		client = pymongo.MongoClient("mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True,ssl_cert_reqs='CERT_NONE')
+		print(client.list_database_names())
+		database = client[ "01" ]
+		trello_collection = database[ "trello_collection" ]
+		done=trello_collection.find({'idBoard': '6005828032dafa5707bf5dc5'},{"name": 1})
+		for x in done:  
+		 	print(x)
+		#post= {"id": "6005828032dafa5707bf5dc5", "name": "","id": "6005828032dafa5707bf5dc6","name": "DOING ", "idBoard": "6005828032dafa5707bf5dc3","id": "6005828032dafa5707bf5dc7", "name": "DONE!"}
+ 		#result=trello_collection.insert_many(post)
+ 		#result.inserted_id
+#
+ 		#result.acknowledged
+#
+ 		#trello_collection.find_one()
+		 #get doing
+		# cursor=trello_collection.find({'idBoard': '6005828032dafa5707bf5dc5'},{"name": 1})
+		#for x in cursor:  
+		# 	print(x)
+	    
+	
 	def getItems(idList):
 		url = f"https://api.trello.com/1/lists/{idList}/cards"
 		headers = {
@@ -89,6 +113,7 @@ def create_app():
 
 	@app.route('/')
 	def index():
+		connectDb()
 		idList = toDoId
 		responseTodo= getItems(idList)
 		jsonResponse = responseTodo.json()
@@ -122,7 +147,7 @@ def create_app():
 	@app.route('/create', methods =['POST'])
 	def create():
  		title = request.form.get('title')
-
+        
  		newToDoCard(title)
  		return redirect(url_for('index'))
 
