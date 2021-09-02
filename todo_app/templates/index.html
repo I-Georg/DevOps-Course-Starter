@@ -21,6 +21,41 @@
 
 		<table>
 			<h3><b>To do</b></h3>
+			{%for x in todo : %}
+			<div>
+				<br>
+				<tr> {{x }}</tr>
+				<tr>
+					
+		</tr>
+			{% endfor %}
+			<br>
+			<p>Add To do Task
+			</p>
+			<form action="/create" method="POST">
+				<input type="text" name="title" id="title" value="title" required>
+				<input type="submit" id="create" value="Create">
+			</form>
+		</table>
+			<br>
+			<h3><b> Doing </b></h3>
+			<table>
+			<tr>{%for y in doing : %}</tr><br>
+			<tr>
+            {{y }}
+		</tr>
+			{% endfor %}
+		</tr>
+	</table>
+	<br>
+	<h3><b>Done</b><br></h3>
+			{%for z in done : %}
+			<div>
+            {{z }}
+		</div>
+			{% endfor %}
+
+
 
 			{%for item in view_model.todolist : %}
 			<div>
