@@ -9,6 +9,7 @@ from datetime import date
 import requests
 import os
 import pymongo
+from bson.objectid import ObjectId
 
 
 from datetime import datetime
@@ -68,7 +69,7 @@ def create_app():
             "mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
         dateNow = datetime.now()
-        post = {"_id": id, "dateCreated": dateNow}
+        post = {"_id": ObjectId(id), "dateCreated": dateNow}
         trello_collection = database["trello_collection"]
         result = trello_collection.update_one(
             post, {"$set": {"idBoard": "6005828032dafa5707bf5dc7"}})
