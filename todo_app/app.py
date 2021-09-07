@@ -56,9 +56,22 @@ def create_app():
         client = pymongo.MongoClient(
             "mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
-        post = {"name": name, "idBoard": "6005828032dafa5707bf5dc3"}
+        dateNow = datetime.now()
+        post = {"name": name, "idBoard": "6005828032dafa5707bf5dc3",
+                "dateCreated": dateNow}
         trello_collection = database["trello_collection"]
         result = trello_collection.insert_one(post)
+        app.logger.info("Result acknowledged" + result.acknowledged)
+
+    def updateItem(id):
+        client = pymongo.MongoClient(
+            "mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
+        database = client["01"]
+        dateNow = datetime.now()
+        post = {"_id": id, "dateCreated": dateNow}
+        trello_collection = database["trello_collection"]
+        result = trello_collection.update_one(
+            post, {"$set": {"idBoard": "6005828032dafa5707bf5dc7"}})
         app.logger.info("Result acknowledged" + result.acknowledged)
 
     def getItems(idList):
@@ -200,6 +213,7 @@ def create_app():
         app.logger.info('Processing default request')
         id = request.form.get('id')
         print(id)
+        updateItem(id)
         return complete_item(id)
 
     @app.route('/return_item', methods=['PUT'])

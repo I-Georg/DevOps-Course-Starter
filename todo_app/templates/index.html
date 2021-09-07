@@ -26,97 +26,102 @@
 				<br>
 				<tr> {{x }}</tr>
 				<tr>
-					
-		</tr>
-			{% endfor %}
-			<br>
-			<p>Add To do Task
-			</p>
-			<form action="/create" method="POST">
-				<input type="text" name="title" id="title" value="title" required>
-				<input type="submit" id="create" value="Create">
-			</form>
-		</table>
-			<br>
-			<h3><b> Doing </b></h3>
-			<table>
-			<tr>{%for y in doing : %}</tr><br>
-			<tr>
-            {{y }}
-		</tr>
-			{% endfor %}
-		</tr>
-	</table>
-	<br>
-	<h3><b>Done</b><br></h3>
-			{%for z in done : %}
-			<div>
-            {{z }}
-		</div>
-			{% endfor %}
 
-
-
-			{%for item in view_model.todolist : %}
-			<div>
+				</tr>
+				<p><b>Move from doing to done</b></p>
+				<form action="/update" method="post">
+					<input type="hidden" name="id" value="{{item.id}}">
+					<input type="submit" value="Update to done!!!">
+				</form>
+				{% endfor %}
 				<br>
-
-				<tr>{{item.name}}</tr>
-				<tr>
-
-					<p><b>Move from doing to done</b></p>
-					<form action="/update" method="post">
-						<input type="hidden" name="id" value="{{item.id}}">
-						<input type="submit" value="Update to done!!!">
-					</form>
-			</div>
-		</tr>
-			{% endfor %}
-			<br>
-			<p>Add To do Task
-			</p>
-			<form action="/create" method="POST">
-				<input type="text" name="title" id="title" value="title" required>
-				<input type="submit" id="create" value="Create!">
-			</form>
+				<p>Add To do Task
+				</p>
+				<form action="/create" method="POST">
+					<input type="text" name="title" id="title" value="title" required>
+					<input type="submit" id="create" value="Create">
+				</form>
 		</table>
-
 		<br>
 		<h3><b> Doing </b></h3>
 		<table>
-			{%for doing in view_model.doinglist: %}
+			<tr>{%for y in doing : %}</tr><br>
 			<tr>
-
-
-			<tr>{{doing.name}}</tr><br>
+				{{y }}
 			</tr>
 			{% endfor %}
-		</tr>
+			</tr>
 		</table>
 		<br>
 		<h3><b>Done</b><br></h3>
-
-		{% if view_model.show_all_done_items(): %}
-		{ {
-		{% for done in view_model.donelist: %}
+		{%for z in done : %}
 		<div>
-
-			{{done.name}}
-
-
-			<form action="/update_back" method="post">
-				<input type="hidden" name="n" { background-color: blue;} value="{{done[" id"]}}">
-				<input type="submit" value="Return to To do!">
-			</form>
-
+			{{z }}
 		</div>
 		{% endfor %}
 
-		}}
-		{% else %}
-		<details>
 
-			<!--{{view_model.older_done_items()}}
+
+		{%for item in view_model.todolist : %}
+		<div>
+			<br>
+
+			<tr>{{item.name}}</tr>
+			<tr>
+
+				<p><b>Move from doing to done</b></p>
+				<form action="/update" method="post">
+					<input type="hidden" name="id" value="{{item.id}}">
+					<input type="submit" value="Update to done!!!">
+				</form>
+		</div>
+		</tr>
+		{% endfor %}
+		<br>
+		<p>Add To do Task
+		</p>
+		<form action="/create" method="POST">
+			<input type="text" name="title" id="title" value="title" required>
+			<input type="submit" id="create" value="Create!">
+		</form>
+</table>
+
+<br>
+<h3><b> Doing </b></h3>
+<table>
+	{%for doing in view_model.doinglist: %}
+	<tr>
+
+
+	<tr>{{doing.name}}</tr><br>
+	</tr>
+	{% endfor %}
+	</tr>
+</table>
+<br>
+<h3><b>Done</b><br></h3>
+
+{% if view_model.show_all_done_items(): %}
+{ {
+{% for done in view_model.donelist: %}
+<div>
+
+	{{done.name}}
+
+
+	<form action="/update_back" method="post">
+		<input type="hidden" name="n" { background-color: blue;} value="{{done[" id"]}}">
+		<input type="submit" value="Return to To do!">
+	</form>
+
+</div>
+{% endfor %}
+
+}}
+{% else %}
+<details>
+
+	<!--{{view_model.older_done_items()}}
 					   {% for done in view_model.older_done_items(): %}   
 					 	 	 <tr>{{done.name}}</tr> <br> 
 
@@ -126,29 +131,29 @@
            			 	 	 </form>
 						 {% endfor %}}   Currently printing out as <todo_app.data.ToDo.ToDo object at 0x0000023EB52B61F0>,<todo_app.data.ToDo.ToDo object at 0x0000023EB52B6DF0>... if this is commented
 							 if uncomented the details button is not working -->
-			<summary>
-				<!--{{view_model.recent_done_items()}}-->
-				{% for done in view_model.recent_done_items(): %}
-				{{done.name}}
+	<summary>
+		<!--{{view_model.recent_done_items()}}-->
+		{% for done in view_model.recent_done_items(): %}
+		{{done.name}}
 
-				<form action="/update_back" method="post">
-					<input type="hidden" name="n" value="{{done[" id"]}}">
-					<input type="submit" value="Return to To do">
-				</form>
-				{% endfor %}
-			</summary>
-			{% for done in view_model.older_done_items(): %}
-			{{done.name}}
+		<form action="/update_back" method="post">
+			<input type="hidden" name="n" value="{{done[" id"]}}">
+			<input type="submit" value="Return to To do">
+		</form>
+		{% endfor %}
+	</summary>
+	{% for done in view_model.older_done_items(): %}
+	{{done.name}}
 
-			<form action="/update_back" method="post">
-				<input type="hidden" name="n" value="{{done[" id"]}}">
-				<input type="submit" value="Return to To do">
-			</form>
-			{% endfor %}
-		</details>
+	<form action="/update_back" method="post">
+		<input type="hidden" name="n" value="{{done[" id"]}}">
+		<input type="submit" value="Return to To do">
+	</form>
+	{% endfor %}
+</details>
 
-		{% endif %}
-		</div>
+{% endif %}
+</div>
 
 
 </table>
