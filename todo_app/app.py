@@ -10,8 +10,6 @@ import requests
 import os
 import pymongo
 from bson.objectid import ObjectId
-
-
 from datetime import datetime
 
 
@@ -53,27 +51,28 @@ def create_app():
         # for x in cursor:
         # 	print(x)
 
-    def createItems(name):
-        client = pymongo.MongoClient(
-            "mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
+    def create_items(name):
+        client = pymongo.MongoClient("mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
-        dateNow = datetime.now()
+        date_now = datetime.now()
         post = {"name": name, "idBoard": "6005828032dafa5707bf5dc3",
-                "dateCreated": dateNow}
+                "last_modified": date_now},
+        # "dateCreated": dateNow}
         trello_collection = database["trello_collection"]
         result = trello_collection.insert_one(post)
         app.logger.info("Result acknowledged" + result.acknowledged)
 
-    def updateItem(id):
+    def update_item(id):
         client = pymongo.MongoClient(
             "mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
-        dateNow = datetime.now()
-        post = {"_id": ObjectId(id), "dateCreated": dateNow}
+        post = {"_id": ObjectId(id)}
         trello_collection = database["trello_collection"]
+        date_now = datetime.now()
         result = trello_collection.update_one(
-            post, {"$set": {"idBoard": "6005828032dafa5707bf5dc7"}})
-        app.logger.info("Result acknowledged" + result.acknowledged)
+            post, {"$set": {"idBoard": "not really a a board id",
+                            "last_modified": date_now}}
+        )
 
     def getItems(idList):
         url = f"https://api.trello.com/1/lists/{idList}/cards"
@@ -200,7 +199,7 @@ def create_app():
     def create():
         title = request.form.get('title')
 
-        createItems(title)
+        create_items(title)
         newToDoCard(title)
 
         return redirect(url_for('index'))
@@ -218,7 +217,7 @@ def create_app():
         app.logger.info('Processing default request')
         id = request.form.get('id')
         print(id)
-        updateItem(id)
+        update_item(id)
         return complete_item(id)
 
     @app.route('/return_item', methods=['PUT'])
