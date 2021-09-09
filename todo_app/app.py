@@ -27,9 +27,9 @@ def create_app():
         database = client["01"]
         trello_collection = database["trello_collection"]
         todo = trello_collection.find(
-            {'idBoard': '6005828032dafa5707bf5dc5'}, {"name": 1})
+            {'idBoard': '6005828032dafa5707bf5dc3'}, {"name": 1})
         for x in todo:
-            # print(x)
+            print(x)
             x
         doing = trello_collection.find(
             {'idBoard': '6005828032dafa5707bf5dc5'}, {"name": 1})
@@ -61,7 +61,6 @@ def create_app():
 
         trello_collection = database["trello_collection"]
         result = trello_collection.insert_one(post)
-        app.logger.info("Result acknowledged" + result.acknowledged)
 
     def update_item(id):
         client = pymongo.MongoClient(
@@ -71,7 +70,7 @@ def create_app():
         trello_collection = database["trello_collection"]
         date_now = datetime.now()
         result = trello_collection.update_one(
-            post, {"$set": {"idBoard": "not really a a board id",
+            post, {"$set": {"idBoard": "6005828032dafa5707bf5dc5",
                             "last_modified": date_now}}
         )
 #
