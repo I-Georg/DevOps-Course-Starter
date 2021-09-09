@@ -52,12 +52,13 @@ def create_app():
         # 	print(x)
 
     def create_items(name):
-        client = pymongo.MongoClient("mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
+        client = pymongo.MongoClient(
+            "mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
         date_now = datetime.now()
         post = {"name": name, "idBoard": "6005828032dafa5707bf5dc3",
-                "last_modified": date_now},
-        # "dateCreated": dateNow}
+                "last_modified": date_now}
+
         trello_collection = database["trello_collection"]
         result = trello_collection.insert_one(post)
         app.logger.info("Result acknowledged" + result.acknowledged)
@@ -73,76 +74,77 @@ def create_app():
             post, {"$set": {"idBoard": "not really a a board id",
                             "last_modified": date_now}}
         )
-
-    def getItems(idList):
-        url = f"https://api.trello.com/1/lists/{idList}/cards"
-        headers = {
-            "Accept": "application/json"
-        }
-        query = {
-            'id': idList,
-            'key': os.environ['KEY'],
-            'token': os.environ['TOKEN'],
-            'fields': 'all'
-        }
-        response = requests.get(
-
-            url,
-            headers=headers,
-            params=query
-        )
-
-        return response
-
-    def newToDoCard(name):
-        url = "https://api.trello.com/1/cards"
-        query = {
-            'key': os.environ['KEY'],
-            'token': os.environ['TOKEN'],
-            'idList': toDoId,
-            'name': name
-        }
-        response = requests.request(
-            "POST",
-            url,
-            params=query
-        )
-
-    def updateCardToDone(i):
-        url = f"https://api.trello.com/1/cards/{i}"
-        headers = {
-            "Accept": "application/json"
-        }
-        query = {
-            'id': i,
-            'key': os.environ['KEY'],
-            'token': os.environ['TOKEN'],
-            'idList': doneId,
-        }
-        response = requests.request(
-            "PUT",
-            url,
-            headers=headers,
-            params=query
-        )
-
-    def returnCardToDo(i):
-        url = f"https://api.trello.com/1/cards/{i}"
-        headers = {
-            "Accept": "application/json"
-        }
-        query = {
-            'id': i,
-            'key': os.environ['KEY'],
-            'token': os.environ['TOKEN'],
-            'idList': toDoId,
-        }
-        response = requests.request(
-            "PUT",
-            url,
-            headers=headers,
-            params=query
-        )
+#
+   # def getItems(idList):
+   #     url = f"https://api.trello.com/1/lists/{idList}/cards"
+   #     headers = {
+   #         "Accept": "application/json"
+   #     }
+   #     query = {
+   #         'id': idList,
+   #         'key': os.environ['KEY'],
+   #         'token': os.environ['TOKEN'],
+   #         'fields': 'all'
+   #     }
+   #     response = requests.get(
+#
+   #         url,
+   #         headers=headers,
+   #         params=query
+   #     )
+#
+   #     return response
+#
+   # def newToDoCard(name):
+   #     url = "https://api.trello.com/1/cards"
+   #     query = {
+   #         'key': os.environ['KEY'],
+   #         'token': os.environ['TOKEN'],
+   #         'idList': toDoId,
+   #         'name': name
+   #     }
+   #     response = requests.request(
+   #         "POST",
+   #         url,
+   #         params=query
+   #     )
+#
+   # def updateCardToDone(i):
+   #     url = f"https://api.trello.com/1/cards/{i}"
+   #     headers = {
+   #         "Accept": "application/json"
+   #     }
+   #     query = {
+   #         'id': i,
+   #         'key': os.environ['KEY'],
+   #         'token': os.environ['TOKEN'],
+   #         'idList': doneId,
+   #     }
+   #     response = requests.request(
+   #         "PUT",
+   #         url,
+   #         headers=headers,
+   #         params=query
+   #     )
+#
+   # def returnCardToDo(i):
+   #     url = f"https://api.trello.com/1/cards/{i}"
+   #     headers = {
+   #         "Accept": "application/json"
+   #     }
+   #     query = {
+   #         'id': i,
+   #         'key': os.environ['KEY'],
+   #         'token': os.environ['TOKEN'],
+   #         'idList': toDoId,
+   #     }
+   #     response = requests.request(
+   #         "PUT",
+   #         url,
+   #         headers=headers,
+   #         params=query
+   #     )
+#
 
     @app.route('/')
     def index():
@@ -158,49 +160,55 @@ def create_app():
         done = trello_collection.find(
             {'idBoard': '6005828032dafa5707bf5dc7'}, {"name": 1})
 
-        idList = toDoId
-        responseTodo = getItems(idList)
-        jsonResponse = responseTodo.json()
-        idListDoing = doingId
-        responseDoing = getItems(idListDoing)
-        jsonResponseDoing = responseDoing.json()
-        idListDone = doneId
-        responseDone = getItems(idListDone)
-        jsonResponseDone = responseDone.json()
-        number = len(jsonResponse)
-        number = len(jsonResponse)
-        numberTwo = len(jsonResponseDoing)
-        numberThree = len(jsonResponseDone)
-
-        my_objects = []
+        #idList = toDoId
+        #responseTodo = getItems(idList)
+        #jsonResponse = responseTodo.json()
+        #idListDoing = doingId
+        #responseDoing = getItems(idListDoing)
+        #jsonResponseDoing = responseDoing.json()
+        #idListDone = doneId
+        #responseDone = getItems(idListDone)
+        #jsonResponseDone = responseDone.json()
+        #number = len(jsonResponse)
+        #number = len(jsonResponse)
+        #numberTwo = len(jsonResponseDoing)
+        #numberThree = len(jsonResponseDone)
+#
+        #my_objects = []
+        #doing_objects = []
+        #done_objects = []
+#
+        # for listNumber in range(len(jsonResponse)):
+        #    my_objects.append(ToDo(jsonResponse[listNumber]['id'], jsonResponse[listNumber]
+        #                      ['name'], jsonResponse[listNumber]['dateLastActivity']))
+        # for listNumberDoing in range(len(jsonResponseDoing)):
+        #    doing_objects.append(ToDo(jsonResponseDoing[listNumberDoing]['id'], jsonResponseDoing[listNumberDoing]
+        #                         ['name'], jsonResponseDoing[listNumberDoing]['dateLastActivity']))
+        # for listNumberDone in range(len(jsonResponseDone)):
+        #    done_objects.append(ToDo(jsonResponseDone[listNumberDone]['id'], jsonResponseDone[listNumberDone]
+        #                        ['name'], jsonResponseDone[listNumberDone]['dateLastActivity']))
+        #view_model = ViewModel(my_objects, doing_objects, done_objects)
+        ##view_model1 = ViewModel(todo,doing,done)
+        my_items = []
         doing_objects = []
         done_objects = []
-
-        for listNumber in range(len(jsonResponse)):
-            my_objects.append(ToDo(jsonResponse[listNumber]['id'], jsonResponse[listNumber]
-                              ['name'], jsonResponse[listNumber]['dateLastActivity']))
-        for listNumberDoing in range(len(jsonResponseDoing)):
-            doing_objects.append(ToDo(jsonResponseDoing[listNumberDoing]['id'], jsonResponseDoing[listNumberDoing]
-                                 ['name'], jsonResponseDoing[listNumberDoing]['dateLastActivity']))
-        for listNumberDone in range(len(jsonResponseDone)):
-            done_objects.append(ToDo(jsonResponseDone[listNumberDone]['id'], jsonResponseDone[listNumberDone]
-                                ['name'], jsonResponseDone[listNumberDone]['dateLastActivity']))
-        view_model = ViewModel(my_objects, doing_objects, done_objects)
-        #view_model1 = ViewModel(todo,doing,done)
-        my_items = []
         for todo in trello_collection.find():
             my_items.append(ToDo.from_mongo_db_entry(todo))
+        for doing in trello_collection.find():
+            doing_objects.append(ToDo.from_mongo_db_entry(doing))
+        for done in trello_collection.find():
+            done_objects.append(ToDo.from_mongo_db_entry(done))
         #todo_item = ToDo.from_mongo_db_entry(todo)
-        view_model.show_all_done_items()
+        # view_model.show_all_done_items()
 
-        return render_template("index.html", view_model=view_model, todo=todo, doing=doing, done=done, my_items=my_items)
+        return render_template("index.html", my_items=my_items, doing_objects=doing_objects, done_objects=done_objects)
 
     @app.route('/create', methods=['POST'])
     def create():
         title = request.form.get('title')
 
         create_items(title)
-        newToDoCard(title)
+        # newToDoCard(title)
 
         return redirect(url_for('index'))
 
@@ -208,7 +216,7 @@ def create_app():
     def complete_item(id):
         app.logger.info('Processing default request')
         print(id)
-        updateCardToDone(id)
+        # updateCardToDone(id)
 
         return redirect(url_for('index'))
 
@@ -224,7 +232,7 @@ def create_app():
     def return_item(n):
         app.logger.info('Processing default request')
         print(n)
-        returnCardToDo(n)
+        # returnCardToDo(n)
         return redirect(url_for('index'))
 
     @app.route('/update_back', methods=['POST'])
