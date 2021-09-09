@@ -191,6 +191,7 @@ def create_app():
         my_items = []
         doing_objects = []
         done_objects = []
+
         for todo in trello_collection.find():
             my_items.append(ToDo.from_mongo_db_entry(todo))
         for doing in trello_collection.find():
