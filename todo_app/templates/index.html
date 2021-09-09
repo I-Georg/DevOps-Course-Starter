@@ -46,9 +46,9 @@
 		<br>
 		<h3><b> Doing </b></h3>
 		<table>
-			<tr>{%for y in doing_objects.name : %}</tr><br>
+			<tr>{%for y in doing_objects : %}</tr><br>
 			<tr>
-				{{y }}
+				{{y.name }}
 			</tr>
 			{% endfor %}
 			</tr>
@@ -57,7 +57,7 @@
 		<h3><b>Done</b><br></h3>
 		{%for z in done_objects.name : %}
 		<div>
-			{{z }}
+			{{z.name }}
 		</div>
 		{% endfor %}
 
