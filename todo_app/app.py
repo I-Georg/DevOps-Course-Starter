@@ -73,6 +73,18 @@ def create_app():
             post, {"$set": {"idBoard": "6005828032dafa5707bf5dc7",
                             "last_modified": date_now}}
         )
+
+    def return_todo(id):
+        client = pymongo.MongoClient(
+            "mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
+        database = client["01"]
+        post = {"_id": ObjectId(id)}
+        trello_collection = database["trello_collection"]
+        date_now = datetime.now()
+        result = trello_collection.update_one(
+            post, {"$set": {"idBoard": "6005828032dafa5707bf5dc3",
+                            "last_modified": date_now}}
+        )
 #
    # def getItems(idList):
    #     url = f"https://api.trello.com/1/lists/{idList}/cards"
@@ -214,9 +226,10 @@ def create_app():
 
     @app.route('/complete_item', methods=['PUT'])
     def complete_item(id):
-        app.logger.info('Processing default request')
+
         print(id)
         # updateCardToDone(id)
+        # return_item(id)
 
         return redirect(url_for('index'))
 
@@ -225,7 +238,7 @@ def create_app():
         app.logger.info('Processing default request')
         id = request.form.get('id')
         print(id)
-        update_item(id)
+        return_item(id)
         return complete_item(id)
 
     @app.route('/return_item', methods=['PUT'])
@@ -233,11 +246,12 @@ def create_app():
         app.logger.info('Processing default request')
         print(n)
         # returnCardToDo(n)
+        return_todo(n)
         return redirect(url_for('index'))
 
     @app.route('/update_back', methods=['POST'])
     def update_back():
-        app.logger.info('Processing default request')
+
         n = request.form.get('n')
         print(n)
         return return_item(n)
