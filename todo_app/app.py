@@ -70,7 +70,7 @@ def create_app():
         trello_collection = database["trello_collection"]
         date_now = datetime.now()
         result = trello_collection.update_one(
-            post, {"$set": {"idBoard": "6005828032dafa5707bf5dc5",
+            post, {"$set": {"idBoard": "6005828032dafa5707bf5dc7",
                             "last_modified": date_now}}
         )
 #
@@ -155,9 +155,9 @@ def create_app():
         todo = trello_collection.find(
             {'idBoard': '6005828032dafa5707bf5dc3'}, {"name": 1})
         doing = trello_collection.find(
-            {'idBoard': '6005828032dafa5707bf5dc5'}, {"name": 1})
-        done = trello_collection.find(
             {'idBoard': '6005828032dafa5707bf5dc7'}, {"name": 1})
+        done = trello_collection.find(
+            {'idBoard': '6005828032dafa5707bf5dc5'}, {"name": 1})
 
         #idList = toDoId
         #responseTodo = getItems(idList)
@@ -192,11 +192,11 @@ def create_app():
         doing_objects = []
         done_objects = []
 
-        for todo in trello_collection.find():
+        for todo in trello_collection.find({'idBoard': '6005828032dafa5707bf5dc3'}):
             my_items.append(ToDo.from_mongo_db_entry(todo))
-        for doing in trello_collection.find():
+        for doing in trello_collection.find({'idBoard': '6005828032dafa5707bf5dc7'}):
             doing_objects.append(ToDo.from_mongo_db_entry(doing))
-        for done in trello_collection.find():
+        for done in trello_collection.find({'idBoard': '6005828032dafa5707bf5dc5'}):
             done_objects.append(ToDo.from_mongo_db_entry(done))
         #todo_item = ToDo.from_mongo_db_entry(todo)
         # view_model.show_all_done_items()
