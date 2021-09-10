@@ -32,11 +32,11 @@ def create_app():
             print(x)
             x
         doing = trello_collection.find(
-            {'idBoard': '6005828032dafa5707bf5dc5'}, {"name": 1})
+            {'idBoard': '6005828032dafa5707bf5dc7'}, {"name": 1})
         for x in todo:
             print(x)
         done = trello_collection.find(
-            {'idBoard': '6005828032dafa5707bf5dc7'}, {"name": 1})
+            {'idBoard': '6005828032dafa5707bf5dc5'}, {"name": 1})
         for x in doing:
             print(x)
         #post= {"id": "6005828032dafa5707bf5dc5", "name": "","id": "6005828032dafa5707bf5dc6","name": "DOING ", "idBoard": "6005828032dafa5707bf5dc3","id": "6005828032dafa5707bf5dc7", "name": "DONE!"}
@@ -70,7 +70,7 @@ def create_app():
         trello_collection = database["trello_collection"]
         date_now = datetime.now()
         result = trello_collection.update_one(
-            post, {"$set": {"idBoard": "6005828032dafa5707bf5dc7",
+            post, {"$set": {"idBoard": "6005828032dafa5707bf5dc5",
                             "last_modified": date_now}}
         )
 
@@ -85,6 +85,18 @@ def create_app():
             post, {"$set": {"idBoard": "6005828032dafa5707bf5dc3",
                             "last_modified": date_now}}
         )
+
+    def show_done():
+        client = pymongo.MongoClient(
+            "mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
+        database = client["01"]
+        trello_collection = database["trello_collection"]
+        date_now = datetime.now()
+        result = trello_collection.find(
+            {"idBoard": "6005828032dafa5707bf5dc5",
+             "last_modified": date_now}
+        )
+        print(result.next)
 #
    # def getItems(idList):
    #     url = f"https://api.trello.com/1/lists/{idList}/cards"
@@ -160,6 +172,7 @@ def create_app():
     @app.route('/')
     def index():
         connectDb()
+        show_done()
         client = pymongo.MongoClient(
             "mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
@@ -230,7 +243,7 @@ def create_app():
         print(id)
         # updateCardToDone(id)
         # return_item(id)
-
+        update_item(id)
         return redirect(url_for('index'))
 
     @app.route('/update', methods=['POST'])
@@ -238,7 +251,9 @@ def create_app():
         app.logger.info('Processing default request')
         id = request.form.get('id')
         print(id)
-        return_item(id)
+        # return_item(id)
+        update_item(id)
+
         return complete_item(id)
 
     @app.route('/return_item', methods=['PUT'])
