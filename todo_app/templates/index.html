@@ -55,6 +55,10 @@
 		</table>
 		<br>
 		<h3><b>Done</b><br></h3>
+		
+		{% if view_model.show_all_done_items(): %}
+		{ {
+
 		{%for z in done_objects : %}
 		<div>
 			{{z.name }}
@@ -64,6 +68,26 @@
 			</form>
 		</div>
 		{% endfor %}
+		}}
+		{% else %}
+		<details>
+			{{view_model.recent_done_items()}}
+			<summary> {%for z in done_objects : %}
+				<div>
+					{{z.name }}
+					<form action="/update_back" method="post">
+						<input type="hidden" name="n" { background-color: blue;} value="{{z.id}}">
+						<input type="submit" value="Return to To do!">
+					</form>
+				</div>
+				{% endfor %}
+			</summary>
+
+
+		</details>
+
+		{% endif %}
+		</div>
 
 
 

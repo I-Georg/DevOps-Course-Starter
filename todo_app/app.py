@@ -55,7 +55,8 @@ def create_app():
         client = pymongo.MongoClient(
             "mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
-        date_now = datetime.now()
+        date_now = datetime.now().strftime('%Y-%m-%d')
+
         post = {"name": name, "idBoard": "6005828032dafa5707bf5dc3",
                 "last_modified": date_now}
 
@@ -68,7 +69,7 @@ def create_app():
         database = client["01"]
         post = {"_id": ObjectId(id)}
         trello_collection = database["trello_collection"]
-        date_now = datetime.now()
+        date_now = datetime.now().strftime('%Y-%m-%d')
         result = trello_collection.update_one(
             post, {"$set": {"idBoard": "6005828032dafa5707bf5dc5",
                             "last_modified": date_now}}
@@ -80,7 +81,7 @@ def create_app():
         database = client["01"]
         post = {"_id": ObjectId(id)}
         trello_collection = database["trello_collection"]
-        date_now = datetime.now()
+        date_now = datetime.now().strftime('%Y-%m-%d')
         result = trello_collection.update_one(
             post, {"$set": {"idBoard": "6005828032dafa5707bf5dc3",
                             "last_modified": date_now}}
@@ -91,12 +92,12 @@ def create_app():
             "mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
         trello_collection = database["trello_collection"]
-        date_now = datetime.now()
+        date_now = datetime.now().strftime('%Y-%m-%d')
         result = trello_collection.find(
             {"idBoard": "6005828032dafa5707bf5dc5",
              "last_modified": date_now}
         )
-        print(result.next)
+
 #
    # def getItems(idList):
    #     url = f"https://api.trello.com/1/lists/{idList}/cards"
@@ -223,10 +224,11 @@ def create_app():
             doing_objects.append(ToDo.from_mongo_db_entry(doing))
         for done in trello_collection.find({'idBoard': '6005828032dafa5707bf5dc5'}):
             done_objects.append(ToDo.from_mongo_db_entry(done))
+        view_model = ViewModel(my_items, doing_objects, done_objects)
         #todo_item = ToDo.from_mongo_db_entry(todo)
-        # view_model.show_all_done_items()
+        view_model.show_all_done_items()
 
-        return render_template("index.html", my_items=my_items, doing_objects=doing_objects, done_objects=done_objects)
+        return render_template("index.html", my_items=my_items, doing_objects=doing_objects, done_objects=done_objects, view_model=view_model)
 
     @app.route('/create', methods=['POST'])
     def create():
