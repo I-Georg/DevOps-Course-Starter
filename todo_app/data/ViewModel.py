@@ -50,7 +50,7 @@ class ViewModel:
              "last_modified": date_now}
         )
 
-        return [result if datetime.strptime(result, "%Y-%m-%dT%H:%M:%S.%fZ").date() == now.date() else result]
+        return [item for item in self.donelist if datetime.strptime(item.last_modified, '%Y-%m-%d').date() == now.date()]
 
     def older_done_items(self):
 
@@ -65,4 +65,4 @@ class ViewModel:
         result = trello_collection.find(
             {"idBoard": "6005828032dafa5707bf5dc5", "last_modified": date_now})
 
-        return [result if datetime.strptime(result, "%Y-%m-%dT%H:%M:%S.%fZ").date() != now.date() else result]
+        return [item for item in self.donelist if datetime.strptime(item.last_modified, "%Y-%m-%d").date() != now.date()]

@@ -98,78 +98,6 @@ def create_app():
              "last_modified": date_now}
         )
 
-#
-   # def getItems(idList):
-   #     url = f"https://api.trello.com/1/lists/{idList}/cards"
-   #     headers = {
-   #         "Accept": "application/json"
-   #     }
-   #     query = {
-   #         'id': idList,
-   #         'key': os.environ['KEY'],
-   #         'token': os.environ['TOKEN'],
-   #         'fields': 'all'
-   #     }
-   #     response = requests.get(
-#
-   #         url,
-   #         headers=headers,
-   #         params=query
-   #     )
-#
-   #     return response
-#
-   # def newToDoCard(name):
-   #     url = "https://api.trello.com/1/cards"
-   #     query = {
-   #         'key': os.environ['KEY'],
-   #         'token': os.environ['TOKEN'],
-   #         'idList': toDoId,
-   #         'name': name
-   #     }
-   #     response = requests.request(
-   #         "POST",
-   #         url,
-   #         params=query
-   #     )
-#
-   # def updateCardToDone(i):
-   #     url = f"https://api.trello.com/1/cards/{i}"
-   #     headers = {
-   #         "Accept": "application/json"
-   #     }
-   #     query = {
-   #         'id': i,
-   #         'key': os.environ['KEY'],
-   #         'token': os.environ['TOKEN'],
-   #         'idList': doneId,
-   #     }
-   #     response = requests.request(
-   #         "PUT",
-   #         url,
-   #         headers=headers,
-   #         params=query
-   #     )
-#
-   # def returnCardToDo(i):
-   #     url = f"https://api.trello.com/1/cards/{i}"
-   #     headers = {
-   #         "Accept": "application/json"
-   #     }
-   #     query = {
-   #         'id': i,
-   #         'key': os.environ['KEY'],
-   #         'token': os.environ['TOKEN'],
-   #         'idList': toDoId,
-   #     }
-   #     response = requests.request(
-   #         "PUT",
-   #         url,
-   #         headers=headers,
-   #         params=query
-   #     )
-#
-
     @app.route('/')
     def index():
         connectDb()
@@ -185,35 +113,6 @@ def create_app():
         done = trello_collection.find(
             {'idBoard': '6005828032dafa5707bf5dc5'}, {"name": 1})
 
-        #idList = toDoId
-        #responseTodo = getItems(idList)
-        #jsonResponse = responseTodo.json()
-        #idListDoing = doingId
-        #responseDoing = getItems(idListDoing)
-        #jsonResponseDoing = responseDoing.json()
-        #idListDone = doneId
-        #responseDone = getItems(idListDone)
-        #jsonResponseDone = responseDone.json()
-        #number = len(jsonResponse)
-        #number = len(jsonResponse)
-        #numberTwo = len(jsonResponseDoing)
-        #numberThree = len(jsonResponseDone)
-#
-        #my_objects = []
-        #doing_objects = []
-        #done_objects = []
-#
-        # for listNumber in range(len(jsonResponse)):
-        #    my_objects.append(ToDo(jsonResponse[listNumber]['id'], jsonResponse[listNumber]
-        #                      ['name'], jsonResponse[listNumber]['dateLastActivity']))
-        # for listNumberDoing in range(len(jsonResponseDoing)):
-        #    doing_objects.append(ToDo(jsonResponseDoing[listNumberDoing]['id'], jsonResponseDoing[listNumberDoing]
-        #                         ['name'], jsonResponseDoing[listNumberDoing]['dateLastActivity']))
-        # for listNumberDone in range(len(jsonResponseDone)):
-        #    done_objects.append(ToDo(jsonResponseDone[listNumberDone]['id'], jsonResponseDone[listNumberDone]
-        #                        ['name'], jsonResponseDone[listNumberDone]['dateLastActivity']))
-        #view_model = ViewModel(my_objects, doing_objects, done_objects)
-        ##view_model1 = ViewModel(todo,doing,done)
         my_items = []
         doing_objects = []
         done_objects = []
@@ -243,8 +142,7 @@ def create_app():
     def complete_item(id):
 
         print(id)
-        # updateCardToDone(id)
-        # return_item(id)
+
         update_item(id)
         return redirect(url_for('index'))
 
@@ -253,7 +151,7 @@ def create_app():
         app.logger.info('Processing default request')
         id = request.form.get('id')
         print(id)
-        # return_item(id)
+
         update_item(id)
 
         return complete_item(id)
@@ -262,7 +160,7 @@ def create_app():
     def return_item(n):
         app.logger.info('Processing default request')
         print(n)
-        # returnCardToDo(n)
+
         return_todo(n)
         return redirect(url_for('index'))
 
