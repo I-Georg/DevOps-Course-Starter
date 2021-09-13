@@ -55,9 +55,9 @@
 		</table>
 		<br>
 		<h3><b>Done</b><br></h3>
-		
+
 		{% if view_model.show_all_done_items(): %}
-		{ {
+
 
 		{%for z in done_objects : %}
 		<div>
@@ -68,7 +68,7 @@
 			</form>
 		</div>
 		{% endfor %}
-		}}
+
 		{% else %}
 		<details>
 			{{view_model.recent_done_items()}}

@@ -50,7 +50,7 @@ class ViewModel:
              "last_modified": date_now}
         )
 
-        return [result for item in self.donelist if datetime.strptime(item.dateLastActivity, "%Y-%m-%dT%H:%M:%S.%fZ").date() == now.date()]
+        return [result if datetime.strptime(result, "%Y-%m-%dT%H:%M:%S.%fZ").date() == now.date() else result]
 
     def older_done_items(self):
 
