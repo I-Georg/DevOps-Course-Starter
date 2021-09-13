@@ -71,7 +71,7 @@
 
 		{% else %}
 		<details>
-			{{view_model.recent_done_items()}}
+
 			<summary> {%for z in done_objects : %}
 				<div>
 					{{z.name }}
@@ -82,7 +82,7 @@
 				</div>
 				{% endfor %}
 			</summary>
-
+			{{view_model.recent_done_items()}}
 
 		</details>
 
