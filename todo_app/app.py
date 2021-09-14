@@ -19,7 +19,7 @@ def create_app():
     toDoId = os.environ['TOID']
     doingId = os.environ['DOINGID']
     doneId = os.environ['DONE']
-    dbconnect = os.environ['client']
+    dbconnect = os.environ['CLIENT']
 
     def connectDb():
         client = pymongo.MongoClient(dbconnect)
