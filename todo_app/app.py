@@ -22,7 +22,8 @@ def create_app():
     dbconnect = os.environ['CLIENT']
 
     def connectDb():
-        client = pymongo.MongoClient(dbconnect)
+        client = pymongo.MongoClient(
+            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
         print(client.list_database_names())
         database = client["01"]
         trello_collection = database["trello_collection"]
@@ -41,7 +42,8 @@ def create_app():
             print(x)
 
     def create_items(name):
-        client = pymongo.MongoClient(dbconnect)
+        client = pymongo.MongoClient(
+            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
         date_now = datetime.now().strftime('%Y-%m-%d')
 
@@ -52,7 +54,8 @@ def create_app():
         result = trello_collection.insert_one(post)
 
     def update_item(id):
-        client = pymongo.MongoClient(dbconnect)
+        client = pymongo.MongoClient(
+            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
         post = {"_id": ObjectId(id)}
         trello_collection = database["trello_collection"]
@@ -63,7 +66,8 @@ def create_app():
         )
 
     def return_todo(id):
-        client = pymongo.MongoClient(dbconnect)
+        client = pymongo.MongoClient(
+            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
         post = {"_id": ObjectId(id)}
         trello_collection = database["trello_collection"]
@@ -88,7 +92,8 @@ def create_app():
     def index():
         connectDb()
         # show_done()
-        client = pymongo.MongoClient(dbconnect)
+        client = pymongo.MongoClient(
+            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
         trello_collection = database["trello_collection"]
         todo = trello_collection.find(
