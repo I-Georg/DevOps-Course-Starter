@@ -11,6 +11,7 @@ import os
 import pymongo
 from bson.objectid import ObjectId
 from datetime import datetime
+from flask import LoginManager
 
 
 def create_app():
@@ -40,6 +41,18 @@ def create_app():
             {'idBoard': '6005828032dafa5707bf5dc5'}, {"name": 1})
         for x in doing:
             print(x)
+
+    login_manager = LoginManager()
+
+    @login_manager.unauthorized_handler
+    def unauthenticated():
+        return redirect(url_for("https://github.com/login/oauth/authorize"))
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return None
+
+    login_manager.init_app(app)
 
     def create_items(name):
         client = pymongo.MongoClient(
