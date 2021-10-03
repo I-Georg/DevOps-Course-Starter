@@ -16,9 +16,6 @@ from datetime import datetime
 def create_app():
     app = Flask(__name__)
 
-    toDoId = os.environ['TOID']
-    doingId = os.environ['DOINGID']
-    doneId = os.environ['DONE']
     dbconnect = os.environ['CLIENT']
 
     def connectDb():
@@ -27,19 +24,7 @@ def create_app():
         print(client.list_database_names())
         database = client["01"]
         trello_collection = database["trello_collection"]
-        todo = trello_collection.find(
-            {'idBoard': '6005828032dafa5707bf5dc3'}, {"name": 1})
-        for x in todo:
-            print(x)
-            x
-        doing = trello_collection.find(
-            {'idBoard': '6005828032dafa5707bf5dc7'}, {"name": 1})
-        for x in todo:
-            print(x)
-        done = trello_collection.find(
-            {'idBoard': '6005828032dafa5707bf5dc5'}, {"name": 1})
-        for x in doing:
-            print(x)
+       
 
     def create_items(name):
         client = pymongo.MongoClient(

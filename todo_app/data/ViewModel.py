@@ -36,12 +36,12 @@ class ViewModel:
             return False
 
     def recent_done_items(self):
-
+        dbconnect = os.environ['CLIENT']
         now = datetime.now()
         date_time = now.strftime("%Y-%m-%d")
-
         client = pymongo.MongoClient(
-            "mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
+            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
+
         database = client["01"]
         trello_collection = database["trello_collection"]
         date_now = datetime.now().strftime('%Y-%m-%d')
