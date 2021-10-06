@@ -8,37 +8,56 @@ import os
 from todo_app.app import create_app
 from dotenv import load_dotenv, find_dotenv
 import time
+import pymongo
 
 
 def create_trello_board():
+    dbconnect = os.environ['CLIENT']
+    client = pymongo.MongoClient(
+        dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
+    print(client.list_database_names())
+    database = client["01"]
+    test_collection = database["test_collection"]
+    # board_response = requests.post(
+    #     f'https://api.trello.com/1/boards/?name=test&key={key}&token={token}')
+    # board_id = board_response.json()["id"]
+    # response = requests.get(
+    #     f'https://api.trello.com/1/boards/{board_id}/lists?key={key}&token={token}')
 
-    key = os.environ['KEY']
-    token = os.environ['TOKEN']
-    board_response = requests.post(
-        f'https://api.trello.com/1/boards/?name=test&key={key}&token={token}')
-    board_id = board_response.json()["id"]
-    response = requests.get(
-        f'https://api.trello.com/1/boards/{board_id}/lists?key={key}&token={token}')
+    # lists = response.json()
 
-    lists = response.json()
+    # for list in lists:
 
-    for list in lists:
+    #     if list['name'] == "TODO":
+    #         os.environ['TOID'] = list['id']
+    #     elif list['name'] == "DOING":
+    #         os.environ['DOINGID'] = list['id']
+    #     elif list['name'] == "DONE":
+    #         os.environ['DONE'] = list['id']
+    post = {"name": "titleTEST1", "idBoard": "6005828032dafa5707bf5dc3",
+            "last_modified": "2021-09-11"}
 
-        if list['name'] == "TODO":
-            os.environ['TOID'] = list['id']
-        elif list['name'] == "DOING":
-            os.environ['DOINGID'] = list['id']
-        elif list['name'] == "DONE":
-            os.environ['DONE'] = list['id']
-    return board_id
+    test_collection = database["trello_collection"]
+    result = test_collection.insert_one(post)
+    todo = test_collection.find(
+        {'idBoard': '6005828032dafa5707bf5dc3'}, {"name": 1})
+    doing = test_collection.find(
+        {'idBoard': '6005828032dafa5707bf5dc7'}, {"name": 1})
+    done = test_collection.find(
+        {'idBoard': '6005828032dafa5707bf5dc5'}, {"name": 1})
+
+    return test_collection
     # return application
 
 
 def delete_trello_board(board_id):
-    key = os.environ['KEY']
-    token = os.environ['TOKEN']
-    board_delete = requests.delete(
-        f'https://api.trello.com/1/boards/{board_id}?key={key}&token={token}')
+    dbconnect = os.environ['CLIENT']
+    client = pymongo.MongoClient(
+        dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
+    print(client.list_database_names())
+    database = client["01"]
+    test_collection = database["test_collection"]
+    test_collection.collection.drop()
 
 
 @pytest.fixture(scope='module')

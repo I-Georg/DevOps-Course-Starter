@@ -24,7 +24,6 @@ def create_app():
         print(client.list_database_names())
         database = client["01"]
         trello_collection = database["trello_collection"]
-       
 
     def create_items(name):
         client = pymongo.MongoClient(
