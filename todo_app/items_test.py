@@ -9,8 +9,6 @@ from todo_app.data.ToDo import ToDo
 
 # test to do list
 
-dbconnect = os.environ['CLIENT']
-
 
 def test_recent_done_items():
 
