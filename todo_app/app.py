@@ -11,7 +11,15 @@ import os
 import pymongo
 from bson.objectid import ObjectId
 from datetime import datetime
-from flask import LoginManager
+from flask_login import LoginManager
+from oauthlib.oauth2 import WebApplicationClient
+from flask_login import login_required
+from urllib import parse
+# import urllib.request
+from flask import request
+from flask_login import UserMixin, login_user
+from todo_app.data.UserClass import User
+import json
 
 
 def create_app():
@@ -21,6 +29,7 @@ def create_app():
     doingId = os.environ['DOINGID']
     doneId = os.environ['DONE']
     dbconnect = os.environ['CLIENT']
+    app.secret_key = os.getenv('SECRET_KEY')
 
     def connectDb():
         client = pymongo.MongoClient(
@@ -46,13 +55,59 @@ def create_app():
 
     @login_manager.unauthorized_handler
     def unauthenticated():
-        return redirect(url_for("https://github.com/login/oauth/authorize"))
+        client = WebApplicationClient('89647e3bf34e5c0f2e50')
+        full_redirect_url = client.prepare_request_uri(
+            'https://github.com/login/oauth/authorize', redirect_uri='http://localhost:5000/callback')
+        # x = request.args.get("code")
+        # print(x)
+        # for resp in request.args.get:
+        #     print(resp.url)
+
+        # print(request.url)
+        # print(request.args.getlist)
+        # redirect_uri = 'http://localhost:5000/callback?code=df0e4d5d057d32a13d4f'
+        # code = client.parse_request_uri_response(full_redirect_url)
+        # code = parse.urlsplit(full_redirect_url)
+        # x = requests.head(full_redirect_url)
+        # code = dict(parse.parse_qsl(parse.urlsplit(full_redirect_url).query))
+        # print("AAAAAA")
+        # print(x.url)
+        # for resp in x.history:
+        #     print(resp.status_code, resp.url)
+        # res = urllib.request.urlopen(
+        #     "https://github.com/login/oauth/authorize")
+        # finalurl = res.geturl()
+        # print(finalurl)
+        # data = requests.request(
+        #     "GET", "http://localhost:5000/callback")
+        # url = data.url
+        # print(url)
+        # url_get = request.host_url
+       # current_url = request.query_string
+
+       # print(current_url)
+        # print(code["redirect_uri"])
+
+        return redirect(full_redirect_url)
 
     @login_manager.user_loader
     def load_user(user_id):
+        client = WebApplicationClient('89647e3bf34e5c0f2e50')
+        code = request.args.get("code")
+        client_secret = '50d6114064c16235db5973535c97b5d6cda6faaf'
+        (url, headers, body) = client.prepare_token_request(
+            'https://github.com/login/oauth/access_token', code=code, client_secret=client_secret)
+        get_token_request = requests.post(url, headers=headers, data=body)
+        parse_body = client.parse_request_body_response(get_token_request.text)
+        (url, headers, body) = client.add_token("https://api.github.com/user")
+        # user = requests.get(url, headers=headers, data=body)
+        # login_user(user, remember=False, duration=None,
+        #            force=False, fresh=True)
         return None
 
     login_manager.init_app(app)
+
+    # def callback_route():
 
     def create_items(name):
         client = pymongo.MongoClient(
@@ -102,6 +157,7 @@ def create_app():
     #    )
 
     @app.route('/')
+    @login_required
     def index():
         connectDb()
         # show_done()
@@ -127,7 +183,7 @@ def create_app():
         for done in trello_collection.find({'idBoard': '6005828032dafa5707bf5dc5'}):
             done_objects.append(ToDo.from_mongo_db_entry(done))
         view_model = ViewModel(my_items, doing_objects, done_objects)
-        #todo_item = ToDo.from_mongo_db_entry(todo)
+        # todo_item = ToDo.from_mongo_db_entry(todo)
         view_model.show_all_done_items()
 
         return render_template("index.html", my_items=my_items, doing_objects=doing_objects, done_objects=done_objects, view_model=view_model)
@@ -173,6 +229,30 @@ def create_app():
         n = request.form.get('n')
         print(n)
         return return_item(n)
+
+    @app.route('/callback')
+    def login_callback():
+        print(request.args.get("code"))
+        client = WebApplicationClient('89647e3bf34e5c0f2e50')
+        code = request.args.get("code")
+        client_secret = '50d6114064c16235db5973535c97b5d6cda6faaf'
+        (url, headers, body) = client.prepare_token_request(
+            'https://github.com/login/oauth/access_token', code=code, client_secret=client_secret)
+        get_token_request = requests.post(url, headers=headers, data=body)
+        parse_body = client.parse_request_body_response(get_token_request.text)
+        (url, headers, body) = client.add_token("https://api.github.com/user")
+
+        x = requests.get(url, headers=headers, data=body).text
+        print(x)
+        json_data = json.loads(x)
+        id = json_data["id"]
+        print(id)
+        user = User(id)
+        print(user)
+        login_user(user, remember=False, duration=None,
+                   force=False, fresh=True)
+
+        return redirect(url_for('index'))
 
     if __name__ == '__main__':
 
