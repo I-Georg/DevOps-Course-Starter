@@ -17,7 +17,7 @@ from flask_login import login_required
 from urllib import parse
 # import urllib.request
 from flask import request
-from flask_login import UserMixin, login_user
+from flask_login import UserMixin, login_user, current_user
 from todo_app.data.UserClass import User
 import json
 
@@ -92,18 +92,19 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
-        client = WebApplicationClient('89647e3bf34e5c0f2e50')
-        code = request.args.get("code")
-        client_secret = '50d6114064c16235db5973535c97b5d6cda6faaf'
-        (url, headers, body) = client.prepare_token_request(
-            'https://github.com/login/oauth/access_token', code=code, client_secret=client_secret)
-        get_token_request = requests.post(url, headers=headers, data=body)
-        parse_body = client.parse_request_body_response(get_token_request.text)
-        (url, headers, body) = client.add_token("https://api.github.com/user")
+        # client = WebApplicationClient('89647e3bf34e5c0f2e50')
+        # code = request.args.get("code")
+        # client_secret = '50d6114064c16235db5973535c97b5d6cda6faaf'
+        # (url, headers, body) = client.prepare_token_request(
+        #     'https://github.com/login/oauth/access_token', code=code, client_secret=client_secret)
+        # get_token_request = requests.post(url, headers=headers, data=body)
+        # parse_body = client.parse_request_body_response(get_token_request.text)
+        # (url, headers, body) = client.add_token("https://api.github.com/user")
         # user = requests.get(url, headers=headers, data=body)
         # login_user(user, remember=False, duration=None,
         #            force=False, fresh=True)
-        return None
+        user_id = User(id, role="reader")
+        return user_id
 
     login_manager.init_app(app)
 
@@ -185,11 +186,14 @@ def create_app():
         view_model = ViewModel(my_items, doing_objects, done_objects)
         # todo_item = ToDo.from_mongo_db_entry(todo)
         view_model.show_all_done_items()
+        user = current_user.role
 
-        return render_template("index.html", my_items=my_items, doing_objects=doing_objects, done_objects=done_objects, view_model=view_model)
+        return render_template("index.html", my_items=my_items, doing_objects=doing_objects, done_objects=done_objects, view_model=view_model, current_user=current_user)
 
     @app.route('/create', methods=['POST'])
+    @login_required
     def create():
+        print(current_user.id)
         title = request.form.get('title')
 
         create_items(title)
@@ -232,7 +236,6 @@ def create_app():
 
     @app.route('/callback')
     def login_callback():
-        print(request.args.get("code"))
         client = WebApplicationClient('89647e3bf34e5c0f2e50')
         code = request.args.get("code")
         client_secret = '50d6114064c16235db5973535c97b5d6cda6faaf'
@@ -242,15 +245,18 @@ def create_app():
         parse_body = client.parse_request_body_response(get_token_request.text)
         (url, headers, body) = client.add_token("https://api.github.com/user")
 
-        x = requests.get(url, headers=headers, data=body).text
-        print(x)
-        json_data = json.loads(x)
+        request_text = requests.get(url, headers=headers, data=body).text
+
+        json_data = json.loads(request_text)
         id = json_data["id"]
-        print(id)
-        user = User(id)
-        print(user)
+        if id == "I-Georg":
+            role = "writer"
+        else:
+            role = "reader"
+        user = User(id, role)
         login_user(user, remember=False, duration=None,
                    force=False, fresh=True)
+        # load_user(user)
 
         return redirect(url_for('index'))
 
