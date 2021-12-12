@@ -34,11 +34,14 @@ def create_app():
     todoBoard = os.environ['TODOBOARD']
     doingBoard = os.environ['DOINGBOARD']
     doneBoard = os.environ['DONEBOARD']
+    connectString=os.environ['CONNECTIONSTRING']
     app.secret_key = os.getenv('SECRET_KEY')
 
     def connectDb():
+        # client = pymongo.MongoClient(
+        #     dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
         client = pymongo.MongoClient(
-            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
+             connectString, ssl=True, ssl_cert_reqs='CERT_NONE')
         # print(client.list_database_names())
         database = client["01"]
         trello_collection = database["trello_collection"]
@@ -95,7 +98,9 @@ def create_app():
 
     def update_item(id):
         client = pymongo.MongoClient(
-            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
+           connectString, ssl=True, ssl_cert_reqs='CERT_NONE')
+        # client = pymongo.MongoClient(
+        #     dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
         post = {"_id": ObjectId(id)}
         trello_collection = database["trello_collection"]
@@ -107,7 +112,9 @@ def create_app():
 
     def return_todo(id):
         client = pymongo.MongoClient(
-            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
+            connectString, ssl=True, ssl_cert_reqs='CERT_NONE')
+        # client = pymongo.MongoClient(
+        #     dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
         post = {"_id": ObjectId(id)}
         trello_collection = database["trello_collection"]
@@ -121,8 +128,10 @@ def create_app():
     @login_required
     def index():
         connectDb()
+        # client = pymongo.MongoClient(
+        #     dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
         client = pymongo.MongoClient(
-            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
+            connectString, ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
         trello_collection = database["trello_collection"]
         todo = trello_collection.find(
