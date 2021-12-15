@@ -68,13 +68,13 @@ def create_app():
         return redirect(full_redirect_url)
 
     @login_manager.user_loader
-    def load_user(id):
+    def load_user(user_id):
 
-        if id == githubId:
+        if user_id == githubId:
             role = "writer"
         else:
             role = "reader"
-        id = User(id, role)
+        id = User(user_id, role)
         print(role)
 
         return id
@@ -153,8 +153,11 @@ def create_app():
     @login_required
     def create():
         print(current_user.id)
-        title = request.form.get('title')
-        create_items(title)
+        if current_user.role == "writer":
+            title = request.form.get('title')
+            create_items(title)
+        else:
+            print('User does not have writer role.')
 
         return redirect(url_for('index'))
 
@@ -211,8 +214,7 @@ def create_app():
         else:
             role = "reader"
         user = User(id, role)
-        login_user(user, remember=False, duration=None,
-                   force=False, fresh=True)
+        login_user(user)
 
         return redirect(url_for('index'))
 

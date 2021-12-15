@@ -44,6 +44,8 @@
 					<input type="text" name="title" id="title" value="title" required>
 					<input type="submit" id="create" value="Create">
 				</form>
+				{% else %}
+				<p>If you want to create a new status, you need to be registered</p>
 				{% endif %}
 		</table>
 		<br>
