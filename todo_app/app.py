@@ -35,7 +35,7 @@ def create_app():
     doneBoard = os.environ['DONEBOARD']
     connectString = os.environ['CONNECTIONSTRING']
     app.secret_key = os.getenv('SECRET_KEY')
-    app.config.LOGIN_DISABLED = os.getenv('LOGIN_DISABLED') == 'True'
+    app.config['LOGIN_DISABLED'] = os.getenv('LOGIN_DISABLED') == 'True'
 
     def connectDb():
 
