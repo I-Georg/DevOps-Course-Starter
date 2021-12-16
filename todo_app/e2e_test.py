@@ -10,6 +10,9 @@ from dotenv import load_dotenv, find_dotenv
 import time
 
 
+os.environ['LOGIN_DISABLED'] = 'True'
+
+
 @pytest.fixture(scope='module')
 def app_with_temp_board():
     # Create the new board & update the board id environment variable
