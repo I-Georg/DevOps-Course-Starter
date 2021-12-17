@@ -33,7 +33,7 @@ def client():
 @patch('requests.get')
 def test_index_page(mock_get_requests, client):
     # Replace call to requests.get(url) with our own function
-    mock_get_requests.side_effect = mock_get_lists
+    #mock_get_requests.side_effect = mock_get_lists
     url = f'/'
     response = client.get(url)
     assert response.status_code == 200
