@@ -59,6 +59,7 @@ def create_app():
             print(x)
 
     login_manager = LoginManager()
+    login_manager.anonymous_user.role = 'writer'
 
     @login_manager.unauthorized_handler
     def unauthenticated():
