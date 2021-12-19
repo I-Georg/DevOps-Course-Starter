@@ -36,33 +36,9 @@ class ViewModel:
             return False
 
     def recent_done_items(self):
-        dbconnect = os.environ['CLIENT']
         now = datetime.now()
-        date_time = now.strftime("%Y-%m-%d")
-        client = pymongo.MongoClient(
-            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
-
-        database = client["01"]
-        trello_collection = database["trello_collection"]
-        date_now = datetime.now().strftime('%Y-%m-%d')
-        result = trello_collection.find(
-            {"idBoard": "6005828032dafa5707bf5dc5",
-             "last_modified": date_now}
-        )
-
         return [item for item in self.donelist if datetime.strptime(item.last_modified, '%Y-%m-%d').date() == now.date()]
 
     def older_done_items(self):
-
         now = datetime.now()
-        date_time = now.strftime("%Y-%m-%d")
-
-        client = pymongo.MongoClient(
-            "mongodb+srv://admin:MongoAdmin1@cluster0.qtpde.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
-        database = client["01"]
-        trello_collection = database["trello_collection"]
-        date_now = datetime.now().strftime('%Y-%m-%d')
-        result = trello_collection.find(
-            {"idBoard": "6005828032dafa5707bf5dc5", "last_modified": date_now})
-
         return [item for item in self.donelist if datetime.strptime(item.last_modified, "%Y-%m-%d").date() != now.date()]

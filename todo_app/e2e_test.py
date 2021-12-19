@@ -18,22 +18,6 @@ def create_trello_board():
     print(client.list_database_names())
     database = client["01"]
     test_collection = database["test_collection"]
-    # board_response = requests.post(
-    #     f'https://api.trello.com/1/boards/?name=test&key={key}&token={token}')
-    # board_id = board_response.json()["id"]
-    # response = requests.get(
-    #     f'https://api.trello.com/1/boards/{board_id}/lists?key={key}&token={token}')
-
-    # lists = response.json()
-
-    # for list in lists:
-
-    #     if list['name'] == "TODO":
-    #         os.environ['TOID'] = list['id']
-    #     elif list['name'] == "DOING":
-    #         os.environ['DOINGID'] = list['id']
-    #     elif list['name'] == "DONE":
-    #         os.environ['DONE'] = list['id']
     post = {"name": "titleTEST1", "idBoard": "6005828032dafa5707bf5dc3",
             "last_modified": "2021-09-11"}
 
