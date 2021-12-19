@@ -4,63 +4,41 @@ import requests
 from todo_app.data.ToDo import ToDo
 import datetime
 from datetime import datetime
-
+import pymongo
 
 
 class ViewModel:
-  def __init__(self, todolist, doinglist, donelist):
-    
-    self._todolist = todolist
-    self._doinglist = doinglist
-    self._donelist = donelist    
-  
-  @property
-  def todolist(self):
-     return self._todolist
-     
-  @property
-  def doinglist(self):
-     return self._doinglist
-  
-  @property
-  def donelist(self):
-     return self._donelist
- 
+    def __init__(self, todolist, doinglist, donelist):
 
-  
+        self._todolist = todolist
+        self._doinglist = doinglist
+        self._donelist = donelist
 
-  def show_all_done_items(self):
-    today = date.today()
-    
-    number = len(self.donelist)
-    if number < 5:
-      return True
-    else: 
-      return False
-   
+    @property
+    def todolist(self):
+        return self._todolist
 
-  def recent_done_items(self):
-    
-    now = datetime.now()
-    date_time = now.strftime("%Y-%m-%d")
-    
-    
-    
-    return [item for item in self.donelist if datetime.strptime(item.dateLastActivity,"%Y-%m-%dT%H:%M:%S.%fZ").date() == now.date() ]
-    
-    
+    @property
+    def doinglist(self):
+        return self._doinglist
 
-  def older_done_items(self):
-   
-    now = datetime.now()
-    date_time = now.strftime("%Y-%m-%d")
-	  
-    
-    
-    return [item for item in self.donelist if datetime.strptime(item.dateLastActivity,"%Y-%m-%dT%H:%M:%S.%fZ").date() != now.date() ]
-    
-  
+    @property
+    def donelist(self):
+        return self._donelist
 
+    def show_all_done_items(self):
+        today = date.today()
 
-  
+        number = len(self.donelist)
+        if number < 5:
+            return True
+        else:
+            return False
 
+    def recent_done_items(self):
+        now = datetime.now()
+        return [item for item in self.donelist if datetime.strptime(item.last_modified, '%Y-%m-%d').date() == now.date()]
+
+    def older_done_items(self):
+        now = datetime.now()
+        return [item for item in self.donelist if datetime.strptime(item.last_modified, "%Y-%m-%d").date() != now.date()]
