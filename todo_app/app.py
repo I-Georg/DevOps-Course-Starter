@@ -24,9 +24,6 @@ import json
 def create_app():
     app = Flask(__name__)
 
-    toDoId = os.environ['TOID']
-    doingId = os.environ['DOINGID']
-    doneId = os.environ['DONE']
     dbconnect = os.environ['CLIENT']
     githubId = os.environ['GITHUBID']
     webClient = os.environ['WEBAPPLICATIONCLIENT']
