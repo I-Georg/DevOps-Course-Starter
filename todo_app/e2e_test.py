@@ -9,6 +9,8 @@ from todo_app.app import create_app
 from dotenv import load_dotenv, find_dotenv
 import time
 
+os.environ['LOGIN_DISABLED'] = 'True'
+
 
 @pytest.fixture(scope='module')
 def app_with_temp_board():
