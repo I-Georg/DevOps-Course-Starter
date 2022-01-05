@@ -32,6 +32,7 @@ def create_app():
     doingBoard = os.environ['DOINGBOARD']
     doneBoard = os.environ['DONEBOARD']
     app.secret_key = os.getenv('SECRET_KEY')
+    app.config['LOGIN_DISABLED'] = os.getenv('LOGIN_DISABLED') == 'True'
 
     def connectDb():
         client = pymongo.MongoClient(
@@ -154,7 +155,7 @@ def create_app():
     @login_required
     def create():
         print(current_user.id)
-        if current_user.role == "writer":
+        if app.config.get('LOGIN_DISABLED') or current_user.role == "writer":
             title = request.form.get('title')
             create_items(title)
         else:

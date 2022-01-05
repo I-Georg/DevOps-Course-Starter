@@ -11,6 +11,9 @@ import time
 import pymongo
 
 
+os.environ['LOGIN_DISABLED'] = 'True'
+
+
 def create_trello_board():
     dbconnect = os.environ['CLIENT']
     client = pymongo.MongoClient(
