@@ -154,7 +154,6 @@ def create_app():
     @app.route('/create', methods=['POST'])
     @login_required
     def create():
-        print(current_user.id)
         if app.config.get('LOGIN_DISABLED') or current_user.role == "writer":
             title = request.form.get('title')
             create_items(title)
