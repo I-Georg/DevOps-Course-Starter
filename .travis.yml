@@ -6,20 +6,21 @@ script:
 - docker run my-test-image todo_app/items_test.py    
 - docker run -e TOKEN -e KEY -e TOID -e DOINGID -e DONE -e CLIENT -e GITHUBID -e WEBAPPLICATIONCLIENT -e CLIENTSECRET -e TODOBOARD -e DOINGBOARD -e DONEBOARD -e CONNECTIONSTRING my-test-image  todo_app/e2e_test.py 
 - docker build --target production --tag my-production-image .
-- bash webhook.sh
+
 
 before_deploy:
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker build --target production --tag $DOCKER_USERNAME/my-production-image:${TRAVIS_COMMIT::8} .
+- docker build --target production --tag $DOCKER_USERNAME/my-production-image:latest .
 - docker push $DOCKER_USERNAME/my-production-image:latest
 - docker login --username="$DOCKER_USERNAME" --password=$(heroku auth:token) registry.heroku.com
 - docker pull $DOCKER_USERNAME/my-production-image:latest
 - docker tag  $DOCKER_USERNAME/my-production-image:latest registry.heroku.com/trello-to-do/web
-- docker push registry.heroku.com/trello-to-do/web
+# - docker push registry.heroku.com/trello-to-do/web
 
 deploy:
   provider: script
-  script: heroku container:release web --app trello-to-do
+  # script: heroku container:release web --app trello-to-do
+  - bash webhook.sh
   on:
     branch: module11
 
