@@ -51,6 +51,14 @@ COPY . /todo_app
 WORKDIR /todo_app
 
 # install geckodriver and firefox
+RUN apt-get update -y \
+    && apt-get install --no-install-recommends --no-install-suggests -y tzdata ca-certificates bzip2 curl wget libc-dev libxt6 \
+    && apt-get install --no-install-recommends --no-install-suggests -y `apt-cache depends firefox-esr | awk '/Depends:/{print$2}'` \
+    && update-ca-certificates \
+    # Cleanup unnecessary stuff
+    && apt-get purge -y --auto-remove \
+                  -o APT::AutoRemove::RecommendsImportant=false \
+    && rm -rf /var/lib/apt/lists/* /tmp/*
 
 # install geckodriver
 RUN GECKODRIVER_VERSION=`curl https://github.com/mozilla/geckodriver/releases/latest | grep -Po 'v[0-9]+.[0-9]+.[0-9]+'` && \
