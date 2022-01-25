@@ -20,7 +20,6 @@ before_deploy:
 deploy:
   provider: script
   script: 
-  - heroku container:release web --app trello-to-do
   - bash webhook.sh
   on:
     branch: module11
