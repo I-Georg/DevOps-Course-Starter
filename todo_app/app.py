@@ -61,7 +61,7 @@ def create_app():
     def unauthenticated():
         client = WebApplicationClient(webClient)
         full_redirect_url = client.prepare_request_uri(
-            'https://github.com/login/oauth/authorize', redirect_uri='http://localhost:5000/callback')
+            'https://github.com/login/oauth/authorize')
 
         return redirect(full_redirect_url)
 
