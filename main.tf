@@ -1,10 +1,10 @@
 terraform {
-required_providers {
-azurerm = {
-source = "hashicorp/azurerm"
-version = ">= 2.49"
-}
-}
+    required_providers {
+        azurerm = {
+            source = "hashicorp/azurerm"
+            version = "=2.51"
+        }
+    }
 }
 provider "azurerm" {
 features {}
@@ -32,7 +32,7 @@ resource_group_name = data.azurerm_resource_group.main.name
 app_service_plan_id = azurerm_app_service_plan.main.id
 site_config {
 app_command_line = ""
-linux_fx_version = "DOCKER|appsvcsample/pythonhelloworld:latest"
+linux_fx_version = "DOCKER|appsvcsample/python-helloworld:latest"
 }
 app_settings = {
 "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
