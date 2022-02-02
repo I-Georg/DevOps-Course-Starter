@@ -30,19 +30,14 @@ name = "illigeorgieva102"
 location = data.azurerm_resource_group.main.location
 resource_group_name = data.azurerm_resource_group.main.name
 app_service_plan_id = azurerm_app_service_plan.main.id
-MONGODB_CONNECTION_STRING" = "mongodb://$
-{opencohort1_ilinageorgieva_projectexercise}:$
-{azurerm_cosmosdb_account.main.primary_key}@$
-{opencohort1_ilinageorgieva_projectexercise}.mongo.cosmos.azure.
-com:10255/DefaultDatabase?
-ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTi
-meMS=120000
+
 site_config {
 app_command_line = ""
-linux_fx_version = "DOCKER|appsvcsample/python-helloworld:latest"
+linux_fx_version = "DOCKER|ilgeo/my-production-image:latest"
 }
 app_settings = {
 "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
+"CONNECTION_STRING" = "CONNECTION_STRING"
 }
 }
 data "azurerm_cosmosdb_account" "example" {
