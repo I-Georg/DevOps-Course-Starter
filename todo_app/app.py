@@ -23,6 +23,7 @@ import json
 
 def create_app():
     app = Flask(__name__)
+    githubId = os.environ['GITHUBID']
     webClient = os.environ['WEBAPPLICATIONCLIENT']
     clientSecret = os.environ['CLIENTSECRET']
     todoBoard = os.environ['TODOBOARD']
