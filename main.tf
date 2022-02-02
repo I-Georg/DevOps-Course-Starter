@@ -40,45 +40,18 @@ app_settings = {
 "CONNECTION_STRING" = "CONNECTION_STRING"
 }
 }
-data "azurerm_cosmosdb_account" "example" {
+resource "azurerm_cosmosdb_account" "db" {
   name                = "illigeorgieva102"
   resource_group_name = "opencohort1_ilinageorgieva_projectexercise"
-  capabilities { name = "EnableServerless" }
-}
-
-resource "azurerm_cosmosdb_mongo_database" "example" {
-  name                = "illigeorgieva102"
-  resource_group_name = data.azurerm_cosmosdb_account.illigeorgieva102.opencohort1_ilinageorgieva_projectexercise
-  account_name        = data.azurerm_cosmosdb_account.illigeorgieva102.name
-  throughput          = 400
-  capabilities { name = "EnableServerless" }
-}
-resource "azurerm_resource_group" "rg" {
-  name     = var.resource_group_name
-  location = var.resource_group_location
-}
-
-resource "random_integer" "ri" {
-  min = 10000
-  max = 99999
-}
-
-resource "azurerm_cosmosdb_account" "db" {
-  name                = "tfex-cosmos-db-${random_integer.ri.result}"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.main.location
   offer_type          = "Standard"
   kind                = "MongoDB"
-
   enable_automatic_failover = true
 
-  capabilities {
-    name = "EnableAggregationPipeline"
+  capabilities { 
+   name = "EnableServerless" 
   }
 
-  capabilities {
-    name = "mongoEnableDocLevelTTL"
-  }
 
   capabilities {
     name = "MongoDBv3.4"
@@ -88,19 +61,14 @@ resource "azurerm_cosmosdb_account" "db" {
     name = "EnableMongo"
   }
 
-  consistency_policy {
-    consistency_level       = "BoundedStaleness"
-    max_interval_in_seconds = 300
-    max_staleness_prefix    = 100000
-  }
-
-  geo_location {
-    location          = var.failover_location
-    failover_priority = 1
-  }
-
-  geo_location {
-    location          = azurerm_resource_group.rg.location
+   geo_location {
+    location          = data.azurerm_resource_group.main.location
     failover_priority = 0
   }
+  consistency_policy {
+    consistency_level = "Session"
+  }
 }
+
+  
+  
