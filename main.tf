@@ -51,7 +51,10 @@ resource "azurerm_cosmosdb_account" "db" {
   capabilities { 
    name = "EnableServerless" 
   }
-
+  
+  lifecycle { 
+  prevent_destroy = true 
+  }
 
   capabilities {
     name = "MongoDBv3.4"
