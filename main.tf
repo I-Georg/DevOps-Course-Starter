@@ -27,7 +27,8 @@ size = "B1"
 }
 resource "azurerm_app_service" "main" {
 name = "illigeorgieva102"
-location = data.azurerm_resource_group.main.location
+location = var.location
+GITHUBID=var.GITHUBID
 resource_group_name = data.azurerm_resource_group.main.name
 app_service_plan_id = azurerm_app_service_plan.main.id
 
