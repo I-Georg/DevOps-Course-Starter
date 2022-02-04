@@ -28,7 +28,6 @@ size = "B1"
 resource "azurerm_app_service" "main" {
 name = "illigeorgieva102"
 location = var.location
-GITHUBID=var.GITHUBID
 resource_group_name = data.azurerm_resource_group.main.name
 app_service_plan_id = azurerm_app_service_plan.main.id
 
@@ -38,8 +37,10 @@ linux_fx_version = "DOCKER|ilgeo/my-production-image:latest"
 }
 app_settings = {
 "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
-"CONNECTION_STRING" = "CONNECTION_STRING"
-}
+"CONNECTIONSTRING" =var.CONNECTIONSTRING 
+"GITHUBID"=var.GITHUBID
+"WEBAPPLICATIONCLIENT" = var.WEBAPPLICATIONCLIENT
+ }
 }
 resource "azurerm_cosmosdb_account" "db" {
   name                = "illigeorgieva102"
@@ -74,5 +75,11 @@ resource "azurerm_cosmosdb_account" "db" {
   }
 }
 
+resource "azurerm_cosmosdb_mongo_database" "db" {
+  name                = "illigeorgieva102"
+  resource_group_name = "opencohort1_ilinageorgieva_projectexercise"
+  account_name  = azurerm_cosmosdb_account.db.name
+  
+}
   
   
