@@ -39,8 +39,9 @@ app_settings = {
 "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
 "CONNECTIONSTRING" =var.CONNECTIONSTRING 
 "GITHUBID"=var.GITHUBID
-"WEBAPPLICATIONCLIENT" = var.WEBAPPLICATIONCLIENT
- }
+"WEBAPPLICATIONCLIENT" =var.WEBAPPLICATIONCLIENT
+"CLIENTSECRET" = var.CLIENTSECRET
+}
 }
 resource "azurerm_cosmosdb_account" "db" {
   name                = "illigeorgieva102"
