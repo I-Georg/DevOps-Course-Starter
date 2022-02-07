@@ -25,3 +25,15 @@ variable "CLIENTSECRET" {
 description = "client secret"
 default = "50d6114064c16235db5973535c97b5d6cda6faa"
 }
+variable "TODOBOARD" {
+description = "todo"
+default = "6005828032dafa5707bf5dc3"
+}
+variable "DOINGBOARD" {
+description = "doing"
+default = "6005828032dafa5707bf5dc7"
+}
+variable "DONEBOARD" {
+description = "done"
+default = "6005828032dafa5707bf5dc5"
+}
