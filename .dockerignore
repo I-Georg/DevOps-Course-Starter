@@ -2,3 +2,5 @@
 .env
 terraform.tfstate
 .terraform/
+outputs.tfstate
+variables.tf

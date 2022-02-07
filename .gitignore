@@ -124,3 +124,5 @@ env/
 geckodriver.log 
 terraform.tfstate
 .terraform/
+outputs.tfstate
+variables.tf
