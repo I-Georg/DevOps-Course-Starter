@@ -33,6 +33,7 @@ def create_app():
     connectString = os.environ['CONNECTIONSTRING']
     app.secret_key = os.getenv('SECRET_KEY')
     app.config['LOGIN_DISABLED'] = os.getenv('LOGIN_DISABLED') == 'True'
+    app.logger.setLevel(app.config['LOG_LEVEL'])
 
     def connectDb():
 
