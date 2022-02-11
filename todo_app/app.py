@@ -19,6 +19,7 @@ from flask import request
 from flask_login import UserMixin, login_user, current_user
 from todo_app.data.UserClass import User
 import json
+import logging
 
 
 def create_app():
@@ -42,17 +43,17 @@ def create_app():
         todo = trello_collection.find(
             {'idBoard': todoBoard}, {"name": 1})
         for x in todo:
-            print(x)
+            app.logger.info("Value of  todo board is %s", x)
 
         doing = trello_collection.find(
             {'idBoard': doingBoard}, {"name": 1})
         for x in todo:
-            print(x)
+            app.logger.info("Value of  doing board is %s", x)
 
         done = trello_collection.find(
             {'idBoard': doneBoard}, {"name": 1})
         for x in doing:
-            print(x)
+            app.logger.info("Value of  done board is %s", x)
 
     login_manager = LoginManager()
     login_manager.anonymous_user.role = 'writer'
@@ -73,7 +74,7 @@ def create_app():
         else:
             role = "reader"
         id = User(user_id, role)
-        print(role)
+        app.logger.info("User role is %s", role)
 
         return id
 
@@ -91,6 +92,7 @@ def create_app():
 
         trello_collection = database["trello_collection"]
         result = trello_collection.insert_one(post)
+        app.logger.info("Result is %s", result)
 
     def update_item(id):
         client = pymongo.MongoClient(
@@ -102,7 +104,9 @@ def create_app():
         result = trello_collection.update_one(
             post, {"$set": {"idBoard": doneBoard,
                             "last_modified": date_now}}
+
         )
+        app.logger.info(" Updated Result is %s", result)
 
     def return_todo(id):
         client = pymongo.MongoClient(
@@ -114,7 +118,9 @@ def create_app():
         result = trello_collection.update_one(
             post, {"$set": {"idBoard": todoBoard,
                             "last_modified": date_now}}
+
         )
+        app.logger.info("Result is %s", result)
 
     @app.route('/')
     @login_required
@@ -126,10 +132,13 @@ def create_app():
         trello_collection = database["trello_collection"]
         todo = trello_collection.find(
             {'idBoard': todoBoard}, {"name": 1})
+        app.logger.info("Todo is %s", todo)
         doing = trello_collection.find(
             {'idBoard': doingBoard}, {"name": 1})
+        app.logger.info("Doing is %s", doing)
         done = trello_collection.find(
             {'idBoard': doneBoard}, {"name": 1})
+        app.logger.info("Done is %s", done)
 
         my_items = []
         doing_objects = []
@@ -188,7 +197,7 @@ def create_app():
     def update_back():
 
         n = request.form.get('n')
-        print(n)
+        app.logger.info("Result is %s", n)
         return return_item(n)
 
     @app.route('/callback')
@@ -205,6 +214,7 @@ def create_app():
         request_text = requests.get(url, headers=headers, data=body).text
 
         json_data = json.loads(request_text)
+        app.logger.info("Json data: %s", json_data)
         id = json_data["id"]
         if id == githubId:
             role = "writer"
