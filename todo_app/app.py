@@ -20,6 +20,8 @@ from flask_login import UserMixin, login_user, current_user
 from todo_app.data.UserClass import User
 import json
 import logging
+from loggly.handlers import HTTPSHandler
+from logging import Formatter
 
 
 def create_app():
@@ -34,6 +36,12 @@ def create_app():
     app.secret_key = os.getenv('SECRET_KEY')
     app.config['LOGIN_DISABLED'] = os.getenv('LOGIN_DISABLED') == 'True'
     app.logger.setLevel(app.config['LOG_LEVEL'])
+    if app.config['LOGGLY_TOKEN'] is not None:
+        handler = HTTPSHandler(
+            f'https: // logs-01.loggly.com/inputs /{app.config["LOGGLY_TOKEN"]}/tag/todo-app')
+        handler.setFormatter(
+            Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s"))
+        app.logger.addHandler(handler)
 
     def connectDb():
 
