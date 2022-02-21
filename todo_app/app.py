@@ -22,6 +22,7 @@ import json
 import logging
 from loggly.handlers import HTTPSHandler
 from logging import Formatter
+from logging import getLogger
 
 
 def create_app():
@@ -35,13 +36,16 @@ def create_app():
     connectString = os.environ['CONNECTIONSTRING']
     app.secret_key = os.getenv('SECRET_KEY')
     app.config['LOGIN_DISABLED'] = os.getenv('LOGIN_DISABLED') == 'True'
-    app.logger.setLevel(app.config['LOG_LEVEL'])
-    if app.config['LOGGLY_TOKEN'] is not None:
+    app.logger.setLevel(os.getenv('LOG_LEVEL', 'INFO'))
+    # app.logger.setLevel(os.getenv('LOGGLY_TOKEN'))
+    if os.getenv('LOGGLY_TOKEN'):
         handler = HTTPSHandler(
-            f'https: // logs-01.loggly.com/inputs /{app.config["LOGGLY_TOKEN"]}/tag/todo-app')
+            f'https://logs-01.loggly.com/inputs/{os.getenv("LOGGLY_TOKEN")}/tag/todo-app')
         handler.setFormatter(
             Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s"))
         app.logger.addHandler(handler)
+    getLogger('werkzeug').addHandler(HTTPSHandler(
+        f'https://logs-01.loggly.com/inputs/{os.getenv("LOGGLY_TOKEN")}/tag/todoapp-requests'))
 
     def connectDb():
 
@@ -67,7 +71,7 @@ def create_app():
     login_manager = LoginManager()
     login_manager.anonymous_user.role = 'writer'
 
-    @login_manager.unauthorized_handler
+    @ login_manager.unauthorized_handler
     def unauthenticated():
         client = WebApplicationClient(webClient)
         full_redirect_url = client.prepare_request_uri(
@@ -75,7 +79,7 @@ def create_app():
 
         return redirect(full_redirect_url)
 
-    @login_manager.user_loader
+    @ login_manager.user_loader
     def load_user(user_id):
 
         if user_id == githubId:
@@ -131,8 +135,8 @@ def create_app():
         )
         app.logger.info("Result is %s", result)
 
-    @app.route('/')
-    @login_required
+    @ app.route('/')
+    @ login_required
     def index():
         connectDb()
         client = pymongo.MongoClient(
@@ -165,8 +169,8 @@ def create_app():
 
         return render_template("index.html", my_items=my_items, doing_objects=doing_objects, done_objects=done_objects, view_model=view_model, user=user)
 
-    @app.route('/create', methods=['POST'])
-    @login_required
+    @ app.route('/create', methods=['POST'])
+    @ login_required
     def create():
         if app.config.get('LOGIN_DISABLED') or current_user.role == "writer":
             title = request.form.get('title')
@@ -176,7 +180,7 @@ def create_app():
 
         return redirect(url_for('index'))
 
-    @app.route('/complete_item', methods=['PUT'])
+    @ app.route('/complete_item', methods=['PUT'])
     def complete_item(id):
 
         print(id)
@@ -184,7 +188,7 @@ def create_app():
         update_item(id)
         return redirect(url_for('index'))
 
-    @app.route('/update', methods=['POST'])
+    @ app.route('/update', methods=['POST'])
     def update():
         app.logger.info('Processing default request')
         id = request.form.get('id')
@@ -194,7 +198,7 @@ def create_app():
 
         return complete_item(id)
 
-    @app.route('/return_item', methods=['PUT'])
+    @ app.route('/return_item', methods=['PUT'])
     def return_item(n):
         app.logger.info('Processing default request')
         print(n)
@@ -202,14 +206,14 @@ def create_app():
         return_todo(n)
         return redirect(url_for('index'))
 
-    @app.route('/update_back', methods=['POST'])
+    @ app.route('/update_back', methods=['POST'])
     def update_back():
 
         n = request.form.get('n')
         app.logger.info("Result is %s", n)
         return return_item(n)
 
-    @app.route('/callback')
+    @ app.route('/callback')
     def login_callback():
         client = WebApplicationClient(webClient)
         code = request.args.get("code")
