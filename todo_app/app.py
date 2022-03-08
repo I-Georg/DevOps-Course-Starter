@@ -23,21 +23,20 @@ import json
 
 def create_app():
     app = Flask(__name__)
-
-    dbconnect = os.environ['CLIENT']
     githubId = os.environ['GITHUBID']
     webClient = os.environ['WEBAPPLICATIONCLIENT']
     clientSecret = os.environ['CLIENTSECRET']
     todoBoard = os.environ['TODOBOARD']
     doingBoard = os.environ['DOINGBOARD']
     doneBoard = os.environ['DONEBOARD']
+    connectString = os.environ['CONNECTIONSTRING']
     app.secret_key = os.getenv('SECRET_KEY')
     app.config['LOGIN_DISABLED'] = os.getenv('LOGIN_DISABLED') == 'True'
 
     def connectDb():
+
         client = pymongo.MongoClient(
-            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
-        # print(client.list_database_names())
+            connectString, ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
         trello_collection = database["trello_collection"]
         todo = trello_collection.find(
@@ -56,12 +55,13 @@ def create_app():
             print(x)
 
     login_manager = LoginManager()
+    login_manager.anonymous_user.role = 'writer'
 
     @login_manager.unauthorized_handler
     def unauthenticated():
         client = WebApplicationClient(webClient)
         full_redirect_url = client.prepare_request_uri(
-            'https://github.com/login/oauth/authorize', redirect_uri='http://localhost:5000/callback')
+            'https://github.com/login/oauth/authorize')
 
         return redirect(full_redirect_url)
 
@@ -80,8 +80,9 @@ def create_app():
     login_manager.init_app(app)
 
     def create_items(name):
+
         client = pymongo.MongoClient(
-            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
+            connectString, ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
         date_now = datetime.now().strftime('%Y-%m-%d')
 
@@ -98,7 +99,7 @@ def create_app():
 
     def update_item(id):
         client = pymongo.MongoClient(
-            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
+            connectString, ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
         post = {"_id": ObjectId(id)}
         trello_collection = database["trello_collection"]
@@ -110,7 +111,7 @@ def create_app():
 
     def return_todo(id):
         client = pymongo.MongoClient(
-            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
+            connectString, ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
         post = {"_id": ObjectId(id)}
         trello_collection = database["trello_collection"]
@@ -125,7 +126,7 @@ def create_app():
     def index():
         connectDb()
         client = pymongo.MongoClient(
-            dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
+            connectString, ssl=True, ssl_cert_reqs='CERT_NONE')
         database = client["01"]
         trello_collection = database["trello_collection"]
         todo = trello_collection.find(
@@ -154,7 +155,6 @@ def create_app():
     @app.route('/create', methods=['POST'])
     @login_required
     def create():
-        print(current_user.id)
         if app.config.get('LOGIN_DISABLED') or current_user.role == "writer":
             title = request.form.get('title')
             create_items(title)

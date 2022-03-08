@@ -46,10 +46,13 @@ def delete_trello_board(board_id):
     test_collection = database["test_collection"]
     test_collection.collection.drop()
 
+os.environ['LOGIN_DISABLED'] = 'True'
+
 
 @pytest.fixture(scope='module')
 def app_with_temp_board():
     # Create the new board & update the board id environment variable
+    os.environ['LOGIN_DISABLED'] = 'True'
 
     # construct the new application
     file_path = find_dotenv('.env')

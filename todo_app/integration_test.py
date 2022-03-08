@@ -33,6 +33,58 @@ def client():
 @patch('requests.get')
 def test_index_page(mock_get_requests, client):
     # Replace call to requests.get(url) with our own function
+    #mock_get_requests.side_effect = mock_get_lists
     url = f'/'
     response = client.get(url)
     assert response.status_code == 200
+
+
+# def mock_get_lists(url, headers, params):
+#     test_board_id = 'test'
+#     if url == f'fakemongo.com':
+#         response = Mock()
+
+# # sample_mongo_response should point to some test response data
+#         sample_mongo_response = [{"id": "test",
+#                                   "dateLastActivity": "2021-03-15",
+#                                   "name": "test"}]
+#         response.json.return_value = sample_mongo_response
+
+#         return response
+#     if url == f'fakemongo.com':
+#         response = Mock()
+#         sample_mongo_response = [{"id": "test",
+#                                   "dateLastActivity": "2021-03-15",
+#                                   "name": "test"}]
+#         response.json.return_value = sample_mongo_response
+
+#         return response
+#     if url == f'fakemongo.com':
+#         response = Mock()
+#         sample_mongo_response = [{"id": "test",
+#                                   "dateLastActivity": "2021-03-15",
+#                                   "name": "test"}]
+#         response.json.return_value = sample_mongo_response
+#         return response
+
+#     return None
+
+
+# def mock_get_cards(url, params):
+#     test_cardid = 'test'
+#     if url == f'/':
+#         response = Mock()
+# # sample_mongo_response should point to some test response data
+#         response.json.return_value = sample_mongo_response
+#         assert response.json() == {"id": "test",
+#                                    "dateLastActivity": "2021-03-15",
+#                                    "name": "test"}
+#         assert response.status_code == 200
+
+#         return response
+#     return None
+# # @pytest.mark.vcr()
+# # def test_get():
+#     #response = requests.get('http://localhost:5000/')
+#     #assert 'body' in response == ''
+
