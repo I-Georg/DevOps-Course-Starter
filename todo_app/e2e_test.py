@@ -11,6 +11,9 @@ import time
 import pymongo
 
 
+os.environ['LOGIN_DISABLED'] = 'True'
+
+
 def create_trello_board():
     dbconnect = os.environ['CLIENT']
     client = pymongo.MongoClient(
@@ -51,8 +54,6 @@ def app_with_temp_board():
     # construct the new application
     file_path = find_dotenv('.env')
     load_dotenv(file_path, override=True)
-    board_id = create_trello_board()
-
     application = create_app()
 # start the app in its own thread.
     thread = Thread(target=lambda:
@@ -63,7 +64,6 @@ def app_with_temp_board():
     yield application
 # Tear Down
     thread.join(1)
-    delete_trello_board(board_id)
 
 
 @pytest.fixture(scope="module")
