@@ -27,13 +27,16 @@
 				<br>
 				<tr> {{x.name }}</tr>
 				<tr>
-
+					{% if user =="writer" %}
 				</tr>
 				<p><b>Move from doing to done</b></p>
 				<form action="/update" method="post">
 					<input type="hidden" name="id" value="{{x.id}}">
 					<input type="submit" value="Update to done!">
 				</form>
+				{% else %}
+				<p>If you want to create a new status, you need to be registered</p>
+				{% endif %}
 				{% endfor %}
 				<br>
 				{% if user =="writer" %}

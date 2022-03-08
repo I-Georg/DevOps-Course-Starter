@@ -8,6 +8,43 @@ import os
 from todo_app.app import create_app
 from dotenv import load_dotenv, find_dotenv
 import time
+import pymongo
+
+
+os.environ['LOGIN_DISABLED'] = 'True'
+
+
+def create_trello_board():
+    dbconnect = os.environ['CLIENT']
+    client = pymongo.MongoClient(
+        dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
+    print(client.list_database_names())
+    database = client["01"]
+    test_collection = database["test_collection"]
+    post = {"name": "titleTEST1", "idBoard": "6005828032dafa5707bf5dc3",
+            "last_modified": "2021-09-11"}
+
+    test_collection = database["trello_collection"]
+    result = test_collection.insert_one(post)
+    todo = test_collection.find(
+        {'idBoard': '6005828032dafa5707bf5dc3'}, {"name": 1})
+    doing = test_collection.find(
+        {'idBoard': '6005828032dafa5707bf5dc7'}, {"name": 1})
+    done = test_collection.find(
+        {'idBoard': '6005828032dafa5707bf5dc5'}, {"name": 1})
+
+    return test_collection
+    # return application
+
+
+def delete_trello_board(board_id):
+    dbconnect = os.environ['CLIENT']
+    client = pymongo.MongoClient(
+        dbconnect, ssl=True, ssl_cert_reqs='CERT_NONE')
+    print(client.list_database_names())
+    database = client["01"]
+    test_collection = database["test_collection"]
+    test_collection.collection.drop()
 
 os.environ['LOGIN_DISABLED'] = 'True'
 

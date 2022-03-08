@@ -92,6 +92,11 @@ def create_app():
         trello_collection = database["trello_collection"]
         result = trello_collection.insert_one(post)
 
+    @app.errorhandler(401)
+    def internal_error(error):
+
+        return "401 error"
+
     def update_item(id):
         client = pymongo.MongoClient(
             connectString, ssl=True, ssl_cert_reqs='CERT_NONE')
@@ -155,6 +160,7 @@ def create_app():
             create_items(title)
         else:
             print('User does not have writer role.')
+            internal_error(401)
 
         return redirect(url_for('index'))
 

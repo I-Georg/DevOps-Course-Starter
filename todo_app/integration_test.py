@@ -87,3 +87,4 @@ def test_index_page(mock_get_requests, client):
 # # def test_get():
 #     #response = requests.get('http://localhost:5000/')
 #     #assert 'body' in response == ''
+
