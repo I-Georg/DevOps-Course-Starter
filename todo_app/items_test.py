@@ -1,4 +1,3 @@
-
 from todo_app.data.ViewModel import ViewModel
 from datetime import date, timedelta
 from flask import Flask, request, render_template, redirect, url_for
