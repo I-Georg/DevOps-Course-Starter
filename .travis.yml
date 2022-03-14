@@ -23,7 +23,7 @@ before_deploy:
 - docker pull $DOCKER_USERNAME/my-production-image:latest
 - docker tag  $DOCKER_USERNAME/my-production-image:latest registry.heroku.com/trello-to-do/web
 # - docker push registry.heroku.com/trello-to-do/web
-- terraform apply -var location -var GITHUBID -var WEBAPPLICATIONCLIENT -var CONNECTIONSTRING -var CLIENTSECRET -var TODOBOARD -var DOINGBOARD -var DONEBOARD-auto-approve
+- terraform apply -var="TODOBOARD=$TODOBOARD" -var="DOINGBOARD=$DOINGBOARD" -var="DONEBOARD=$DONEBOARD" -var="ARM_CLIENT_ID=$ARM_CLIENT_ID" -var="ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID" -var="ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET" -auto-approve
 
 deploy:
   provider: script
