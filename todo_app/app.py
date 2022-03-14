@@ -44,8 +44,8 @@ def create_app():
         handler.setFormatter(
             Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s"))
         app.logger.addHandler(handler)
-    getLogger('werkzeug').addHandler(HTTPSHandler(
-        f'https://logs-01.loggly.com/inputs/{os.getenv("LOGGLY_TOKEN")}/tag/todoapp-requests'))
+        getLogger('werkzeug').addHandler(HTTPSHandler(
+            f'https://logs-01.loggly.com/inputs/{os.getenv("LOGGLY_TOKEN")}/tag/todoapp-requests'))
 
     def connectDb():
 
