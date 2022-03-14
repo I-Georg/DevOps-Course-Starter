@@ -14,7 +14,7 @@ from datetime import datetime
 from flask_login import LoginManager
 from oauthlib.oauth2 import WebApplicationClient
 from flask_login import login_required
-from urllib import parse
+from urllib import parse, response
 from flask import request
 from flask_login import UserMixin, login_user, current_user
 from todo_app.data.UserClass import User
@@ -56,17 +56,17 @@ def create_app():
         todo = trello_collection.find(
             {'idBoard': todoBoard}, {"name": 1})
         for x in todo:
-            app.logger.info("Value of  todo board is %s", x)
+            app.logger.debug("Value of  todo board is %s", x)
 
         doing = trello_collection.find(
             {'idBoard': doingBoard}, {"name": 1})
         for x in todo:
-            app.logger.info("Value of  doing board is %s", x)
+            app.logger.debug("Value of  doing board is %s", x)
 
         done = trello_collection.find(
             {'idBoard': doneBoard}, {"name": 1})
         for x in doing:
-            app.logger.info("Value of  done board is %s", x)
+            app.logger.debug("Value of  done board is %s", x)
 
     login_manager = LoginManager()
     login_manager.anonymous_user.role = 'writer'
@@ -181,6 +181,7 @@ def create_app():
             title = request.form.get('title')
             create_items(title)
         else:
+            app.logger.error('User does not have writer role.')
             print('User does not have writer role.')
             internal_error(401)
 
@@ -232,8 +233,8 @@ def create_app():
 
         request_text = requests.get(url, headers=headers, data=body).text
 
-        json_data = json.loads(request_text)
-        app.logger.info("Json data: %s", json_data)
+        json_data = response.json(request_text)
+
         id = json_data["id"]
         if id == githubId:
             role = "writer"
