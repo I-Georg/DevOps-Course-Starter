@@ -14,11 +14,15 @@ from datetime import datetime
 from flask_login import LoginManager
 from oauthlib.oauth2 import WebApplicationClient
 from flask_login import login_required
-from urllib import parse
+from urllib import parse, response
 from flask import request
 from flask_login import UserMixin, login_user, current_user
 from todo_app.data.UserClass import User
 import json
+import logging
+from loggly.handlers import HTTPSHandler
+from logging import Formatter
+from logging import getLogger
 
 
 def create_app():
@@ -32,6 +36,16 @@ def create_app():
     connectString = os.environ['CONNECTIONSTRING']
     app.secret_key = os.getenv('SECRET_KEY')
     app.config['LOGIN_DISABLED'] = os.getenv('LOGIN_DISABLED') == 'True'
+    app.logger.setLevel(os.getenv('LOG_LEVEL', 'INFO'))
+    # app.logger.setLevel(os.getenv('LOGGLY_TOKEN'))
+    if os.getenv('LOGGLY_TOKEN'):
+        handler = HTTPSHandler(
+            f'https://logs-01.loggly.com/inputs/{os.getenv("LOGGLY_TOKEN")}/tag/todo-app')
+        handler.setFormatter(
+            Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s"))
+        app.logger.addHandler(handler)
+        getLogger('werkzeug').addHandler(HTTPSHandler(
+            f'https://logs-01.loggly.com/inputs/{os.getenv("LOGGLY_TOKEN")}/tag/todoapp-requests'))
 
     def connectDb():
 
@@ -42,22 +56,22 @@ def create_app():
         todo = trello_collection.find(
             {'idBoard': todoBoard}, {"name": 1})
         for x in todo:
-            print(x)
+            app.logger.debug("Value of  todo board is %s", x)
 
         doing = trello_collection.find(
             {'idBoard': doingBoard}, {"name": 1})
         for x in todo:
-            print(x)
+            app.logger.debug("Value of  doing board is %s", x)
 
         done = trello_collection.find(
             {'idBoard': doneBoard}, {"name": 1})
         for x in doing:
-            print(x)
+            app.logger.debug("Value of  done board is %s", x)
 
     login_manager = LoginManager()
     login_manager.anonymous_user.role = 'writer'
 
-    @login_manager.unauthorized_handler
+    @ login_manager.unauthorized_handler
     def unauthenticated():
         client = WebApplicationClient(webClient)
         full_redirect_url = client.prepare_request_uri(
@@ -65,7 +79,7 @@ def create_app():
 
         return redirect(full_redirect_url)
 
-    @login_manager.user_loader
+    @ login_manager.user_loader
     def load_user(user_id):
 
         if user_id == githubId:
@@ -73,7 +87,7 @@ def create_app():
         else:
             role = "reader"
         id = User(user_id, role)
-        print(role)
+        app.logger.info("User role is %s", role)
 
         return id
 
@@ -91,6 +105,7 @@ def create_app():
 
         trello_collection = database["trello_collection"]
         result = trello_collection.insert_one(post)
+        app.logger.info("Result is %s", result)
 
     @app.errorhandler(401)
     def internal_error(error):
@@ -107,7 +122,9 @@ def create_app():
         result = trello_collection.update_one(
             post, {"$set": {"idBoard": doneBoard,
                             "last_modified": date_now}}
+
         )
+        app.logger.info(" Updated Result is %s", result)
 
     def return_todo(id):
         client = pymongo.MongoClient(
@@ -119,10 +136,12 @@ def create_app():
         result = trello_collection.update_one(
             post, {"$set": {"idBoard": todoBoard,
                             "last_modified": date_now}}
-        )
 
-    @app.route('/')
-    @login_required
+        )
+        app.logger.info("Result is %s", result)
+
+    @ app.route('/')
+    @ login_required
     def index():
         connectDb()
         client = pymongo.MongoClient(
@@ -131,10 +150,13 @@ def create_app():
         trello_collection = database["trello_collection"]
         todo = trello_collection.find(
             {'idBoard': todoBoard}, {"name": 1})
+        app.logger.info("Todo is %s", todo)
         doing = trello_collection.find(
             {'idBoard': doingBoard}, {"name": 1})
+        app.logger.info("Doing is %s", doing)
         done = trello_collection.find(
             {'idBoard': doneBoard}, {"name": 1})
+        app.logger.info("Done is %s", done)
 
         my_items = []
         doing_objects = []
@@ -152,19 +174,20 @@ def create_app():
 
         return render_template("index.html", my_items=my_items, doing_objects=doing_objects, done_objects=done_objects, view_model=view_model, user=user)
 
-    @app.route('/create', methods=['POST'])
-    @login_required
+    @ app.route('/create', methods=['POST'])
+    @ login_required
     def create():
         if app.config.get('LOGIN_DISABLED') or current_user.role == "writer":
             title = request.form.get('title')
             create_items(title)
         else:
+            app.logger.error('User does not have writer role.')
             print('User does not have writer role.')
             internal_error(401)
 
         return redirect(url_for('index'))
 
-    @app.route('/complete_item', methods=['PUT'])
+    @ app.route('/complete_item', methods=['PUT'])
     def complete_item(id):
 
         print(id)
@@ -172,7 +195,7 @@ def create_app():
         update_item(id)
         return redirect(url_for('index'))
 
-    @app.route('/update', methods=['POST'])
+    @ app.route('/update', methods=['POST'])
     def update():
         app.logger.info('Processing default request')
         id = request.form.get('id')
@@ -182,7 +205,7 @@ def create_app():
 
         return complete_item(id)
 
-    @app.route('/return_item', methods=['PUT'])
+    @ app.route('/return_item', methods=['PUT'])
     def return_item(n):
         app.logger.info('Processing default request')
         print(n)
@@ -190,14 +213,14 @@ def create_app():
         return_todo(n)
         return redirect(url_for('index'))
 
-    @app.route('/update_back', methods=['POST'])
+    @ app.route('/update_back', methods=['POST'])
     def update_back():
 
         n = request.form.get('n')
-        print(n)
+        app.logger.info("Result is %s", n)
         return return_item(n)
 
-    @app.route('/callback')
+    @ app.route('/callback')
     def login_callback():
         client = WebApplicationClient(webClient)
         code = request.args.get("code")
@@ -210,7 +233,8 @@ def create_app():
 
         request_text = requests.get(url, headers=headers, data=body).text
 
-        json_data = json.loads(request_text)
+        json_data = response.json(request_text)
+
         id = json_data["id"]
         if id == githubId:
             role = "writer"
