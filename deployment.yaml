@@ -2,19 +2,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: module-14
+  name: todo-app:prod
 spec:
   selector:
     matchLabels:
-      app: module-14
+      app: todo-app:prod
   replicas: 1
   template:
     metadata:
       labels:
-        app: module-14
+        app: todo-app:prod
     spec:
       containers:
         - name: nginx
+        env:
+    - name: DEMO_GREETING
+      value: "Hello from the environment"
+    - name: DEMO_FAREWELL
+      value: "Such a sweet sorrow"
           image: nginx
           ports:
           - containerPort: 80
