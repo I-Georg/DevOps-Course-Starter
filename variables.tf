@@ -12,11 +12,12 @@ default = "47190936"
 
 variable "WEBAPPLICATIONCLIENT" {
 description = "client web"
-default = "88de9a9a5377861febef"
+default = "89647e3bf34e5c0f2e50"
 }
 variable "CONNECTIONSTRING" {
 description = "mongo connection"
 default = "mongodb://tododatabaseproject:JAyasz79f7yRR2zqi34xJG5PkjXbaRlvKJC4XlUYrqezapD97bHUF9WFeIpoDxXdaUNhby7ohYnSYK5Pommsfw==@tododatabaseproject.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@tododatabaseproject@"
+sensitive = true
 }
 
 variable "CLIENTSECRET" {
