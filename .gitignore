@@ -122,3 +122,6 @@ env/
 ### vagrant ###
 .vagrant 
 geckodriver.log 
+terraform.tfstate
+.terraform/
+outputs.tfstate
